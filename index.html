@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>مولد سيناريو الوثائقيات القصيرة</title>
+    <style>
+        body {
+            font-family: system-ui, -apple-system, sans-serif;
+            background-color: #0f172a;
+            color: #f8fafc;
+            padding: 20px;
+            margin: 0;
+            display: flex;
+            justify-content: center;
+        }
+        .container {
+            max-width: 600px;
+            width: 100%;
+            background: #1e293b;
+            padding: 25px;
+            border-radius: 16px;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.3);
+        }
+        h1 {
+            color: #38bdf8;
+            text-align: center;
+            font-size: 1.4rem;
+            margin-bottom: 20px;
+        }
+        label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: bold;
+            font-size: 0.95rem;
+        }
+        input, select, button {
+            width: 100%;
+            padding: 12px;
+            margin-bottom: 15px;
+            border-radius: 8px;
+            border: 1px solid #334155;
+            background: #0f172a;
+            color: #fff;
+            box-sizing: border-box;
+            font-size: 1rem;
+        }
+        button {
+            background: #0284c7;
+            color: white;
+            border: none;
+            font-weight: bold;
+            cursor: pointer;
+            transition: 0.2s;
+        }
+        button:active {
+            transform: scale(0.98);
+            background: #0369a1;
+        }
+        .result-box {
+            margin-top: 20px;
+            padding: 15px;
+            background: #0f172a;
+            border-radius: 8px;
+            border-right: 4px solid #38bdf8;
+            display: none;
+            white-space: pre-line;
+            line-height: 1.6;
+        }
+        .copy-btn {
+            background: #10b981;
+            margin-top: 10px;
+            display: none;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h1>🎬 مولد سيناريو الوثائقيات القصيرة</h1>
+    
+    <label for="topic">موضوع الفيديو الوثائقي:</label>
+    <input type="text" id="topic" placeholder="مثلاً: كائن بطيء المشية، سيارة تويوتا 70...">
+
+    <label for="style">أسلوب التعليق الصوتي:</label>
+    <select id="style">
+        <option value="غامض وحماسي">🎬 غامض وثائقي وحماسي</option>
+        <option value="علمي ومبسط">🔬 علمي وسريع المبسط</option>
+        <option value="قصصي وتاريخي">📜 قصصي وتاريخي مشوق</option>
+    </select>
+
+    <button onclick="generateScript()">توليد السيناريو الآن 🚀</button>
+
+    <div id="output" class="result-box"></div>
+    <button id="copyBtn" class="copy-btn" onclick="copyScript()">نسخ السيناريو 📋</button>
+</div>
+
+<script>
+function generateScript() {
+    const topic = document.getElementById('topic').value.trim();
+    const style = document.getElementById('style').value;
+    const output = document.getElementById('output');
+    const copyBtn = document.getElementById('copyBtn');
+
+    if (!topic) {
+        alert("يرجى كتابة موضوع الفيديو أولاً!");
+        return;
+    }
+
+    const scriptTemplate = `📌 [عنوان الفيديو المقترح]: أسرار لا تعرفها عن (${topic})
+🎭 [الأسلوب المطلوب]: ${style}
+
+---
+⏱️ [00:00 - 00:03] (المقدمة - الخاطفة):
+🎥 المشهد: لقطة مقربة وسريعة تعبر عن الموضوع مع تأثير صدمة.
+🎙️ التعليق الصوتي: "هل كنت تعلم أن هناك سرًا مذهلاً يخفيه علينا عالم (${topic})؟"
+
+⏱️ [00:03 - 00:15] (المشهد الأول - البداية):
+🎥 المشهد: استعراض تفاصيل دقيقة ومعالم رئيسية لـ (${topic}) في بيئته.
+🎙️ التعليق الصوتي: "في هذا الفيديو السريع، نغوص في أعمق التفاصيل التي جعلت (${topic}) حديث الجميع..."
+
+⏱️ [00:15 - 00:40] (المشهد الثاني - العقدة/المعلومة المدهشة):
+🎥 المشهد: حركة سينمائية بطيئة تدعم الحماس والغموض.
+🎙️ التعليق الصوتي: "الأمر لا يقتصر على الشكل فقط، بل إن القدرات والاستخدامات هنا تتجاوز المألوف بمراحل!"
+
+⏱️ [00:40 - 00:60] (الخاتمة والدعوة للتفاعل):
+🎥 المشهد: لقطة ختامية مميزة مع ظهور اسم الحساب.
+🎙️ التعليق الصوتي: "شاركونا آرائكم في التعليقات: هل تجدون أن (${topic}) يستحق كل هذه الضجة؟ لا تنسوا المتابعة للمزيد!"`;
+
+    output.innerText = scriptTemplate;
+    output.style.display = 'block';
+    copyBtn.style.display = 'block';
+}
+
+function copyScript() {
+    const text = document.getElementById('output').innerText;
+    navigator.clipboard.writeText(text).then(() => {
+        alert("تم نسخ السيناريو بنجاح!");
+    });
+}
+</script>
+
+</body>
+</html>
