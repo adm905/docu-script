@@ -1,69 +1,320 @@
 <!DOCTYPE html>
 <html lang="ar" dir="rtl">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>مولد سيناريو الوثائقيات القصيرة</title>
-  <style>
-    body { font-family: system-ui, sans-serif; background-color: #0f172a; color: #f8fafc; margin: 0; padding: 20px; display: flex; justify-content: center; }
-    .card { background-color: #1e293b; padding: 24px; border-radius: 16px; max-width: 480px; width: 100%; box-shadow: 0 10px 25px rgba(0,0,0,0.5); }
-    h2 { text-align: center; color: #38bdf8; margin-top: 0; }
-    label { display: block; margin-top: 15px; font-weight: bold; }
-    textarea, select { width: 100%; padding: 12px; margin-top: 8px; border-radius: 8px; border: 1px solid #334155; background-color: #0f172a; color: #fff; box-sizing: border-box; }
-    button { width: 100%; margin-top: 20px; padding: 14px; background-color: #0284c7; color: white; border: none; border-radius: 8px; font-weight: bold; font-size: 16px; cursor: pointer; }
-    button:hover { background-color: #0369a1; }
-    #result { margin-top: 20px; display: none; background: #0f172a; padding: 15px; border-radius: 8px; border: 1px solid #334155; }
-    .scene { margin-bottom: 15px; padding-bottom: 10px; border-bottom: 1px solid #334155; }
-    .prompt { background: #1e293b; padding: 8px; border-radius: 4px; font-family: monospace; color: #f59e0b; font-size: 12px; margin-top: 5px; word-break: break-all; }
-  </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>منصة النص الذكي | أدوات المحتوى والتدقيق</title>
+    <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #6366f1;
+            --primary-hover: #4f46e5;
+            --bg-gradient: linear-gradient(135deg, #f8fafc 0%, #e2e8f0 100%);
+            --card-bg: #ffffff;
+            --text-main: #1e293b;
+            --text-muted: #64748b;
+            --border: #e2e8f0;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Tajawal', sans-serif;
+        }
+
+        body {
+            background: var(--bg-gradient);
+            color: var(--text-main);
+            min-height: 100vh;
+            padding: 20px 10px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 800px;
+            background: var(--card-bg);
+            border-radius: 16px;
+            box-shadow: 0 10px 25px -5px rgba(0,0,0,0.05);
+            padding: 25px;
+            flex: 1;
+        }
+
+        header {
+            text-align: center;
+            margin-bottom: 25px;
+            border-bottom: 2px solid var(--border);
+            padding-bottom: 15px;
+        }
+
+        header h1 {
+            color: var(--primary);
+            font-size: 1.8rem;
+            margin-bottom: 5px;
+        }
+
+        header p {
+            color: var(--text-muted);
+            font-size: 0.95rem;
+        }
+
+        .section-title {
+            font-size: 1.1rem;
+            font-weight: 700;
+            margin-bottom: 12px;
+            color: var(--text-main);
+        }
+
+        .card {
+            background: #f8fafc;
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 15px;
+            margin-bottom: 20px;
+        }
+
+        .input-group {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            margin-bottom: 12px;
+        }
+
+        input, select, textarea {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            font-size: 0.95rem;
+            outline: none;
+            background: #fff;
+        }
+
+        input:focus, select:focus, textarea:focus {
+            border-color: var(--primary);
+        }
+
+        textarea {
+            resize: vertical;
+            min-height: 140px;
+        }
+
+        .btn-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(130px, 1fr));
+            gap: 8px;
+            margin-top: 10px;
+        }
+
+        button {
+            padding: 10px 15px;
+            border: none;
+            border-radius: 8px;
+            background: var(--primary);
+            color: white;
+            font-weight: 600;
+            cursor: pointer;
+            font-size: 0.9rem;
+        }
+
+        button:hover {
+            background: var(--primary-hover);
+        }
+
+        .btn-outline {
+            background: #fff;
+            color: var(--text-main);
+            border: 1px solid var(--border);
+        }
+
+        .btn-outline:hover {
+            background: #f1f5f9;
+        }
+
+        .stats-bar {
+            display: flex;
+            justify-content: space-around;
+            background: #f1f5f9;
+            padding: 10px;
+            border-radius: 8px;
+            margin-top: 10px;
+            font-size: 0.85rem;
+            color: var(--text-muted);
+        }
+
+        .stats-bar span {
+            font-weight: bold;
+            color: var(--primary);
+        }
+
+        footer {
+            width: 100%;
+            max-width: 800px;
+            text-align: center;
+            margin-top: 20px;
+            padding: 15px;
+            color: var(--text-muted);
+            font-size: 0.85rem;
+            border-top: 1px solid var(--border);
+        }
+    </style>
 </head>
 <body>
-  <div class="card">
-    <h2>🎬 مولد سيناريو الوثائقيات القصيرة</h2>
-    <label>موضوع الفيديو الوثائقي:</label>
-    <textarea id="topic" rows="3" placeholder="مثلاً: كائن بطيء المشية، سيارة تويوتا 70..."></textarea>
-    
-    <label>أسلوب التعليق الصوتي:</label>
-    <select id="style">
-      <option>🎬 غامض وثائقي وحماسي</option>
-      <option>🌿 هادئ وطبيعي</option>
-      <option>🔥 سيعرض بقوة وسرعة</option>
-    </select>
-    
-    <button onclick="generateScript()">🚀 توليد السيناريو الآن</button>
-    
-    <div id="result">
-      <h3>النتيجة التوليدية:</h3>
-      <div id="output"></div>
-    </div>
-  </div>
 
-  <script>
-    function generateScript() {
-      const topic = document.getElementById('topic').value.trim();
-      if(!topic) { alert('يرجى كتابة موضوع أولاً!'); return; }
-      
-      const output = document.getElementById('output');
-      document.getElementById('result').style.display = 'block';
-      
-      output.innerHTML = `
-        <div class="scene">
-          <strong>المشهد 1 (الافتتاحية):</strong>
-          <p>عرض حماسي لجذب الانتباه مستوحى من: "${topic}".</p>
-          <div class="prompt">Prompt: Cinematic dramatic opening shot of ${topic}, hyper-realistic, 8k resolution, documentary lighting --ar 9:16</div>
+<div class="container">
+    <header>
+        <h1>منصة النص الذكي</h1>
+        <p>توليد المحتوى والهاشتاجات + معالجة وتدقيق النصوص</p>
+    </header>
+
+    <!-- قسم توليد المحتوى -->
+    <div class="card">
+        <div class="section-title">✨ مولد المحتوى السريع</div>
+        <div class="input-group">
+            <input type="text" id="topicInput" placeholder="أدخل كلمة البحث أو موضوع الفيديو (مثال: الذكاء الاصطناعي)">
+            <select id="generatorType">
+                <option value="script">🎬 مولد سيناريو فيديو (Shorts / TikTok)</option>
+                <option value="hashtags">#️⃣ مولد الهاشتاجات المتصدرة</option>
+                <option value="titles">📌 مولد عناوين مقالات وفيديوهات جذابة</option>
+            </select>
         </div>
-        <div class="scene">
-          <strong>المشهد 2 (التفاصيل):</strong>
-          <p>التعليق الصوتي: في هذا العالم المتسارع، هناك أسرار لا تدركها العين المجردة...</p>
-          <div class="prompt">Prompt: Detailed close-up shot explaining ${topic}, 4k, National Geographic style --ar 9:16</div>
+        <button style="width:100%;" onclick="generateContent()">🚀 انقر للتوليد فوراً</button>
+    </div>
+
+    <!-- قسم معالجة النصوص -->
+    <div class="card">
+        <div class="section-title">📝 معالج وتنسيق النصوص</div>
+        <textarea id="textEditor" placeholder="ضع نصك هنا للتعديل والتشكيل والتنسيق..."></textarea>
+        
+        <div class="btn-grid">
+            <button class="btn-outline" onclick="cleanText()">✨ تنظيف وتنسيق</button>
+            <button class="btn-outline" onclick="addTashkeel()">✏️ تشكيل أساسي</button>
+            <button class="btn-outline" onclick="removeTashkeel()">🧹 إزالة التشكيل</button>
+            <button class="btn-outline" onclick="copyText()">📋 نسخ النص</button>
+            <button class="btn-outline" style="color:#ef4444;" onclick="clearText()">🗑️ مسح</button>
         </div>
-        <div class="scene">
-          <strong>المشهد 3 (الخاتمة والدعوة للإجراء):</strong>
-          <p>شاشة النهاية مع استعراض اسم الأداة والروابط التفاعلية.</p>
-          <div class="prompt">Prompt: Epic final scene featuring ${topic} with textual call-to-action overlay --ar 9:16</div>
+
+        <div class="stats-bar">
+            <div>الكلمات: <span id="wordCount">0</span></div>
+            <div>الحروف: <span id="charCount">0</span></div>
+            <div>زمن القراءة: <span id="readTime">0</span> دقيقة</div>
         </div>
-      `;
+    </div>
+</div>
+
+<footer>
+    <p>جميع الحقوق محفوظة &copy; 2026 <strong>منصة النص الذكي</strong></p>
+</footer>
+
+<script>
+    const textEditor = document.getElementById('textEditor');
+    const wordCount = document.getElementById('wordCount');
+    const charCount = document.getElementById('charCount');
+    const readTime = document.getElementById('readTime');
+
+    textEditor.addEventListener('input', updateStats);
+
+    function updateStats() {
+        const text = textEditor.value.trim();
+        const words = text ? text.split(/\s+/).length : 0;
+        const chars = text.length;
+        
+        wordCount.textContent = words;
+        charCount.textContent = chars;
+        readTime.textContent = Math.ceil(words / 200);
     }
-  </script>
+
+    function generateContent() {
+        const topic = document.getElementById('topicInput').value.trim();
+        const type = document.getElementById('generatorType').value;
+
+        if (!topic) {
+            alert('يرجى كتابة كلمة أو موضوع في الخانة أولاً!');
+            return;
+        }
+
+        let result = '';
+
+        if (type === 'script') {
+            result = `🎬 **سيناريو فيديو قصير عن: ${topic}**\n\n` +
+                     `🔥 [المقدمة]:\n"هل تعلم ما هو السر الخفي وراء ${topic}؟ شاهد هذا الفيديو حتى النهاية!"\n\n` +
+                     `💡 [المحتوى]:\n1. تعتبر ${topic} من أكثر المواضيع أثرًا في وقتنا الحالي.\n` +
+                     `2. النقطة الأهم هي إدراك كيفية الاستفادة منها لتطوير عملك.\n\n` +
+                     `📌 [الدعوة للإجراء]:\n"اكتب لي رأيك في التعليقات، ولا تنسَ المتابعة!"`;
+        } else if (type === 'hashtags') {
+            const cleanTopic = topic.replace(/\s+/g, '_');
+            result = `#${cleanTopic} #${cleanTopic}_بالعربي #محتوى_تريند #اكسبلور #تيك_توك #فيديو_جديد`;
+        } else if (type === 'titles') {
+            result = `1. أهم 5 أسرار عن ${topic} لا يخبرك بها أحد!\n` +
+                     `2. الدليل الشامل لفهم ${topic} بسهولة.\n` +
+                     `3. كيف تبدأ في مجال ${topic} خطوة بخطوة؟`;
+        }
+
+        textEditor.value = result;
+        updateStats();
+    }
+
+    function cleanText() {
+        let text = textEditor.value;
+        text = text.replace(/[ ]+/g, ' ');
+        text = text.replace(/\n\s*\n/g, '\n\n');
+        textEditor.value = text.trim();
+        updateStats();
+    }
+
+    function addTashkeel() {
+        let text = textEditor.value;
+        if (!text) return;
+
+        const replacements = [
+            [/\bان\b/g, "إِنْ"],
+            [/\bهل\b/g, "هَلْ"],
+            [/\bمن\b/g, "مِنْ"],
+            [/\bعن\b/g, "عَنْ"],
+            [/\bفي\b/g, "فِي"],
+            [/\bعلى\b/g, "عَلَى"],
+            [/\bإلى\b/g, "إِلَى"],
+            [/\bهذا\b/g, "هٰذَا"],
+            [/\bهذه\b/g, "هٰذِهِ"],
+            [/\bالتي\b/g, "الَّتِي"],
+            [/\bالذي\b/g, "الَّذِي"],
+            [/\bالله\b/g, "اللَّٰه"],
+            [/\bصناعة\b/g, "صِنَاعَةُ"],
+            [/\bالمحتوى\b/g, "الْمُحْتَوَى"],
+            [/\bالرقمي\b/g, "الرَّقْمِيُّ"],
+            [/\bالذكاء\b/g, "الذَّكَاءُ"],
+            [/\bالاصطناعي\b/g, "الِاصْطِنَاعِيُّ"]
+        ];
+
+        replacements.forEach(([pattern, value]) => {
+            text = text.replace(pattern, value);
+        });
+
+        textEditor.value = text;
+        updateStats();
+    }
+
+    function removeTashkeel() {
+        let text = textEditor.value;
+        text = text.replace(/[\u064B-\u0652]/g, "");
+        textEditor.value = text;
+        updateStats();
+    }
+
+    function copyText() {
+        if (!textEditor.value) return;
+        navigator.clipboard.writeText(textEditor.value);
+        alert('تم نسخ النص بنجاح!');
+    }
+
+    function clearText() {
+        textEditor.value = '';
+        updateStats();
+    }
+</script>
+
 </body>
 </html>
