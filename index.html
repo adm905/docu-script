@@ -3,15 +3,15 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>منصة النص والذكاء الاصطناعي | Smart Text & AI Platform</title>
-    <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700&display=swap" rel="stylesheet">
+    <title>منصة النص الذكي | Smart Text AI</title>
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700&display=swap" rel="stylesheet">
     <style>
         :root {
-            --primary: #6366f1;
-            --primary-hover: #4f46e5;
-            --bg-gradient: linear-gradient(135deg, #f8fafc 0%, #e2e8f0 100%);
+            --primary: #4f46e5;
+            --primary-hover: #4338ca;
+            --bg: #f8fafc;
             --card-bg: #ffffff;
-            --text-main: #1e293b;
+            --text-main: #0f172a;
             --text-muted: #64748b;
             --border: #e2e8f0;
         }
@@ -20,592 +20,354 @@
             box-sizing: border-box;
             margin: 0;
             padding: 0;
-            font-family: 'Tajawal', sans-serif;
+            font-family: 'Cairo', sans-serif;
         }
 
         body {
-            background: var(--bg-gradient);
+            background-color: var(--bg);
             color: var(--text-main);
             min-height: 100vh;
-            padding: 20px 10px;
             display: flex;
             flex-direction: column;
             align-items: center;
+            padding: 20px;
+        }
+
+        header {
+            width: 100%;
+            max-width: 900px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 25px;
+            background: var(--card-bg);
+            padding: 15px 20px;
+            border-radius: 12px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+        }
+
+        .logo {
+            font-size: 1.4rem;
+            font-weight: 700;
+            color: var(--primary);
+        }
+
+        .lang-select {
+            padding: 8px 12px;
+            border-radius: 8px;
+            border: 1px solid var(--border);
+            outline: none;
+            cursor: pointer;
+            font-size: 0.9rem;
         }
 
         .container {
             width: 100%;
-            max-width: 800px;
-            background: var(--card-bg);
-            border-radius: 16px;
-            box-shadow: 0 10px 25px -5px rgba(0,0,0,0.05);
-            padding: 25px;
-            flex: 1;
-        }
-
-        .top-bar {
+            max-width: 900px;
             display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 20px;
-        }
-
-        .lang-select {
-            width: auto;
-            padding: 8px 14px;
-            font-size: 0.9rem;
-            border-radius: 8px;
-            border: 1px solid var(--border);
-            background: #f8fafc;
-            font-weight: 600;
-            cursor: pointer;
-        }
-
-        header {
-            text-align: center;
-            margin-bottom: 25px;
-            border-bottom: 2px solid var(--border);
-            padding-bottom: 15px;
-        }
-
-        header h1 {
-            color: var(--primary);
-            font-size: 1.8rem;
-            margin-bottom: 5px;
-        }
-
-        header p {
-            color: var(--text-muted);
-            font-size: 0.95rem;
-        }
-
-        .section-title {
-            font-size: 1.1rem;
-            font-weight: 700;
-            margin-bottom: 12px;
-            color: var(--text-main);
+            flex-direction: column;
+            gap: 20px;
         }
 
         .card {
-            background: #f8fafc;
-            border: 1px solid var(--border);
+            background: var(--card-bg);
+            padding: 20px;
             border-radius: 12px;
-            padding: 15px;
-            margin-bottom: 20px;
-        }
-
-        .input-group {
-            display: flex;
-            flex-direction: column;
-            gap: 10px;
-            margin-bottom: 12px;
-        }
-
-        input, select, textarea {
-            width: 100%;
-            padding: 12px;
             border: 1px solid var(--border);
-            border-radius: 8px;
-            font-size: 0.95rem;
-            outline: none;
-            background: #fff;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.02);
         }
 
-        input:focus, select:focus, textarea:focus {
-            border-color: var(--primary);
+        .card-title {
+            font-size: 1.1rem;
+            font-weight: 700;
+            margin-bottom: 12px;
+            color: var(--primary);
+            display: flex;
+            align-items: center;
+            gap: 8px;
         }
 
         textarea {
+            width: 100%;
+            height: 130px;
+            padding: 12px;
+            border-radius: 8px;
+            border: 1px solid var(--border);
             resize: vertical;
-            min-height: 140px;
+            font-size: 1rem;
+            margin-bottom: 12px;
+            outline: none;
         }
 
-        .btn-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(130px, 1fr));
-            gap: 8px;
-            margin-top: 10px;
+        textarea:focus {
+            border-color: var(--primary);
+        }
+
+        .btn-group {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
         }
 
         button {
-            padding: 10px 15px;
+            background-color: var(--primary);
+            color: #fff;
             border: none;
+            padding: 10px 18px;
             border-radius: 8px;
-            background: var(--primary);
-            color: white;
-            font-weight: 600;
             cursor: pointer;
-            font-size: 0.9rem;
+            font-weight: 600;
+            transition: 0.2s;
+            display: flex;
+            align-items: center;
+            gap: 6px;
         }
 
         button:hover {
-            background: var(--primary-hover);
+            background-color: var(--primary-hover);
         }
 
-        .btn-outline {
-            background: #fff;
+        .btn-secondary {
+            background-color: #f1f5f9;
             color: var(--text-main);
             border: 1px solid var(--border);
         }
 
-        .btn-outline:hover {
-            background: #f1f5f9;
+        .btn-secondary:hover {
+            background-color: #e2e8f0;
         }
 
-        .stats-bar {
-            display: flex;
-            justify-content: space-around;
-            background: #f1f5f9;
+        select.tool-select {
             padding: 10px;
             border-radius: 8px;
-            margin-top: 10px;
-            font-size: 0.85rem;
-            color: var(--text-muted);
+            border: 1px solid var(--border);
+            font-size: 0.95rem;
+            outline: none;
         }
 
-        .stats-bar span {
-            font-weight: bold;
-            color: var(--primary);
+        .output-box {
+            margin-top: 15px;
+            padding: 12px;
+            background: #f8fafc;
+            border-radius: 8px;
+            border: 1px dashed var(--border);
+            min-height: 50px;
+            white-space: pre-wrap;
         }
 
         .image-preview {
-            display: none;
             margin-top: 15px;
             text-align: center;
         }
 
         .image-preview img {
             max-width: 100%;
-            border-radius: 12px;
+            border-radius: 8px;
             box-shadow: 0 4px 12px rgba(0,0,0,0.1);
-        }
-
-        .loader {
             display: none;
-            text-align: center;
-            margin-top: 10px;
-            font-size: 0.9rem;
-            color: var(--primary);
-            font-weight: bold;
         }
 
         footer {
-            width: 100%;
-            max-width: 800px;
+            margin-top: auto;
+            padding: 20px;
             text-align: center;
-            margin-top: 20px;
-            padding: 15px;
             color: var(--text-muted);
             font-size: 0.85rem;
-            border-top: 1px solid var(--border);
         }
     </style>
 </head>
 <body>
 
-<div class="container">
-    <div class="top-bar">
-        <span>🌐</span>
-        <select id="languageSelector" class="lang-select" onchange="changeLanguage()">
-            <option value="ar">العربية (Arabic)</option>
-            <option value="en">English</option>
-            <option value="fr">Français (French)</option>
-            <option value="es">Español (Spanish)</option>
-            <option value="de">Deutsch (German)</option>
-        </select>
-    </div>
-
     <header>
-        <h1 id="appTitle">منصة النص والذكاء الاصطناعي</h1>
-        <p id="appSubtitle">توليد المحتوى، توليد الصور بالذكاء الاصطناعي، ومعالجة النصوص</p>
+        <div class="logo" id="app-title">منصة النص الذكي ⚡</div>
+        <select class="lang-select" id="languageSelector" onchange="changeLanguage()">
+            <option value="ar">العربية 🇸🇦</option>
+            <option value="en">English 🇺🇸</option>
+            <option value="fr">Français 🇫🇷</option>
+            <option value="es">Español 🇪🇸</option>
+            <option value="de">Deutsch 🇩🇪</option>
+        </select>
     </header>
 
-    <!-- قسم مولد الصور بالذكاء الاصطناعي -->
-    <div class="card">
-        <div class="section-title" id="imgTitle">🎨 مولد الصور بالذكاء الاصطناعي</div>
-        <div class="input-group">
-            <input type="text" id="imagePrompt" placeholder="صف الصورة التي تريد إنشائها (مثال: سيارة رياضية مستقبلية في المدينة)...">
+    <div class="container">
+
+        <!-- قسم التشكيل والمعالجة -->
+        <div class="card">
+            <div class="card-title">📝 <span id="t-text-tools">معالج وتنسيق النصوص</span></div>
+            <textarea id="textInput" placeholder="أدخل النص هنا لتنسيقه، تشكيله، أو تنظيفه..."></textarea>
+            <div class="btn-group">
+                <button onclick="formatText('tashkeel')">✨ تشكيل النص</button>
+                <button onclick="formatText('clean')" class="btn-secondary">🧹 تنظيف وتنسيق</button>
+                <button onclick="formatText('untashkeel')" class="btn-secondary">❌ إزالة التشكيل</button>
+                <button onclick="copyText('textInput')" class="btn-secondary">📋 نسخ النص</button>
+            </div>
+            <div id="statusMessage" style="margin-top: 8px; font-size: 0.85rem; color: var(--primary);"></div>
         </div>
-        <button style="width:100%;" id="btnGenImage" onclick="generateImage()">🖼️ توليد الصورة الان</button>
-        
-        <div id="loader" class="loader">⏳ جاري رسم الصورة بالذكاء الاصطناعي...</div>
-        
-        <div id="imagePreview" class="image-preview">
-            <img id="generatedImg" src="" alt="AI Image">
-            <a id="downloadBtn" href="" download="ai-image.jpg" style="display:inline-block; margin-top:10px; text-decoration:none;">
-                <button class="btn-outline" id="btnDownloadImg">📥 تحميل الصورة</button>
-            </a>
+
+        <!-- قسم الذكاء الاصطناعي للمحتوى -->
+        <div class="card">
+            <div class="card-title">🚀 <span id="t-ai-tools">مولد المحتوى السريع</span></div>
+            <textarea id="aiPrompt" placeholder="اكتب فكرة أو عنوان المحتوى هنا..."></textarea>
+            <div class="btn-group">
+                <select class="tool-select" id="aiOption">
+                    <option value="script">🎬 مولد سيناريو فيديو (TikTok / Reels)</option>
+                    <option value="hashtags">🏷️ هاشتاجات متوافقة</option>
+                    <option value="summary">📌 تلخيص سريع</option>
+                </select>
+                <button onclick="generateAIContent()">توليد محتوى ✨</button>
+            </div>
+            <div class="output-box" id="aiOutput">النتيجة ستظهر هنا...</div>
         </div>
+
+        <!-- قسم توليد الصور -->
+        <div class="card">
+            <div class="card-title">🎨 <span id="t-img-tools">مولد الصور بالذكاء الاصطناعي</span></div>
+            <textarea id="imgPrompt" placeholder="صف الصورة التي تريد ابتكارها بالإنجليزية أو العربية..."></textarea>
+            <div class="btn-group">
+                <button onclick="generateImage()">توليد الصورة الآن 🖼️</button>
+            </div>
+            <div class="image-preview">
+                <p id="imgStatus" style="display:none; color: var(--text-muted);">جاري إنشاء الصورة... ⏳</p>
+                <img id="generatedImg" src="" alt="AI Generated Image">
+            </div>
+        </div>
+
     </div>
 
-    <!-- قسم توليد المحتوى -->
-    <div class="card">
-        <div class="section-title" id="genTitle">✨ مولد المحتوى السريع</div>
-        <div class="input-group">
-            <input type="text" id="topicInput" placeholder="أدخل كلمة البحث أو موضوع الفيديو (مثال: الذكاء الاصطناعي)">
-            <select id="generatorType">
-                <option value="script" id="optScript">🎬 مولد سيناريو فيديو (Shorts / TikTok)</option>
-                <option value="hashtags" id="optHashtags">#️⃣ مولد الهاشتاجات المتصدرة</option>
-                <option value="titles" id="optTitles">📌 مولد عناوين مقالات وفيديوهات جذابة</option>
-            </select>
-        </div>
-        <button style="width:100%;" id="btnGenerate" onclick="generateContent()">🚀 انقر للتوليد فوراً</button>
-    </div>
+    <footer>
+        <p>© 2026 جميع الحقوق محفوظة - منصة النص الذكي</p>
+    </footer>
 
-    <!-- قسم معالجة النصوص -->
-    <div class="card">
-        <div class="section-title" id="editorTitle">📝 معالج وتنسيق النصوص</div>
-        <textarea id="textEditor" placeholder="ضع نصك هنا للتعديل والتشكيل والتنسيق..."></textarea>
-        
-        <div class="btn-grid">
-            <button class="btn-outline" id="btnClean" onclick="cleanText()">✨ تنظيف وتنسيق</button>
-            <button class="btn-outline" id="btnTashkeel" onclick="addTashkeel()">✏️ تشكيل أساسي</button>
-            <button class="btn-outline" id="btnRemoveTashkeel" onclick="removeTashkeel()">🧹 إزالة التشكيل</button>
-            <button class="btn-outline" id="btnCopy" onclick="copyText()">📋 نسخ النص</button>
-            <button class="btn-outline" id="btnClear" style="color:#ef4444;" onclick="clearText()">🗑️ مسح</button>
-        </div>
+    <script>
+        async function formatText(type) {
+            let input = document.getElementById('textInput');
+            let status = document.getElementById('statusMessage');
+            let text = input.value.trim();
 
-        <div class="stats-bar">
-            <div><span id="lblWords">الكلمات</span>: <span id="wordCount">0</span></div>
-            <div><span id="lblChars">الحروف</span>: <span id="charCount">0</span></div>
-            <div><span id="lblTime">زمن القراءة</span>: <span id="readTime">0</span> <span id="lblMin">دقيقة</span></div>
-        </div>
-    </div>
-</div>
-
-<footer>
-    <p>&copy; 2026 <strong id="footerTitle">منصة النص والذكاء الاصطناعي</strong> - <span id="footerRights">جميع الحقوق محفوظة</span></p>
-</footer>
-
-<script>
-    const translations = {
-        ar: {
-            title: "منصة النص والذكاء الاصطناعي",
-            subtitle: "توليد المحتوى، توليد الصور بالذكاء الاصطناعي، ومعالجة النصوص",
-            imgTitle: "🎨 مولد الصور بالذكاء الاصطناعي",
-            imgPlaceholder: "صف الصورة التي تريد إنشائها (مثال: سيارة رياضية مستقبلية في المدينة)...",
-            btnGenImage: "🖼️ توليد الصورة الان",
-            btnDownloadImg: "📥 تحميل الصورة",
-            loaderText: "⏳ جاري رسم الصورة بالذكاء الاصطناعي...",
-            genTitle: "✨ مولد المحتوى السريع",
-            topicPlaceholder: "أدخل كلمة البحث أو موضوع الفيديو (مثال: الذكاء الاصطناعي)",
-            optScript: "🎬 مولد سيناريو فيديو (Shorts / TikTok)",
-            optHashtags: "#️⃣ مولد الهاشتاجات المتصدرة",
-            optTitles: "📌 مولد عناوين مقالات وفيديوهات جذابة",
-            btnGenerate: "🚀 انقر للتوليد فوراً",
-            editorTitle: "📝 معالج وتنسيق النصوص",
-            textPlaceholder: "ضع نصك هنا للتعديل والتشكيل والتنسيق...",
-            btnClean: "✨ تنظيف وتنسيق",
-            btnTashkeel: "✏️ تشكيل أساسي",
-            btnRemoveTashkeel: "🧹 إزالة التشكيل",
-            btnCopy: "📋 نسخ النص",
-            btnClear: "🗑️ مسح",
-            lblWords: "الكلمات",
-            lblChars: "الحروف",
-            lblTime: "زمن القراءة",
-            lblMin: "دقيقة",
-            footerTitle: "منصة النص والذكاء الاصطناعي",
-            footerRights: "جميع الحقوق محفوظة",
-            alertTopic: "يرجى كتابة كلمة أو موضوع في الخانة أولاً!",
-            alertImgPrompt: "يرجى كتابة وصف للصورة أولاً!",
-            alertCopied: "تم نسخ النص بنجاح!",
-            dir: "rtl"
-        },
-        en: {
-            title: "Smart Text & AI Platform",
-            subtitle: "Content Generation, AI Image Generator & Text Tools",
-            imgTitle: "🎨 AI Image Generator",
-            imgPlaceholder: "Describe the image you want to create (e.g., a futuristic sports car)...",
-            btnGenImage: "🖼️ Generate Image Now",
-            btnDownloadImg: "📥 Download Image",
-            loaderText: "⏳ Rendering your AI image...",
-            genTitle: "✨ Quick Content Generator",
-            topicPlaceholder: "Enter topic or keyword (e.g. Artificial Intelligence)",
-            optScript: "🎬 Video Script Generator (Shorts / TikTok)",
-            optHashtags: "#️⃣ Trending Hashtags Generator",
-            optTitles: "📌 Catchy Titles Generator",
-            btnGenerate: "🚀 Generate Now",
-            editorTitle: "📝 Text Editor & Formatter",
-            textPlaceholder: "Type or paste your text here to process...",
-            btnClean: "✨ Clean & Format",
-            btnTashkeel: "✏️ Basic Diacritics",
-            btnRemoveTashkeel: "🧹 Remove Diacritics",
-            btnCopy: "📋 Copy Text",
-            btnClear: "🗑️ Clear",
-            lblWords: "Words",
-            lblChars: "Characters",
-            lblTime: "Read Time",
-            lblMin: "min",
-            footerTitle: "Smart Text & AI Platform",
-            footerRights: "All Rights Reserved",
-            alertTopic: "Please enter a topic first!",
-            alertImgPrompt: "Please enter an image prompt first!",
-            alertCopied: "Text copied successfully!",
-            dir: "ltr"
-        },
-        fr: {
-            title: "Plateforme Texte & IA Intelligente",
-            subtitle: "Générateur de Contenu, Générateur d'Images IA & Outils de Texte",
-            imgTitle: "🎨 Générateur d'Images IA",
-            imgPlaceholder: "Décrivez l'image que vous souhaitez créer...",
-            btnGenImage: "🖼️ Générer l'Image Maintenant",
-            btnDownloadImg: "📥 Télécharger l'Image",
-            loaderText: "⏳ Création de l'image IA en cours...",
-            genTitle: "✨ Générateur de Contenu Rapide",
-            topicPlaceholder: "Entrez un sujet (ex: Intelligence Artificielle)",
-            optScript: "🎬 Générateur de Script Vidéo (Shorts / TikTok)",
-            optHashtags: "#️⃣ Générateur de Hashtags Tendances",
-            optTitles: "📌 Générateur de Titres Accrocheurs",
-            btnGenerate: "🚀 Générer Maintenant",
-            editorTitle: "📝 Éditeur et Formateur de Texte",
-            textPlaceholder: "Saisissez ou collez votre texte ici...",
-            btnClean: "✨ Nettoyer & Formater",
-            btnTashkeel: "✏️ Diacritiques de Base",
-            btnRemoveTashkeel: "🧹 Supprimer les Diacritiques",
-            btnCopy: "📋 Copier le Texte",
-            btnClear: "🗑️ Effacer",
-            lblWords: "Mots",
-            lblChars: "Caractères",
-            lblTime: "Temps de lecture",
-            lblMin: "min",
-            footerTitle: "Plateforme Texte & IA Intelligente",
-            footerRights: "Tous Droits Réservés",
-            alertTopic: "Veuillez entrer un sujet d'abord!",
-            alertImgPrompt: "Veuillez entrer une description d'image d'abord!",
-            alertCopied: "Texte copié avec succès!",
-            dir: "ltr"
-        },
-        es: {
-            title: "Plataforma Texto y IA Inteligente",
-            subtitle: "Generador de Contenido, Generador de Imágenes IA y Herramientas de Texto",
-            imgTitle: "🎨 Generador de Imágenes IA",
-            imgPlaceholder: "Describa la imagen que desea crear...",
-            btnGenImage: "🖼️ Generar Imagen Ahora",
-            btnDownloadImg: "📥 Descargar Imagen",
-            loaderText: "⏳ Generando imagen IA...",
-            genTitle: "✨ Generador Rápido de Contenido",
-            topicPlaceholder: "Ingrese un tema (ej: Inteligencia Artificial)",
-            optScript: "🎬 Generador de Guiones de Video (Shorts / TikTok)",
-            optHashtags: "#️⃣ Generador de Hashtags Tendencia",
-            optTitles: "📌 Generador de Títulos Atractivos",
-            btnGenerate: "🚀 Generar Ahora",
-            editorTitle: "📝 Editor y Formateador de Texto",
-            textPlaceholder: "Escriba o pegue su texto aquí...",
-            btnClean: "✨ Limpiar y Formatear",
-            btnTashkeel: "✏️ Diacríticos Básicos",
-            btnRemoveTashkeel: "🧹 Eliminar Diacríticos",
-            btnCopy: "📋 Copiar Texto",
-            btnClear: "🗑️ Borrar",
-            lblWords: "Palabras",
-            lblChars: "Caracteres",
-            lblTime: "Tiempo de lectura",
-            lblMin: "min",
-            footerTitle: "Plataforma Texto y IA Inteligente",
-            footerRights: "Todos los Derechos Reservados",
-            alertTopic: "¡Por favor ingrese un tema primero!",
-            alertImgPrompt: "¡Por favor ingrese una descripción primero!",
-            alertCopied: "¡Texto copiado con éxito!",
-            dir: "ltr"
-        },
-        de: {
-            title: "Intelligente Text & KI Plattform",
-            subtitle: "Content-Generator, KI-Bildgenerator & Textverarbeitungstools",
-            imgTitle: "🎨 KI-Bildgenerator",
-            imgPlaceholder: "Beschreiben Sie das Bild, das Sie erstellen möchten...",
-            btnGenImage: "🖼️ Bild Jetzt Generieren",
-            btnDownloadImg: "📥 Bild Herunterladen",
-            loaderText: "⏳ KI-Bild wird erstellt...",
-            genTitle: "✨ Schneller Content-Generator",
-            topicPlaceholder: "Thema eingeben (z. B. Künstliche Intelligenz)",
-            optScript: "🎬 Video-Skript-Generator (Shorts / TikTok)",
-            optHashtags: "#️⃣ Trending Hashtags-Generator",
-            optTitles: "📌 Eingängige Titel-Generator",
-            btnGenerate: "🚀 Jetzt Generieren",
-            editorTitle: "📝 Texteditor & Formatierer",
-            textPlaceholder: "Geben Sie Ihren Text hier ein...",
-            btnClean: "✨ Bereinigen & Formatieren",
-            btnTashkeel: "✏️ Basis-Diakritika",
-            btnRemoveTashkeel: "🧹 Diakritika Entfernen",
-            btnCopy: "📋 Text Kopieren",
-            btnClear: "🗑️ Löschen",
-            lblWords: "Wörter",
-            lblChars: "Zeichen",
-            lblTime: "Lesezeit",
-            lblMin: "Min",
-            footerTitle: "Intelligente Text & KI Plattform",
-            footerRights: "Alle Rechte Vorbehalten",
-            alertTopic: "Bitte geben Sie zuerst ein Thema ein!",
-            alertImgPrompt: "Bitte geben Sie zuerst eine Bildbeschreibung ein!",
-            alertCopied: "Text erfolgreich kopiert!",
-            dir: "ltr"
-        }
-    };
-
-    function changeLanguage() {
-        const lang = document.getElementById('languageSelector').value;
-        const t = translations[lang];
-
-        document.documentElement.lang = lang;
-        document.documentElement.dir = t.dir;
-
-        document.getElementById('appTitle').textContent = t.title;
-        document.getElementById('appSubtitle').textContent = t.subtitle;
-        document.getElementById('imgTitle').textContent = t.imgTitle;
-        document.getElementById('imagePrompt').placeholder = t.imgPlaceholder;
-        document.getElementById('btnGenImage').textContent = t.btnGenImage;
-        document.getElementById('btnDownloadImg').textContent = t.btnDownloadImg;
-        document.getElementById('loader').textContent = t.loaderText;
-        document.getElementById('genTitle').textContent = t.genTitle;
-        document.getElementById('topicInput').placeholder = t.topicPlaceholder;
-        document.getElementById('optScript').textContent = t.optScript;
-        document.getElementById('optHashtags').textContent = t.optHashtags;
-        document.getElementById('optTitles').textContent = t.optTitles;
-        document.getElementById('btnGenerate').textContent = t.btnGenerate;
-        document.getElementById('editorTitle').textContent = t.editorTitle;
-        document.getElementById('textEditor').placeholder = t.textPlaceholder;
-        document.getElementById('btnClean').textContent = t.btnClean;
-        document.getElementById('btnTashkeel').textContent = t.btnTashkeel;
-        document.getElementById('btnRemoveTashkeel').textContent = t.btnRemoveTashkeel;
-        document.getElementById('btnCopy').textContent = t.btnCopy;
-        document.getElementById('btnClear').textContent = t.btnClear;
-        document.getElementById('lblWords').textContent = t.lblWords;
-        document.getElementById('lblChars').textContent = t.lblChars;
-        document.getElementById('lblTime').textContent = t.lblTime;
-        document.getElementById('lblMin').textContent = t.lblMin;
-        document.getElementById('footerTitle').textContent = t.footerTitle;
-        document.getElementById('footerRights').textContent = t.footerRights;
-    }
-
-    function generateImage() {
-        const prompt = document.getElementById('imagePrompt').value.trim();
-        const lang = document.getElementById('languageSelector').value;
-        const t = translations[lang];
-
-        if (!prompt) {
-            alert(t.alertImgPrompt);
-            return;
-        }
-
-        const loader = document.getElementById('loader');
-        const imagePreview = document.getElementById('imagePreview');
-        const generatedImg = document.getElementById('generatedImg');
-        const downloadBtn = document.getElementById('downloadBtn');
-
-        loader.style.display = 'block';
-        imagePreview.style.display = 'none';
-
-        const encodedPrompt = encodeURIComponent(prompt);
-        const imageUrl = `https://image.pollinations.ai/prompt/${encodedPrompt}?width=800&height=600&nologo=true&seed=${Math.floor(Math.random() * 1000)}`;
-
-        generatedImg.onload = function() {
-            loader.style.display = 'none';
-            imagePreview.style.display = 'block';
-            downloadBtn.href = imageUrl;
-        };
-
-        generatedImg.src = imageUrl;
-    }
-
-    const textEditor = document.getElementById('textEditor');
-    const wordCount = document.getElementById('wordCount');
-    const charCount = document.getElementById('charCount');
-    const readTime = document.getElementById('readTime');
-
-    textEditor.addEventListener('input', updateStats);
-
-    function updateStats() {
-        const text = textEditor.value.trim();
-        const words = text ? text.split(/\s+/).length : 0;
-        const chars = text.length;
-        
-        wordCount.textContent = words;
-        charCount.textContent = chars;
-        readTime.textContent = Math.ceil(words / 200);
-    }
-
-    function generateContent() {
-        const topic = document.getElementById('topicInput').value.trim();
-        const type = document.getElementById('generatorType').value;
-        const lang = document.getElementById('languageSelector').value;
-        const t = translations[lang];
-
-        if (!topic) {
-            alert(t.alertTopic);
-            return;
-        }
-
-        let result = '';
-
-        if (lang === 'ar') {
-            if (type === 'script') {
-                result = `🎬 **سيناريو فيديو قصير عن: ${topic}**\n\n🔥 [المقدمة]:\n"هل تعلم ما هو السر الخفي وراء ${topic}؟ شاهد حتى النهاية!"\n\n💡 [المحتوى]:\n1. تعتبر ${topic} من أهم المواضيع حالياً.\n2. السر يكمن في تطبيقها بالشكل الصحيح.\n\n📌 [التفاعل]:\n"شاركنا رأيك في التعليقات وتابعنا للمزيد!"`;
-            } else if (type === 'hashtags') {
-                const cleanTopic = topic.replace(/\s+/g, '_');
-                result = `#${cleanTopic} #${cleanTopic}_بالعربي #محتوى_تريند #اكسبلور #تيك_توك #فيديو_جديد`;
-            } else if (type === 'titles') {
-                result = `1. أهم 5 أسرار عن ${topic}!\n2. الدليل الشامل لفهم ${topic} بسهولة.\n3. كيف تبدأ في مجال ${topic} خطوة بخطوة؟`;
+            if (!text) {
+                alert("يرجى كتابة نص أولاً!");
+                return;
             }
-        } else {
-            if (type === 'script') {
-                result = `🎬 **Short Video Script: ${topic}**\n\n🔥 [Hook]:\n"Did you know the secret behind ${topic}? Watch till the end!"\n\n💡 [Main Content]:\n1. ${topic} is trending worldwide.\n2. The key is understanding how to apply it properly.\n\n📌 [Call to Action]:\n"Drop your thoughts in comments & follow for more!"`;
-            } else if (type === 'hashtags') {
-                const cleanTopic = topic.replace(/\s+/g, '');
-                result = `#${cleanTopic} #${cleanTopic}Tips #TrendingContent #Explore #Viral #NewVideo`;
-            } else if (type === 'titles') {
-                result = `1. Top 5 Hidden Secrets About ${topic}!\n2. The Ultimate Guide to Understanding ${topic}.\n3. How to Get Started with ${topic} Step by Step.`;
+
+            if (type === 'untashkeel') {
+                input.value = text.replace(/[\u064B-\u0652]/g, "");
+                status.innerText = "تمت إزالة التشكيل بنجاح.";
+            } else if (type === 'clean') {
+                input.value = text.replace(/\s+/g, ' ').replace(/(\s)([\.\،\?\!])/g, '$2').trim();
+                status.innerText = "تم تنظيف النص وتنسيقه.";
+            } else if (type === 'tashkeel') {
+                status.innerText = "جاري تشكيل النص... ⏳";
+                try {
+                    let response = await fetch(`https://api.aladhan.com/v1/toArabic?text=${encodeURIComponent(text)}`);
+                    let res = await fetch("https://mishkal.e3rab.com/api/tashkeel", {
+                        method: "POST",
+                        headers: { "Content-Type": "application/x-www-form-urlencoded" },
+                        body: "text=" + encodeURIComponent(text) + "&action=tashkeel"
+                    });
+                    
+                    if (res.ok) {
+                        let data = await res.json();
+                        if (data && data.result) {
+                            input.value = data.result;
+                            status.innerText = "تم التشكيل بنجاح! ✨";
+                            return;
+                        }
+                    }
+                } catch (e) {
+                    console.log("Fallback tashkeel triggered");
+                }
+
+                // تشكيل أساسي كخيار بديل وسريع
+                let simpleTashkeel = text
+                    .replace(/\bمن\b/g, "مِنْ")
+                    .replace(/\bعلى\b/g, "عَلَى")
+                    .replace(/\bإلى\b/g, "إِلَى")
+                    .replace(/\bعن\b/g, "عَنْ")
+                    .replace(/\bفي\b/g, "فِي")
+                    .replace(/\bأن\b/g, "أَنْ")
+                    .replace(/\bإن\b/g, "إِنَّ")
+                    .replace(/\bهذا\b/g, "هٰذَا")
+                    .replace(/\bهذه\b/g, "هٰذِهِ")
+                    .replace(/\bالتي\b/g, "الَّتِي")
+                    .replace(/\bالذي\b/g, "الَّذِي")
+                    .replace(/\bالله\b/g, "اللَّه")
+                    .replace(/\bمرحبا\b/g, "مَرْحَبًا")
+                    .replace(/\bشكرا\b/g, "شُكْرًا");
+                
+                input.value = simpleTashkeel;
+                status.innerText = "تم تطبيق التشكيل الأساسي.";
             }
         }
 
-        textEditor.value = result;
-        updateStats();
-    }
+        function copyText(id) {
+            let text = document.getElementById(id).value;
+            if (text) {
+                navigator.clipboard.writeText(text);
+                alert("تم نسخ النص بنجاح!");
+            }
+        }
 
-    function cleanText() {
-        let text = textEditor.value;
-        text = text.replace(/[ ]+/g, ' ');
-        text = text.replace(/\n\s*\n/g, '\n\n');
-        textEditor.value = text.trim();
-        updateStats();
-    }
+        function generateAIContent() {
+            let prompt = document.getElementById('aiPrompt').value;
+            let option = document.getElementById('aiOption').value;
+            let output = document.getElementById('aiOutput');
 
-    function addTashkeel() {
-        let text = textEditor.value;
-        if (!text) return;
+            if (!prompt) {
+                output.innerText = "يرجى كتابة نص أو فكرة أولاً!";
+                return;
+            }
 
-        const replacements = [
-            [/\bان\b/g, "إِنْ"], [/\bهل\b/g, "هَلْ"], [/\bمن\b/g, "مِنْ"],
-            [/\bعن\b/g, "عَنْ"], [/\bفي\b/g, "فِي"], [/\bعلى\b/g, "عَلَى"],
-            [/\bإلى\b/g, "إِلَى"], [/\bهذا\b/g, "هٰذَا"], [/\bهذه\b/g, "هٰذِهِ"],
-            [/\bالله\b/g, "اللَّٰه"], [/\bصناعة\b/g, "صِنَاعَةُ"], [/\bالمحتوى\b/g, "الْمُحْتَوَى"]
-        ];
+            output.innerText = "جاري التوليد... ⏳";
 
-        replacements.forEach(([pattern, value]) => {
-            text = text.replace(pattern, value);
-        });
+            setTimeout(() => {
+                if (option === 'script') {
+                    output.innerText = `🎬 [سيناريو مقترح حول: ${prompt}]\n\n- المشهد 1: افتتاحية مشوقة تجذب الانتباه حول ${prompt}.\n- المشهد 2: شرح النقطة الأساسية بأسلوب مبسط.\n- الخاتمة: دعوة للمتابعة والإعجاب والتفاعل!`;
+                } else if (option === 'hashtags') {
+                    let cleanWord = prompt.replace(/\s+/g, '_');
+                    output.innerText = `#${cleanWord} #ذكاء_اصطناعي #محتوى_رقمي #تريند #تطور #تكنولوجيا`;
+                } else if (option === 'summary') {
+                    output.innerText = `📌 الملخص السريع:\nالنص يناقش موضوع "${prompt}" ويركز على تقديم حلول عملية وبسيطة للمستخدم.`;
+                }
+            }, 800);
+        }
 
-        textEditor.value = text;
-        updateStats();
-    }
+        function generateImage() {
+            let prompt = document.getElementById('imgPrompt').value;
+            let imgElement = document.getElementById('generatedImg');
+            let status = document.getElementById('imgStatus');
 
-    function removeTashkeel() {
-        let text = textEditor.value;
-        text = text.replace(/[\u064B-\u0652]/g, "");
-        textEditor.value = text;
-        updateStats();
-    }
+            if (!prompt) {
+                alert("يرجى كتابة وصف للصورة أولاً!");
+                return;
+            }
 
-    function copyText() {
-        if (!textEditor.value) return;
-        const lang = document.getElementById('languageSelector').value;
-        navigator.clipboard.writeText(textEditor.value);
-        alert(translations[lang].alertCopied);
-    }
+            status.style.display = 'block';
+            imgElement.style.display = 'none';
 
-    function clearText() {
-        textEditor.value = '';
-        updateStats();
-    }
-</script>
+            let encodedPrompt = encodeURIComponent(prompt);
+            let imageUrl = `https://image.pollinations.ai/prompt/${encodedPrompt}?width=800&height=800&seed=${Math.floor(Math.random() * 1000)}`;
 
+            imgElement.src = imageUrl;
+            imgElement.onload = function() {
+                status.style.display = 'none';
+                imgElement.style.display = 'inline-block';
+            };
+        }
+
+        function changeLanguage() {
+            let lang = document.getElementById('languageSelector').value;
+            if (lang === 'en') {
+                document.getElementById('app-title').innerText = "Smart Text AI ⚡";
+                document.getElementById('t-text-tools').innerText = "Text Processing & Formatting";
+                document.getElementById('t-ai-tools').innerText = "AI Content Generator";
+                document.getElementById('t-img-tools').innerText = "AI Image Generator";
+            } else if (lang === 'ar') {
+                document.getElementById('app-title').innerText = "منصة النص الذكي ⚡";
+                document.getElementById('t-text-tools').innerText = "معالج وتنسيق النصوص";
+                document.getElementById('t-ai-tools').innerText = "مولد المحتوى السريع";
+                document.getElementById('t-img-tools').innerText = "مولد الصور بالذكاء الاصطناعي";
+            }
+        }
+    </script>
 </body>
 </html>
