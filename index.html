@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>منصة النص الذكي | Smart Text AI</title>
+    <meta name="description" content="منصة متكاملة لتنسيق وتشكيل النصوص العربية، توليد سيناريو المحتوى، وإنشاء الصور بالذكاء الاصطناعي بدقة عالية.">
     <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700&display=swap" rel="stylesheet">
     <style>
         :root {
@@ -70,6 +71,7 @@
             font-size: 1.4rem;
             font-weight: 700;
             color: var(--primary);
+            text-decoration: none;
         }
 
         .lang-select {
@@ -126,13 +128,11 @@
             gap: 8px;
         }
 
-        textarea {
+        textarea, input[type="text"], input[type="email"] {
             width: 100%;
-            height: 130px;
             padding: 12px;
             border-radius: 8px;
             border: 1px solid var(--border);
-            resize: vertical;
             font-size: 1.05rem;
             margin-bottom: 12px;
             outline: none;
@@ -141,7 +141,12 @@
             color: var(--text-main);
         }
 
-        textarea:focus {
+        textarea {
+            height: 120px;
+            resize: vertical;
+        }
+
+        textarea:focus, input:focus {
             border-color: var(--primary);
         }
 
@@ -227,26 +232,74 @@
         }
 
         footer {
-            margin-top: auto;
+            margin-top: 30px;
             padding: 20px;
             text-align: center;
             color: var(--text-muted);
             font-size: 0.85rem;
+            border-top: 1px solid var(--border);
+            width: 100%;
+            max-width: 900px;
+        }
+
+        .footer-links {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            margin-bottom: 10px;
+            flex-wrap: wrap;
+        }
+
+        .footer-links a {
+            color: var(--primary);
+            text-decoration: none;
+            font-weight: 600;
+        }
+
+        .footer-links a:hover {
+            text-decoration: underline;
+        }
+
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(0,0,0,0.6);
+            align-items: center; justify-content: center;
+            padding: 20px;
+            z-index: 100;
+        }
+
+        .modal-content {
+            background: var(--card-bg);
+            color: var(--text-main);
+            padding: 25px;
+            border-radius: 12px;
+            max-width: 600px;
+            width: 100%;
+            max-height: 80vh;
+            overflow-y: auto;
+            border: 1px solid var(--border);
+        }
+
+        .close-btn {
+            float: left;
+            cursor: pointer;
+            font-weight: bold;
+            font-size: 1.2rem;
+            color: var(--text-muted);
         }
     </style>
 </head>
 <body>
 
     <header>
-        <div class="logo" id="app-title">منصة النص الذكي ⚡</div>
+        <a href="#" class="logo" id="app-title">منصة النص الذكي ⚡</a>
         <div class="header-controls">
             <button class="theme-toggle-btn" onclick="toggleTheme()" id="themeBtn" title="تغيير الوضع">🌙</button>
             <select class="lang-select" id="languageSelector" onchange="changeLanguage()">
                 <option value="ar">العربية 🇸🇦</option>
                 <option value="en">English 🇺🇸</option>
-                <option value="fr">Français 🇫🇷</option>
-                <option value="es">Español 🇪🇸</option>
-                <option value="de">Deutsch 🇩🇪</option>
             </select>
         </div>
     </header>
@@ -284,7 +337,7 @@
             </div>
         </div>
 
-        <!-- قسم توليد الصور بدون علامات مائية مع حزم واقعية وبناء دقيق -->
+        <!-- قسم توليد الصور فائقة الواقعية بدون تنعيم -->
         <div class="card">
             <div class="card-title">🎨 <span id="t-img-tools">مولد الصور بالذكاء الاصطناعي</span></div>
             <textarea id="imgPrompt" placeholder="صف الصورة التي تريد ابتكارها بالإنجليزية أو العربية..."></textarea>
@@ -292,7 +345,7 @@
                 <button onclick="generateImage()">توليد الصورة الآن 🖼️</button>
             </div>
             <div class="image-preview">
-                <p id="imgStatus" style="display:none; color: var(--text-muted);">جاري التوليد باستخدام نموذج Flux الفائق... ⏳</p>
+                <p id="imgStatus" style="display:none; color: var(--text-muted);">جاري توليد صورة واقعية خام ودقيقة... ⏳</p>
                 <img id="generatedImg" src="" alt="AI Generated Image">
                 <a id="downloadImgBtn" style="display:none;" class="dl-btn" download="ai-image.jpg" target="_blank">⬇️ تحميل الصورة مباشرة</a>
             </div>
@@ -300,7 +353,21 @@
 
     </div>
 
+    <!-- نافذة العرض للمستندات والسياسات -->
+    <div id="infoModal" class="modal">
+        <div class="modal-content">
+            <span class="close-btn" onclick="closeModal()">&times;</span>
+            <div id="modalBody"></div>
+        </div>
+    </div>
+
     <footer>
+        <div class="footer-links">
+            <a href="javascript:void(0)" onclick="openPage('about')">عن المنصة</a> |
+            <a href="javascript:void(0)" onclick="openPage('privacy')">سياسة الخصوصية</a> |
+            <a href="javascript:void(0)" onclick="openPage('terms')">شروط الاستخدام</a> |
+            <a href="javascript:void(0)" onclick="openPage('contact')">اتصل بنا</a>
+        </div>
         <p>© 2026 جميع الحقوق محفوظة - منصة النص الذكي</p>
     </footer>
 
@@ -308,7 +375,6 @@
         function toggleTheme() {
             const currentTheme = document.documentElement.getAttribute('data-theme');
             const themeBtn = document.getElementById('themeBtn');
-            
             if (currentTheme === 'dark') {
                 document.documentElement.setAttribute('data-theme', 'light');
                 themeBtn.innerText = '🌙';
@@ -322,39 +388,15 @@
             let input = document.getElementById('textInput');
             let status = document.getElementById('statusMessage');
             let text = input.value;
-
-            if (!text.trim()) {
-                alert("يرجى كتابة نص أولاً!");
-                return;
-            }
+            if (!text.trim()) { alert("يرجى كتابة نص أولاً!"); return; }
 
             let dictionary = {
                 "مرحبا": "مَرْحَبًا", "بكم": "بِكُمْ", "في": "فِي", "منصتنا": "مَنَصَّتِنَا", "الذكيه": "الذَّكِيَّةِ",
-                "الذكية": "الذَّكِيَّةِ", "نحن": "نَحْنُ", "نساعدكم": "نُسَاعِدُكُمْ", "نساعدك": "نُسَاعِدُكَ",
-                "على": "عَلَى", "علي": "عَلَى", "كتابة": "كِتَابَةِ", "المحتوي": "الْمُحْتَوَى", "المحتوى": "الْمُحْتَوَى",
-                "وتنسيق": "وَتَنْسِيقِ", "النصوص": "النُّصُوصِ", "هذا": "هٰذَا", "هذه": "هٰذِهِ", "من": "مِنْ",
-                "عن": "عَنْ", "إلى": "إِلَى", "الي": "إِلَى", "الله": "اللَّهِ", "تطبيق": "تَطْبِيقُ",
-                "سهل": "سَهْلٌ", "وسريع": "وَسَرِيعٌ", "الذكاء": "الذَّكَاءِ", "الاصطناعي": "الاصْطِنَاعِيِّ",
-                "الاصطناعى": "الاصْطِنَاعِيِّ", "تطبيقنا": "تَطْبِيقِنَا", "الجديد": "الْجَدِيدِ", "انشاءالله": "إِنْ شَاءَ اللَّهُ",
-                "سوف": "سَوْفَ", "الرسائل": "الرَّسَائِلِ", "تنضيم": "تَنْظِيمِ", "تنظيم": "تَنْظِيمِ", "المقالات": "الْمَقَالَاتِ",
-                "باسلوب": "بِأُسْلُوبٍ", "بأسلوب": "بِأُسْلُوبٍ", "جميل": "جَمِيلٍ", "واحترافي": "وَاحْتِرَافِيٍّ",
-                "هل": "هَلْ", "تراقب": "تُرَاقِبُ", "التطويرات": "التَّطْوِيرَاتِ", "التى": "الَّتِي", "التي": "الَّتِي",
-                "نقوم": "نَقُومُ", "بها": "بِهَا", "ان": "إِنَّ", "إن": "إِنَّ", "الهدف": "الْهَدَفُ",
-                "الرئيسي": "الرَّئِيسِيُّ", "هوا": "هُوَ", "هو": "هُوَ", "تسهيل": "تَسْهِيلُ", "العمل": "الْعَمَلِ",
-                "وزياده": "وَزِيَادَةُ", "وزيادة": "وَزِيَادَةُ", "الانتاجيه": "الْإِنْتَاجِيَّةِ", "الإنتاجية": "الْإِنْتَاجِيَّةِ",
-                "بدون": "بِدُونِ", "اي": "أَيِّ", "أي": "أَيِّ", "تعقيدات": "تَعْقِيدَاتٍ"
+                "على": "عَلَى", "كتابة": "كِتَابَةِ", "المحتوى": "الْمُحْتَوَى", "وتنسيق": "وَتَنْسِيقِ", "النصوص": "النُّصُوصِ"
             };
 
             let words = text.split(/(\s+|[\.\،\?\!])/);
-            let result = words.map(word => {
-                let clean = word.trim();
-                if (dictionary[clean]) {
-                    return dictionary[clean];
-                } else if (clean.length > 0 && !/[ً-ْ]/.test(clean)) {
-                    return autoTashkeelPattern(word);
-                }
-                return word;
-            }).join('');
+            let result = words.map(word => dictionary[word.trim()] || autoTashkeelPattern(word)).join('');
 
             input.value = result;
             status.innerText = "✓ تم تشكيل النص بنجاح!";
@@ -363,38 +405,23 @@
 
         function autoTashkeelPattern(word) {
             let w = word;
-            w = w.replace(/^ال/g, "الْ");
-            w = w.replace(/ة$/g, "َةٌ");
-            w = w.replace(/ين$/g, "ِينّ");
-            w = w.replace(/ون$/g, "ُونَ");
-            w = w.replace(/ات$/g, "َاتٍ");
-            w = w.replace(/هم$/g, "هُمْ");
-            w = w.replace(/كم$/g, "كُمْ");
+            w = w.replace(/^ال/g, "الْ").replace(/ة$/g, "َةٌ").replace(/ين$/g, "ِينّ").replace(/ون$/g, "ُونَ");
             return w;
         }
 
         function removeTashkeel() {
             let input = document.getElementById('textInput');
-            let status = document.getElementById('statusMessage');
             input.value = input.value.replace(/[ً-ْ]/g, "");
-            status.innerText = "✓ تمت إزالة التشكيل.";
-            setTimeout(() => { status.innerText = ""; }, 3000);
         }
 
         function cleanText() {
             let input = document.getElementById('textInput');
-            let status = document.getElementById('statusMessage');
             input.value = input.value.replace(/\s+/g, ' ').replace(/(\s)([\.\،\?\!])/g, '$2').trim();
-            status.innerText = "✓ تم تنظيف النص وتنسيقه.";
-            setTimeout(() => { status.innerText = ""; }, 3000);
         }
 
         function copyText(id) {
             let text = document.getElementById(id).value;
-            if (text) {
-                navigator.clipboard.writeText(text);
-                alert("تم نسخ النص بنجاح!");
-            }
+            if (text) { navigator.clipboard.writeText(text); alert("تم نسخ النص بنجاح!"); }
         }
 
         function generateAIContent() {
@@ -403,27 +430,16 @@
             let output = document.getElementById('aiOutput');
             let downloadArea = document.getElementById('scriptDownloadArea');
 
-            if (!prompt) {
-                output.innerText = "يرجى كتابة نص أو فكرة أولاً!";
-                downloadArea.style.display = "none";
-                return;
-            }
-
+            if (!prompt) { output.innerText = "يرجى كتابة نص أو فكرة أولاً!"; return; }
             output.innerText = "جاري التوليد... ⏳";
 
             setTimeout(() => {
                 if (option === 'script') {
-                    output.innerText = `🎬 [سيناريو مقترح حول: ${prompt}]
-
-- المشهد 1: افتتاحية مشوقة تجذب الانتباه حول ${prompt}.
-- المشهد 2: شرح النقطة الأساسية بأسلوب مبسط.
-- الخاتمة: دعوة للمتابعة والإعجاب والتفاعل!`;
+                    output.innerText = `🎬 [سيناريو مقترح حول: ${prompt}]\n\n- المشهد 1: افتتاحية مشوقة تجذب الانتباه حول ${prompt}.\n- المشهد 2: شرح النقطة الأساسية بأسلوب مبسط.\n- الخاتمة: دعوة للمتابعة والإعجاب والتفاعل!`;
                 } else if (option === 'hashtags') {
-                    let cleanWord = prompt.replace(/\s+/g, '_');
-                    output.innerText = `#${cleanWord} #ذكاء_اصطناعي #محتوى_رقمي #تريند #تطور #تكنولوجيا`;
-                } else if (option === 'summary') {
-                    output.innerText = `📌 الملخص السريع:
-النص يناقش موضوع "${prompt}" ويركز على تقديم حلول عملية وبسيطة للمستخدم.`;
+                    output.innerText = `#${prompt.replace(/\s+/g, '_')} #ذكاء_اصطناعي #محتوى_رقمي #تريند`;
+                } else {
+                    output.innerText = `📌 الملخص السريع:\nالنص يناقش موضوع "${prompt}" ويركز على تقديم حلول عملية.`;
                 }
                 downloadArea.style.display = "block";
             }, 600);
@@ -438,22 +454,21 @@
             link.click();
         }
 
+        // توليد صور بأسلوب الكاميرا الخام ومنع التنعيم الرقمي
         function generateImage() {
             let prompt = document.getElementById('imgPrompt').value;
             let imgElement = document.getElementById('generatedImg');
             let status = document.getElementById('imgStatus');
             let downloadBtn = document.getElementById('downloadImgBtn');
 
-            if (!prompt) {
-                alert("يرجى كتابة وصف للصورة أولاً!");
-                return;
-            }
+            if (!prompt) { alert("يرجى كتابة وصف للصورة أولاً!"); return; }
 
             status.style.display = 'block';
             imgElement.style.display = 'none';
             downloadBtn.style.display = 'none';
 
-            let finalPrompt = prompt + ", showing teeth joyful big warm smile, real candid photography, detailed skin pores, DSLR shot, 8k";
+            // إضافة أوامر واقعية الكاميرا وتجنب التنعيم والكرتونية
+            let finalPrompt = prompt + ", raw unedited photo, realistic skin texture with fine pores, natural lighting, shot on 35mm lens, sharp focus, photojournalism style";
             let encodedPrompt = encodeURIComponent(finalPrompt);
 
             let imageUrl = `https://image.pollinations.ai/prompt/${encodedPrompt}?model=flux&nologo=true&width=1024&height=1024&seed=${Math.floor(Math.random() * 9999)}`;
@@ -462,19 +477,31 @@
             imgElement.onload = function() {
                 status.style.display = 'none';
                 imgElement.style.display = 'block';
-                
-                fetch(imageUrl)
-                    .then(response => response.blob())
-                    .then(blob => {
-                        let blobUrl = URL.createObjectURL(blob);
-                        downloadBtn.href = blobUrl;
-                        downloadBtn.style.display = 'inline-flex';
-                    })
-                    .catch(() => {
-                        downloadBtn.href = imageUrl;
-                        downloadBtn.style.display = 'inline-flex';
-                    });
+                fetch(imageUrl).then(r => r.blob()).then(blob => {
+                    downloadBtn.href = URL.createObjectURL(blob);
+                    downloadBtn.style.display = 'inline-flex';
+                });
             };
+        }
+
+        function openPage(page) {
+            let modal = document.getElementById('infoModal');
+            let modalBody = document.getElementById('modalBody');
+            
+            if (page === 'privacy') {
+                modalBody.innerHTML = `<h2>سياسة الخصوصية</h2><br><p>نحن نحترم خصوصية زوارنا. توضح هذه الوثيقة كيفية جمع واستخدام المعلومات الشخصية عبر منصة النص الذكي.</p><br><h3>الإعلانات وكوكيز Google:</h3><p>تستخدم Google ملفات تعريف الارتباط (Cookies) لعرض الإعلانات بناءً على زيارات المستخدمين لمنصتنا والمواقع الأخرى على الإنترنت.</p>`;
+            } else if (page === 'terms') {
+                modalBody.innerHTML = `<h2>شروط الاستخدام</h2><br><p>باستخدامك لمنصة النص الذكي، فإنك توافق على الالتزام بشروط الخدمة واستخدام الأدوات لأغراض مشروعة فقط دون انتهاك حقوق الملكية الفكرية.</p>`;
+            } else if (page === 'about') {
+                modalBody.innerHTML = `<h2>عن المنصة</h2><br><p>منصة النص الذكي هي أداة رقمية مجانية تهدف لمساعدة صُنّاع المحتوى والكُتّاب في معالجة النصوص وتشكيلها وتوليد الأفكار والصور بالذكاء الاصطناعي بسرعة وسهولة.</p>`;
+            } else if (page === 'contact') {
+                modalBody.innerHTML = `<h2>اتصل بنا</h2><br><p>إذا كان لديك أي استفسار، يمكنك التواصل معنا عبر البريد الإلكتروني الرسمى:</p><br><strong>Email: adm185511@gmail.com</strong>`;
+            }
+            modal.style.display = 'flex';
+        }
+
+        function closeModal() {
+            document.getElementById('infoModal').style.display = 'none';
         }
 
         function changeLanguage() {
@@ -484,7 +511,7 @@
                 document.getElementById('t-text-tools').innerText = "Text Processing & Formatting";
                 document.getElementById('t-ai-tools').innerText = "AI Content & Script Generator";
                 document.getElementById('t-img-tools').innerText = "AI Image Generator";
-            } else if (lang === 'ar') {
+            } else {
                 document.getElementById('app-title').innerText = "منصة النص الذكي ⚡";
                 document.getElementById('t-text-tools').innerText = "معالج وتنسيق النصوص";
                 document.getElementById('t-ai-tools').innerText = "مولد المحتوى والسيناريو السريع";
