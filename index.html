@@ -342,7 +342,7 @@
             <div class="image-preview">
                 <p id="mergeStatus" style="display:none; color: var(--text-muted);">جاري تركيب المعالم ودمج المشهد المطلوب بأعلى جودة... ⏳</p>
                 <div class="img-crop-wrapper" id="mergeImgWrapper">
-                    <img id="mergedImg" src="" crossorigin="anonymous" alt="Merged Image">
+                    <img id="mergedImg" alt="Merged Image">
                     <div class="watermark-overlay">Smart Text AI ⚡ - منصة النص الذكي</div>
                 </div>
                 <button id="downloadMergeBtn" style="display:none;" class="dl-btn" onclick="downloadCleanMergedImage()">⬇️ تحميل الصورة المدمجة مع العلامة المائية الذكية</button>
@@ -351,7 +351,7 @@
 
         <div class="card">
             <div class="card-title">🎨 <span id="t-img-tools">مولد الصور فائقة الواقعية (Ultra-4K)</span></div>
-            <textarea id="imgPrompt" placeholder="صف الصورة التي تريد ابتكارها بالإنجليزية أو العربية (مثل: صقر عربي، أسد، منظر طبيعي)..."></textarea>
+            <textarea id="imgPrompt" placeholder="صف الصورة التي تريد ابتكارها (مثال: A high resolution photo of an eagle flying over snowy mountains)..."></textarea>
             
             <label style="font-weight:600; font-size:0.9rem; display:block; margin-bottom:6px;">اختر مقاس الصورة (Aspect Ratio):</label>
             <select class="tool-select" id="genRatio" style="margin-bottom: 12px;">
@@ -365,9 +365,9 @@
                 <button onclick="generateImage()">توليد الصورة الآن 🖼️</button>
             </div>
             <div class="image-preview">
-                <p id="imgStatus" style="display:none; color: var(--text-muted);">جاري المعالجة والتوليد بأعلى جودة 4K... ⏳</p>
+                <p id="imgStatus" style="display:none; color: var(--text-muted);">جاري التوليد جودة عالية... ⏳</p>
                 <div class="img-crop-wrapper" id="imgWrapper">
-                    <img id="generatedImg" src="" crossorigin="anonymous" alt="AI Generated Image">
+                    <img id="generatedImg" alt="AI Generated Image">
                     <div class="watermark-overlay">Smart Text AI ⚡ - منصة النص الذكي</div>
                 </div>
                 <button id="downloadImgBtn" style="display:none;" class="dl-btn" onclick="downloadCleanImage()">⬇️ تحميل الصورة مع العلامة المائية الذكية</button>
@@ -571,6 +571,7 @@
             if (!f1 || !f2) { alert("يرجى رفع الصورتين أولاً لتنفيذ التركيب والدمج!"); return; }
 
             status.style.display = "block";
+            status.innerText = "جاري تركيب المعالم ودمج المشهد المطلوب بأعلى جودة... ⏳";
             wrapper.style.display = "none";
             dlBtn.style.display = "none";
 
@@ -580,15 +581,20 @@
             else if (ratio === "4:3") { width = 1024; height = 768; }
 
             let userAction = customStyle ? customStyle : "friendly interaction and handshake between two people";
-            let mergePrompt = `Photorealistic 4k shot of two people together, ${userAction}, natural lighting, seamless blending, high resolution, correct body proportions`;
+            let mergePrompt = `Photorealistic shot of two people together, ${userAction}, natural lighting, seamless blending, high resolution`;
             let imageUrl = `https://image.pollinations.ai/prompt/${encodeURIComponent(mergePrompt)}?model=flux&nologo=true&nofeed=true&width=${width}&height=${height}&seed=${Math.floor(Math.random() * 999999)}`;
 
-            imgElem.src = imageUrl;
+            imgElem.onerror = function() {
+                status.innerText = "حدث تأخير في الاستجابة من السيرفر الخارجي، اضغط على زر الدمج مرة أخرى.";
+            };
+
             imgElem.onload = function() {
                 status.style.display = "none";
                 wrapper.style.display = "block";
                 dlBtn.style.display = "inline-flex";
             };
+
+            imgElem.src = imageUrl;
         }
 
         function processManualMerge() {
@@ -639,7 +645,6 @@
             downloadGenericImage('mergedImg', 'smart-text-ai-merged.jpg');
         }
 
-        // 🎨 توليد الصور المحسّن بدون تراكم الأوامر المسببة للتشوه
         function generateImage() {
             let prompt = document.getElementById('imgPrompt').value.trim();
             let ratio = document.getElementById('genRatio').value;
@@ -651,6 +656,7 @@
             if (!prompt) { alert("يرجى كتابة وصف للصورة أولاً!"); return; }
 
             status.style.display = 'block';
+            status.innerText = "جاري التوليد ومعالجة الصورة... ⏳";
             imgWrapper.style.display = 'none';
             downloadBtn.style.display = 'none';
 
@@ -659,16 +665,20 @@
             else if (ratio === "16:9") { width = 1344; height = 768; }
             else if (ratio === "4:3") { width = 1024; height = 768; }
 
-            // دمج احترافي ناعم دون تكثيف الكلمات لمنع التشوّه
-            let finalPrompt = `${prompt}, photorealistic, high quality, sharp focus, 4k`;
+            let finalPrompt = `${prompt}, photorealistic, high quality, sharp focus`;
             let imageUrl = `https://image.pollinations.ai/prompt/${encodeURIComponent(finalPrompt)}?model=flux&nologo=true&nofeed=true&width=${width}&height=${height}&seed=${Math.floor(Math.random() * 999999)}`;
 
-            imgElement.src = imageUrl;
+            imgElement.onerror = function() {
+                status.innerText = "حدث تأخير في السيرفر الخارجي، أعد الضغط على زر التوليد مرة أخرى.";
+            };
+
             imgElement.onload = function() {
                 status.style.display = 'none';
                 imgWrapper.style.display = 'block';
                 downloadBtn.style.display = 'inline-flex';
             };
+
+            imgElement.src = imageUrl;
         }
 
         function downloadCleanImage() {
