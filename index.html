@@ -7,9 +7,6 @@
     <meta name="description" content="منصة متكاملة لتنسيق وتشكيل النصوص العربية، تصحيح الأخطاء الإملائية، توليد سيناريو المحتوى، وإنشاء الصور بالذكاء الاصطناعي بدقة عالية.">
     <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;800&display=swap" rel="stylesheet">
     
-    <!-- 💰 شفرة Google AdSense الرئيسية (توضع هنا مستقبلاً) -->
-    <!-- <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-XXXXXXXXXXXXXXXX" crossorigin="anonymous"></script> -->
-
     <style>
         :root {
             --primary: #4f46e5;
@@ -56,41 +53,25 @@
             padding: 20px;
         }
 
-        /* 🎬 شاشة الافتتاح المتحركة */
         #splash-screen {
             position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
+            top: 0; left: 0; width: 100%; height: 100%;
             background: linear-gradient(135deg, #0f172a 0%, #1e1b4b 100%);
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
+            display: flex; flex-direction: column; align-items: center; justify-content: center;
             z-index: 9999;
             transition: opacity 0.6s ease, visibility 0.6s ease;
         }
 
         .splash-logo {
-            font-size: 2.2rem;
-            font-weight: 800;
-            color: #ffffff;
+            font-size: 2.2rem; font-weight: 800; color: #ffffff;
             animation: pulse 1.5s infinite ease-in-out;
-            display: flex;
-            align-items: center;
-            gap: 10px;
+            display: flex; align-items: center; gap: 10px;
         }
 
-        .splash-sub {
-            color: #94a3b8;
-            font-size: 0.95rem;
-            margin-top: 10px;
-        }
+        .splash-sub { color: #94a3b8; font-size: 0.95rem; margin-top: 10px; }
 
         .spinner {
-            width: 40px;
-            height: 40px;
+            width: 40px; height: 40px;
             border: 4px solid rgba(255, 255, 255, 0.1);
             border-top: 4px solid var(--accent);
             border-radius: 50%;
@@ -98,354 +79,102 @@
             animation: spin 0.8s linear infinite;
         }
 
-        @keyframes spin {
-            0% { transform: rotate(0deg); }
-            100% { transform: rotate(360deg); }
-        }
-
-        @keyframes pulse {
-            0%, 100% { transform: scale(1); opacity: 0.9; }
-            50% { transform: scale(1.05); opacity: 1; }
-        }
+        @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
+        @keyframes pulse { 0%, 100% { transform: scale(1); opacity: 0.9; } 50% { transform: scale(1.05); opacity: 1; } }
 
         header {
-            width: 100%;
-            max-width: 900px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 20px;
-            background: var(--card-bg);
-            padding: 15px 20px;
-            border-radius: 16px;
-            box-shadow: 0 4px 20px rgba(0,0,0,0.06);
+            width: 100%; max-width: 900px;
+            display: flex; justify-content: space-between; align-items: center;
+            margin-bottom: 20px; background: var(--card-bg); padding: 15px 20px;
+            border-radius: 16px; box-shadow: 0 4px 20px rgba(0,0,0,0.06);
             border: 1px solid var(--border);
         }
 
-        .header-controls {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-        }
+        .header-controls { display: flex; align-items: center; gap: 10px; }
+        .logo { font-size: 1.4rem; font-weight: 700; color: var(--primary); text-decoration: none; }
 
-        .logo {
-            font-size: 1.4rem;
-            font-weight: 700;
-            color: var(--primary);
-            text-decoration: none;
-        }
-
-        /* 🖼️ غلاف رئيسي جذاب */
         .hero-banner {
-            width: 100%;
-            max-width: 900px;
+            width: 100%; max-width: 900px;
             background: linear-gradient(135deg, #4f46e5 0%, #3b82f6 50%, #06b6d4 100%);
-            color: #ffffff;
-            padding: 35px 25px;
-            border-radius: 20px;
-            text-align: center;
-            margin-bottom: 20px;
-            box-shadow: 0 10px 25px rgba(79, 70, 229, 0.25);
-            position: relative;
-            overflow: hidden;
+            color: #ffffff; padding: 35px 25px; border-radius: 20px; text-align: center;
+            margin-bottom: 20px; box-shadow: 0 10px 25px rgba(79, 70, 229, 0.25);
+            position: relative; overflow: hidden;
         }
 
-        .hero-banner::before {
-            content: "";
-            position: absolute;
-            top: -50%;
-            left: -50%;
-            width: 200%;
-            height: 200%;
-            background: radial-gradient(circle, rgba(255,255,255,0.1) 10%, transparent 20%);
-            background-size: 20px 20px;
-            transform: rotate(15deg);
-        }
+        .hero-title { font-size: 1.8rem; font-weight: 800; margin-bottom: 10px; line-height: 1.3; }
+        .hero-desc { font-size: 1rem; opacity: 0.95; max-width: 650px; margin: 0 auto 20px; line-height: 1.6; }
+        .hero-tags { display: flex; justify-content: center; gap: 10px; flex-wrap: wrap; }
+        .hero-tag { background: rgba(255, 255, 255, 0.25); backdrop-filter: blur(8px); padding: 6px 14px; border-radius: 20px; font-size: 0.85rem; font-weight: 600; border: 1px solid rgba(255, 255, 255, 0.3); }
 
-        .hero-title {
-            font-size: 1.8rem;
-            font-weight: 800;
-            margin-bottom: 10px;
-            line-height: 1.3;
-            position: relative;
-            z-index: 1;
-        }
-
-        .hero-desc {
-            font-size: 1rem;
-            opacity: 0.95;
-            max-width: 650px;
-            margin: 0 auto 20px;
-            line-height: 1.6;
-            position: relative;
-            z-index: 1;
-        }
-
-        .hero-tags {
-            display: flex;
-            justify-content: center;
-            gap: 10px;
-            flex-wrap: wrap;
-            position: relative;
-            z-index: 1;
-        }
-
-        .hero-tag {
-            background: rgba(255, 255, 255, 0.25);
-            backdrop-filter: blur(8px);
-            padding: 6px 14px;
-            border-radius: 20px;
-            font-size: 0.85rem;
-            font-weight: 600;
-            border: 1px solid rgba(255, 255, 255, 0.3);
-        }
-
-        /* 📢 حاويات الإعلانات المصممة لجوجل أدسينس */
         .ad-container {
-            width: 100%;
-            max-width: 900px;
-            background: rgba(255, 255, 255, 0.4);
-            border: 1px dashed var(--border);
-            border-radius: 12px;
-            padding: 10px;
-            text-align: center;
-            margin-bottom: 20px;
-            min-height: 90px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: var(--text-muted);
-            font-size: 0.85rem;
+            width: 100%; max-width: 900px; background: rgba(255, 255, 255, 0.4);
+            border: 1px dashed var(--border); border-radius: 12px; padding: 10px;
+            text-align: center; margin-bottom: 20px; min-height: 90px;
+            display: flex; align-items: center; justify-content: center;
+            color: var(--text-muted); font-size: 0.85rem;
         }
 
-        .lang-select {
-            padding: 8px 12px;
-            border-radius: 8px;
-            border: 1px solid var(--border);
-            outline: none;
-            cursor: pointer;
-            font-size: 0.9rem;
-            background-color: var(--input-bg);
-            color: var(--text-main);
+        .lang-select, .theme-toggle-btn {
+            padding: 8px 12px; border-radius: 8px; border: 1px solid var(--border);
+            outline: none; cursor: pointer; font-size: 0.9rem; background-color: var(--input-bg); color: var(--text-main);
         }
 
-        .theme-toggle-btn {
-            background: var(--input-bg);
-            color: var(--text-main);
-            border: 1px solid var(--border);
-            padding: 8px 12px;
-            border-radius: 8px;
-            cursor: pointer;
-            font-size: 1rem;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
+        .container { width: 100%; max-width: 900px; display: flex; flex-direction: column; gap: 20px; }
+        .card { background: var(--card-bg); padding: 22px; border-radius: 16px; border: 1px solid var(--border); box-shadow: 0 4px 15px rgba(0,0,0,0.03); }
+        .card-title { font-size: 1.15rem; font-weight: 700; margin-bottom: 14px; color: var(--primary); display: flex; align-items: center; gap: 8px; }
 
-        .theme-toggle-btn:hover {
-            background-color: var(--border);
+        textarea, input[type="text"] {
+            width: 100%; padding: 12px; border-radius: 10px; border: 1px solid var(--border);
+            font-size: 1.05rem; margin-bottom: 12px; outline: none; line-height: 1.6;
+            background-color: var(--input-bg); color: var(--text-main);
         }
+        textarea { height: 120px; resize: vertical; }
 
-        .container {
-            width: 100%;
-            max-width: 900px;
-            display: flex;
-            flex-direction: column;
-            gap: 20px;
-        }
-
-        .card {
-            background: var(--card-bg);
-            padding: 22px;
-            border-radius: 16px;
-            border: 1px solid var(--border);
-            box-shadow: 0 4px 15px rgba(0,0,0,0.03);
-        }
-
-        .card-title {
-            font-size: 1.15rem;
-            font-weight: 700;
-            margin-bottom: 14px;
-            color: var(--primary);
-            display: flex;
-            align-items: center;
-            gap: 8px;
-        }
-
-        textarea, input[type="text"], input[type="email"] {
-            width: 100%;
-            padding: 12px;
-            border-radius: 10px;
-            border: 1px solid var(--border);
-            font-size: 1.05rem;
-            margin-bottom: 12px;
-            outline: none;
-            line-height: 1.6;
-            background-color: var(--input-bg);
-            color: var(--text-main);
-        }
-
-        textarea {
-            height: 120px;
-            resize: vertical;
-        }
-
-        textarea:focus, input:focus {
-            border-color: var(--primary);
-            box-shadow: 0 0 0 3px rgba(79, 70, 229, 0.1);
-        }
-
-        .btn-group {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 10px;
-        }
-
+        .btn-group { display: flex; flex-wrap: wrap; gap: 10px; }
         button, .dl-btn {
-            background-color: var(--primary);
-            color: #fff;
-            border: none;
-            padding: 10px 18px;
-            border-radius: 10px;
-            cursor: pointer;
-            font-weight: 600;
-            transition: 0.2s;
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
-            gap: 6px;
-            text-decoration: none;
-            font-size: 0.95rem;
+            background-color: var(--primary); color: #fff; border: none; padding: 10px 18px;
+            border-radius: 10px; cursor: pointer; font-weight: 600; transition: 0.2s;
+            display: inline-flex; align-items: center; justify-content: center; gap: 6px; font-size: 0.95rem;
         }
+        button:hover, .dl-btn:hover { background-color: var(--primary-hover); }
+        .btn-secondary { background-color: var(--input-bg); color: var(--text-main); border: 1px solid var(--border); }
 
-        button:hover, .dl-btn:hover {
-            background-color: var(--primary-hover);
-        }
+        select.tool-select { padding: 10px; border-radius: 10px; border: 1px solid var(--border); font-size: 0.95rem; outline: none; background-color: var(--input-bg); color: var(--text-main); }
+        .output-box { margin-top: 15px; padding: 14px; background: var(--input-bg); border-radius: 10px; border: 1px dashed var(--border); min-height: 50px; white-space: pre-wrap; color: var(--text-main); }
 
-        .btn-secondary {
-            background-color: var(--input-bg);
-            color: var(--text-main);
-            border: 1px solid var(--border);
-        }
-
-        .btn-secondary:hover {
-            background-color: var(--border);
-        }
-
-        select.tool-select {
-            padding: 10px;
-            border-radius: 10px;
-            border: 1px solid var(--border);
-            font-size: 0.95rem;
-            outline: none;
-            background-color: var(--input-bg);
-            color: var(--text-main);
-        }
-
-        .output-box {
-            margin-top: 15px;
-            padding: 14px;
-            background: var(--input-bg);
-            border-radius: 10px;
-            border: 1px dashed var(--border);
-            min-height: 50px;
-            white-space: pre-wrap;
-            color: var(--text-main);
-        }
-
-        .image-preview {
-            margin-top: 15px;
-            text-align: center;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            gap: 12px;
-        }
-
+        .image-preview { margin-top: 15px; text-align: center; display: flex; flex-direction: column; align-items: center; gap: 12px; }
+        
+        /* ✂️ إخفاء الشعار القديم برمجياً من المعاينة */
         .img-crop-wrapper {
             display: none;
             overflow: hidden;
             border-radius: 12px;
             box-shadow: 0 4px 15px rgba(0,0,0,0.1);
             max-width: 100%;
+            height: 480px; /* تحديد ارتفاع لإخفاء الأسفل */
+            position: relative;
         }
 
         .img-crop-wrapper img {
             width: 100%;
-            height: auto;
-            display: block;
+            height: 100%;
+            object-fit: cover;
+            object-position: top; /* محاذاة الصورة للأعلى وقص الشعار السفلي */
         }
 
-        .status-msg {
-            margin-top: 8px;
-            font-size: 0.85rem;
-            color: #10b981;
-            font-weight: 600;
-        }
+        .status-msg { margin-top: 8px; font-size: 0.85rem; color: #10b981; font-weight: 600; }
 
-        footer {
-            margin-top: 30px;
-            padding: 20px;
-            text-align: center;
-            color: var(--text-muted);
-            font-size: 0.85rem;
-            border-top: 1px solid var(--border);
-            width: 100%;
-            max-width: 900px;
-        }
+        footer { margin-top: 30px; padding: 20px; text-align: center; color: var(--text-muted); font-size: 0.85rem; border-top: 1px solid var(--border); width: 100%; max-width: 900px; }
+        .footer-links { display: flex; justify-content: center; gap: 15px; margin-bottom: 10px; flex-wrap: wrap; }
+        .footer-links a { color: var(--primary); text-decoration: none; font-weight: 600; }
 
-        .footer-links {
-            display: flex;
-            justify-content: center;
-            gap: 15px;
-            margin-bottom: 10px;
-            flex-wrap: wrap;
-        }
-
-        .footer-links a {
-            color: var(--primary);
-            text-decoration: none;
-            font-weight: 600;
-        }
-
-        .footer-links a:hover {
-            text-decoration: underline;
-        }
-
-        .modal {
-            display: none;
-            position: fixed;
-            top: 0; left: 0; width: 100%; height: 100%;
-            background: rgba(0,0,0,0.6);
-            align-items: center; justify-content: center;
-            padding: 20px;
-            z-index: 100;
-        }
-
-        .modal-content {
-            background: var(--card-bg);
-            color: var(--text-main);
-            padding: 25px;
-            border-radius: 16px;
-            max-width: 600px;
-            width: 100%;
-            max-height: 80vh;
-            overflow-y: auto;
-            border: 1px solid var(--border);
-        }
-
-        .close-btn {
-            float: left;
-            cursor: pointer;
-            font-weight: bold;
-            font-size: 1.2rem;
-            color: var(--text-muted);
-        }
+        .modal { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.6); align-items: center; justify-content: center; padding: 20px; z-index: 100; }
+        .modal-content { background: var(--card-bg); color: var(--text-main); padding: 25px; border-radius: 16px; max-width: 600px; width: 100%; max-height: 80vh; overflow-y: auto; border: 1px solid var(--border); }
+        .close-btn { float: left; cursor: pointer; font-weight: bold; font-size: 1.2rem; color: var(--text-muted); }
     </style>
 </head>
 <body>
 
-    <!-- 🎬 الشاشة الافتتاحية المتحركة -->
     <div id="splash-screen">
         <div class="splash-logo">منصة النص الذكي ⚡</div>
         <div class="splash-sub">Smart Text AI - أداة المحتوى والذكاء الاصطناعي</div>
@@ -463,7 +192,6 @@
         </div>
     </header>
 
-    <!-- 🖼️ الغلاف الترحيبي الرئيسي -->
     <div class="hero-banner">
         <h1 class="hero-title" id="h-title">منصة الذكاء الاصطناعي الشاملة لتوليد المحتوى والصور</h1>
         <p class="hero-desc" id="h-desc">تشكيل وتصحيح النصوص العربية، إنشاء السيناريوهات الرقمية، وتوليد الصور فائقة الواقعية مجاناً وبسرعة عالية.</p>
@@ -475,14 +203,12 @@
         </div>
     </div>
 
-    <!-- 📢 مساحة إعلانية علوية (Top Banner Ad) -->
     <div class="ad-container">
         <span>مساحة إعلانية - Google AdSense</span>
     </div>
 
     <div class="container">
 
-        <!-- قسم التشكيل والمعالجة وتصحيح الأخطاء -->
         <div class="card">
             <div class="card-title">📝 <span id="t-text-tools">معالج وتصحيح وتنسيق النصوص</span></div>
             <textarea id="textInput" placeholder="أدخل النص هنا لتنسيقه، تصحيح أخطائه، تشكيله، أو تنظيفه..."></textarea>
@@ -495,12 +221,10 @@
             <div id="statusMessage" class="status-msg"></div>
         </div>
 
-        <!-- 📢 مساحة إعلانية وسطية (In-Feed Ad) -->
         <div class="ad-container">
             <span>مساحة إعلانية - Google AdSense</span>
         </div>
 
-        <!-- قسم الذكاء الاصطناعي للمحتوى والسيناريو ووصف الفيديو -->
         <div class="card">
             <div class="card-title">🚀 <span id="t-ai-tools">مولد السيناريو ووصف الفيديو الذكي</span></div>
             <textarea id="aiPrompt" placeholder="اكتب فكرة أو عنوان الفيديو/المحتوى هنا..."></textarea>
@@ -518,7 +242,6 @@
             </div>
         </div>
 
-        <!-- قسم توليد الصور فائقة الدقة بفرشاة العلامة المائية المباشرة -->
         <div class="card">
             <div class="card-title">🎨 <span id="t-img-tools">مولد الصور فائقة الواقعية (Ultra-HD)</span></div>
             <textarea id="imgPrompt" placeholder="صف الصورة التي تريد ابتكارها بالإنجليزية أو العربية..."></textarea>
@@ -536,12 +259,10 @@
 
     </div>
 
-    <!-- 📢 مساحة إعلانية سفلية (Bottom Banner Ad) -->
     <div class="ad-container" style="margin-top: 20px;">
         <span>مساحة إعلانية - Google AdSense</span>
     </div>
 
-    <!-- نافذة السياسات والمعلومات -->
     <div id="infoModal" class="modal">
         <div class="modal-content">
             <span class="close-btn" onclick="closeModal()">&times;</span>
@@ -584,11 +305,9 @@
             let input = document.getElementById('textInput');
             let status = document.getElementById('statusMessage');
             let text = input.value.trim();
-            
             if (!text) { alert("يرجى كتابة نص أولاً!"); return; }
 
             status.innerText = "جاري تشكيل النص بدقة... ⏳";
-
             try {
                 let response = await fetch(`https://api.aladhan.com/v1/tashkeel?text=${encodeURIComponent(text)}`);
                 if (response.ok) {
@@ -601,7 +320,6 @@
                     }
                 }
             } catch (e) {}
-
             fallbackTashkeel(text);
         }
 
@@ -612,15 +330,11 @@
             let dictionary = {
                 "مرحبا": "مَرْحَبًا", "بكم": "بِكُمْ", "في": "فِي", "منصة": "مَنَصَّتِنَا", 
                 "منصةُ": "مَنَصَّةِ", "النص": "النَّصِّ", "الذكي": "الذَّكِيِّ", "الذكية": "الذَّكِيَّةِ",
-                "لتنسيق": "لِتَنْسِيقِ", "وتشكيل": "وَتَشْكِيلِ", "النصوص": "النُّصُوصِ", "على": "عَلَى",
-                "كتابة": "كِتَابَةِ", "المحتوى": "الْمُحْتَوَى", "الجديد": "الْجَدِيدِ", "الذي": "الَّذِي",
-                "يستخدم": "يَسْتَخْدِمُ", "الذكاء": "الذَّكَاءَ", "الاصطناعي": "الاصْطِنَاعِيَّ", "لتطوير": "لِتَطْوِيرِ",
-                "العربي": "الْعَرَبِيِّ", "أهلا": "أَهْلًا", "وسهلا": "وَسَهْلًا", "منصتنا": "مَنَصَّتِنَا"
+                "لتنسيق": "لِتَنْسِيقِ", "وتشكيل": "وَتَشْكِيلِ", "النصوص": "النُّصُوصِ", "على": "عَلَى"
             };
 
             let words = text.split(/(\s+|[\.\،\?\!])/);
             let result = words.map(word => dictionary[word.trim()] || autoTashkeelPattern(word)).join('');
-            
             input.value = result;
             status.innerText = "✓ تم تشكيل النص!";
             setTimeout(() => { status.innerText = ""; }, 3000);
@@ -641,23 +355,19 @@
             let input = document.getElementById('textInput');
             let status = document.getElementById('statusMessage');
             let str = input.value;
-
             if (!str.trim()) { alert("يرجى كتابة نص أولاً لتنظيفه وتصحيحه!"); return; }
 
             str = str.replace(/(.)\1{2,}/g, '$1');
-
             let mistakes = {
                 "علئ": "على", "الئ": "إلى", "فايققه": "فائقة", "فايقه": "فائقة",
                 "سهوللله": "سهولة", "سهوله": "سهولة", "بسررعه": "بسرعة", "بسرعه": "بسرعة",
                 "النوصوص": "النصوص", "منصتننا": "منصتنا", "الجددديده": "الجديدة",
-                "الجديده": "الجديدة", "مرحا": "مرحبا", "بكمم": "بكم", "تساعدككك": "تساعدك", "تنسسسيق": "تنسيق", "وتشكييل": "وتشكيل"
+                "الجديده": "الجديدة", "مرحا": "مرحبا", "بكمم": "بكم"
             };
 
             let words = str.split(/\s+/);
             let correctedWords = words.map(w => mistakes[w] || w);
-            str = correctedWords.join(' ');
-
-            str = str.replace(/\s+/g, ' ').replace(/(\s)([\.\،\?\!])/g, '$2').trim();
+            str = correctedWords.join(' ').replace(/\s+/g, ' ').replace(/(\s)([\.\،\?\!])/g, '$2').trim();
 
             input.value = str;
             status.innerText = "✓ تم تنظيف النص وتصحيح الأخطاء بنجاح!";
@@ -699,7 +409,7 @@
             link.click();
         }
 
-        // توليد الصور مع صرامة الجودة وتقليل النعومة وضبط الاتجاهات الفيزيائية
+        // توليد الصور مع صرامة خوارزميات تقليل التنعيم
         function generateImage() {
             let prompt = document.getElementById('imgPrompt').value;
             let imgElement = document.getElementById('generatedImg');
@@ -713,9 +423,8 @@
             imgWrapper.style.display = 'none';
             downloadBtn.style.display = 'none';
 
-            // توجيه صارم للمحرك لمنع التنعيم والكارتونية وضبط الفيزياء
-            let finalPrompt = prompt + ", raw photography, highly detailed visible skin pores, natural texture, sharp focus, physically correct orientation, surface/sky at top, deep bottom, 8k resolution, no cartoon, no airbrushing, no smooth plastic skin";
-            let imageUrl = `https://image.pollinations.ai/prompt/${encodeURIComponent(finalPrompt)}?model=flux&nologo=true&width=1024&height=1024&seed=${Math.floor(Math.random() * 999999)}`;
+            let finalPrompt = prompt + ", raw photo, natural visible skin pores, authentic skin texture, sharp focus, fine hair details, high contrast lighting, physically correct orientation, surface at top, 8k resolution, no airbrushing, no smooth plastic skin, no blur";
+            let imageUrl = `https://image.pollinations.ai/prompt/${encodeURIComponent(finalPrompt)}?model=flux-real&nologo=true&width=1024&height=1024&seed=${Math.floor(Math.random() * 999999)}`;
 
             imgElement.src = imageUrl;
             imgElement.onload = function() {
@@ -725,7 +434,6 @@
             };
         }
 
-        // إزالة الشعار الخارجي تماماً وتنزيل الصورة بشعارك الرسمي
         function downloadCleanImage() {
             let img = document.getElementById('generatedImg');
             let canvas = document.createElement('canvas');
@@ -734,23 +442,20 @@
             let width = img.naturalWidth || 1024;
             let originalHeight = img.naturalHeight || 1024;
 
-            // اقتطاع 60 بكسل من أسفل الصورة لمحو علامة Pollinations.ai بالكامل
-            let cropHeight = 60;
+            let cropHeight = 65;
             let height = originalHeight - cropHeight;
 
             canvas.width = width;
             canvas.height = height;
 
-            // رسم الجزء النظيف من الصورة
             ctx.drawImage(img, 0, 0, width, height, 0, 0, width, height);
 
-            // طباعة العلامة المائية الخاصة بالمنصة بوضوح في أسفل اليمين
             let boxWidth = 240;
             let boxHeight = 45;
             let x = width - boxWidth - 25;
             let y = height - boxHeight - 25;
 
-            ctx.fillStyle = "rgba(15, 23, 42, 0.75)";
+            ctx.fillStyle = "rgba(15, 23, 42, 0.85)";
             if (ctx.roundRect) {
                 ctx.beginPath();
                 ctx.roundRect(x, y, boxWidth, boxHeight, 10);
@@ -774,7 +479,6 @@
         function openPage(page) {
             let modal = document.getElementById('infoModal');
             let modalBody = document.getElementById('modalBody');
-            
             if (page === 'privacy') {
                 modalBody.innerHTML = `<h2>سياسة الخصوصية</h2><br><p>نحن نحترم خصوصية زوارنا. توضح هذه الوثيقة كيفية جمع واستخدام المعلومات الشخصية عبر منصة النص الذكي.</p><br><h3>الإعلانات وكوكيز Google:</h3><p>تستخدم Google ملفات تعريف الارتباط (Cookies) لعرض الإعلانات بناءً على زيارات المستخدمين لمنصتنا والمواقع الأخرى على الإنترنت.</p>`;
             } else if (page === 'terms') {
@@ -787,9 +491,7 @@
             modal.style.display = 'flex';
         }
 
-        function closeModal() {
-            document.getElementById('infoModal').style.display = 'none';
-        }
+        function closeModal() { document.getElementById('infoModal').style.display = 'none'; }
 
         function changeLanguage() {
             let lang = document.getElementById('languageSelector').value;
