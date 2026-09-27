@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>منصة النص الذكي | Smart Text AI</title>
-    <meta name="description" content="منصة متكاملة لتنسيق وتشكيل النصوص العربية، تصحيح الأخطاء الإملائية، توليد سيناريو المحتوى، دمج وتركيب الأشخاص بالذكاء الاصطناعي، وإنشاء الصور بدقة Ultra-4K.">
+    <meta name="description" content="منصة عالمية متكاملة لتنسيق وتشكيل النصوص العربية، توليد سيناريوهات الريلز والفيديوهات القصيرة، تركيب ودمج الصور، وإنشاء صور فائقة الواقعية بدقة Ultra-4K.">
     <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;800&display=swap" rel="stylesheet">
     
     <style>
@@ -12,24 +12,24 @@
             --primary: #4f46e5;
             --primary-hover: #4338ca;
             --accent: #06b6d4;
-            --bg: #eef2ff;
-            --card-bg: #ffffff;
-            --text-main: #0f172a;
-            --text-muted: #64748b;
-            --border: #cbd5e1;
-            --input-bg: #f8fafc;
-        }
-
-        [data-theme="dark"] {
-            --primary: #6366f1;
-            --primary-hover: #4f46e5;
-            --accent: #22d3ee;
-            --bg: #090d16;
+            --bg: #0f172a;
             --card-bg: #1e293b;
             --text-main: #f8fafc;
             --text-muted: #94a3b8;
             --border: #334155;
-            --input-bg: #0f172a;
+            --input-bg: #090d16;
+        }
+
+        [data-theme="light"] {
+            --primary: #4f46e5;
+            --primary-hover: #4338ca;
+            --accent: #0284c7;
+            --bg: #f8fafc;
+            --card-bg: #ffffff;
+            --text-main: #0f172a;
+            --text-muted: #64748b;
+            --border: #cbd5e1;
+            --input-bg: #f1f5f9;
         }
 
         * {
@@ -42,8 +42,8 @@
 
         body {
             background-color: var(--bg);
-            background-image: radial-gradient(at 0% 0%, rgba(99, 102, 241, 0.15) 0px, transparent 50%),
-                              radial-gradient(at 100% 100%, rgba(6, 182, 212, 0.15) 0px, transparent 50%);
+            background-image: radial-gradient(at 0% 0%, rgba(99, 102, 241, 0.1) 0px, transparent 50%),
+                              radial-gradient(at 100% 100%, rgba(6, 182, 212, 0.1) 0px, transparent 50%);
             background-attachment: fixed;
             color: var(--text-main);
             min-height: 100vh;
@@ -54,189 +54,142 @@
         }
 
         #splash-screen {
-            position: fixed;
-            top: 0; left: 0; width: 100%; height: 100%;
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
             background: linear-gradient(135deg, #0f172a 0%, #1e1b4b 100%);
             display: flex; flex-direction: column; align-items: center; justify-content: center;
-            z-index: 9999;
-            transition: opacity 0.6s ease, visibility 0.6s ease;
+            z-index: 9999; transition: opacity 0.6s ease, visibility 0.6s ease;
         }
 
-        .splash-logo {
-            font-size: 2.2rem; font-weight: 800; color: #ffffff;
-            animation: pulse 1.5s infinite ease-in-out;
-            display: flex; align-items: center; gap: 10px;
-        }
-
-        .splash-sub { color: #94a3b8; font-size: 0.95rem; margin-top: 10px; }
-
-        .spinner {
-            width: 40px; height: 40px;
-            border: 4px solid rgba(255, 255, 255, 0.1);
-            border-top: 4px solid var(--accent);
-            border-radius: 50%;
-            margin-top: 20px;
-            animation: spin 0.8s linear infinite;
-        }
+        .splash-logo { font-size: 2.4rem; font-weight: 800; color: #ffffff; animation: pulse 1.5s infinite ease-in-out; display: flex; align-items: center; gap: 10px; }
+        .splash-sub { color: #94a3b8; font-size: 1rem; margin-top: 10px; }
+        .spinner { width: 45px; height: 45px; border: 4px solid rgba(255, 255, 255, 0.1); border-top: 4px solid var(--accent); border-radius: 50%; margin-top: 20px; animation: spin 0.8s linear infinite; }
 
         @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
         @keyframes pulse { 0%, 100% { transform: scale(1); opacity: 0.9; } 50% { transform: scale(1.05); opacity: 1; } }
 
         .top-time-bar {
-            width: 100%;
-            max-width: 900px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            background: rgba(15, 23, 42, 0.9);
-            color: #22d3ee;
-            padding: 8px 18px;
-            border-radius: 12px;
-            font-size: 0.9rem;
-            font-weight: 700;
-            margin-bottom: 12px;
-            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
-            border: 1px solid rgba(255,255,255,0.1);
+            width: 100%; max-width: 1000px; display: flex; justify-content: space-between; align-items: center;
+            background: var(--card-bg); color: var(--accent); padding: 10px 20px; border-radius: 12px;
+            font-size: 0.9rem; font-weight: 700; margin-bottom: 15px; border: 1px solid var(--border);
         }
 
         header {
-            width: 100%; max-width: 900px;
-            display: flex; justify-content: space-between; align-items: center;
-            margin-bottom: 20px; background: var(--card-bg); padding: 15px 20px;
-            border-radius: 16px; box-shadow: 0 4px 20px rgba(0,0,0,0.06);
-            border: 1px solid var(--border);
+            width: 100%; max-width: 1000px; display: flex; justify-content: space-between; align-items: center;
+            margin-bottom: 20px; background: var(--card-bg); padding: 15px 25px; border-radius: 16px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.06); border: 1px solid var(--border);
         }
 
-        .header-controls { display: flex; align-items: center; gap: 10px; }
-        .logo { font-size: 1.4rem; font-weight: 700; color: var(--primary); text-decoration: none; }
+        .header-controls { display: flex; align-items: center; gap: 12px; }
+        .logo { font-size: 1.5rem; font-weight: 800; color: var(--accent); text-decoration: none; display: flex; align-items: center; gap: 8px; }
 
         .hero-banner {
-            width: 100%; max-width: 900px;
-            background: linear-gradient(135deg, #4f46e5 0%, #3b82f6 50%, #06b6d4 100%);
-            color: #ffffff; padding: 35px 25px; border-radius: 20px; text-align: center;
-            margin-bottom: 20px; box-shadow: 0 10px 25px rgba(79, 70, 229, 0.25);
-            position: relative; overflow: hidden;
+            width: 100%; max-width: 1000px; background: linear-gradient(135deg, #4f46e5 0%, #3b82f6 50%, #06b6d4 100%);
+            color: #ffffff; padding: 40px 30px; border-radius: 20px; text-align: center; margin-bottom: 25px;
+            box-shadow: 0 10px 25px rgba(79, 70, 229, 0.25);
         }
-
-        .hero-title { font-size: 1.8rem; font-weight: 800; margin-bottom: 10px; line-height: 1.3; }
-        .hero-desc { font-size: 1rem; opacity: 0.95; max-width: 650px; margin: 0 auto 20px; line-height: 1.6; }
+        .hero-title { font-size: 2rem; font-weight: 800; margin-bottom: 12px; line-height: 1.3; }
+        .hero-desc { font-size: 1.05rem; opacity: 0.95; max-width: 700px; margin: 0 auto 20px; line-height: 1.6; }
         .hero-tags { display: flex; justify-content: center; gap: 10px; flex-wrap: wrap; }
-        .hero-tag { background: rgba(255, 255, 255, 0.25); backdrop-filter: blur(8px); padding: 6px 14px; border-radius: 20px; font-size: 0.85rem; font-weight: 600; border: 1px solid rgba(255, 255, 255, 0.3); }
+        .hero-tag { background: rgba(255, 255, 255, 0.2); backdrop-filter: blur(8px); padding: 6px 14px; border-radius: 20px; font-size: 0.85rem; font-weight: 600; border: 1px solid rgba(255, 255, 255, 0.3); }
 
         .ad-container {
-            width: 100%; max-width: 900px; background: rgba(255, 255, 255, 0.4);
-            border: 1px dashed var(--border); border-radius: 12px; padding: 10px;
-            text-align: center; margin-bottom: 20px; min-height: 90px;
-            display: flex; align-items: center; justify-content: center;
-            color: var(--text-muted); font-size: 0.85rem;
+            width: 100%; max-width: 1000px; background: rgba(255, 255, 255, 0.03);
+            border: 2px dashed var(--border); border-radius: 14px; padding: 15px;
+            text-align: center; margin-bottom: 20px; color: var(--text-muted); font-size: 0.9rem;
+            display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 5px;
         }
+        .ad-label { font-size: 0.75rem; background: var(--border); padding: 2px 8px; border-radius: 6px; color: var(--text-main); }
 
-        .lang-select, .theme-toggle-btn {
-            padding: 8px 12px; border-radius: 8px; border: 1px solid var(--border);
-            outline: none; cursor: pointer; font-size: 0.9rem; background-color: var(--input-bg); color: var(--text-main);
-        }
+        .container { width: 100%; max-width: 1000px; display: flex; flex-direction: column; gap: 25px; }
+        .card { background: var(--card-bg); padding: 25px; border-radius: 18px; border: 1px solid var(--border); box-shadow: 0 4px 20px rgba(0,0,0,0.04); }
+        .card-title { font-size: 1.25rem; font-weight: 700; margin-bottom: 15px; color: var(--accent); display: flex; align-items: center; gap: 10px; }
 
-        .container { width: 100%; max-width: 900px; display: flex; flex-direction: column; gap: 20px; }
-        .card { background: var(--card-bg); padding: 22px; border-radius: 16px; border: 1px solid var(--border); box-shadow: 0 4px 15px rgba(0,0,0,0.03); }
-        .card-title { font-size: 1.15rem; font-weight: 700; margin-bottom: 14px; color: var(--primary); display: flex; align-items: center; gap: 8px; }
-
-        textarea, input[type="text"], select {
-            width: 100%; padding: 12px; border-radius: 10px; border: 1px solid var(--border);
-            font-size: 1.05rem; margin-bottom: 12px; outline: none; line-height: 1.6;
+        textarea, input[type="text"], input[type="email"], input[type="password"], select {
+            width: 100%; padding: 14px; border-radius: 12px; border: 1px solid var(--border);
+            font-size: 1.05rem; margin-bottom: 14px; outline: none; line-height: 1.6;
             background-color: var(--input-bg); color: var(--text-main);
         }
-        textarea { height: 120px; resize: vertical; }
+        textarea { height: 130px; resize: vertical; }
 
-        .btn-group { display: flex; flex-wrap: wrap; gap: 10px; }
+        .btn-group { display: flex; flex-wrap: wrap; gap: 12px; }
         button, .dl-btn {
-            background-color: var(--primary); color: #fff; border: none; padding: 10px 18px;
-            border-radius: 10px; cursor: pointer; font-weight: 600; transition: 0.2s;
-            display: inline-flex; align-items: center; justify-content: center; gap: 6px; font-size: 0.95rem;
+            background-color: var(--primary); color: #fff; border: none; padding: 12px 22px;
+            border-radius: 12px; cursor: pointer; font-weight: 700; transition: 0.2s;
+            display: inline-flex; align-items: center; justify-content: center; gap: 8px; font-size: 1rem;
         }
-        button:hover, .dl-btn:hover { background-color: var(--primary-hover); }
+        button:hover, .dl-btn:hover { background-color: var(--primary-hover); transform: translateY(-1px); }
         .btn-secondary { background-color: var(--input-bg); color: var(--text-main); border: 1px solid var(--border); }
 
-        select.tool-select { padding: 10px; border-radius: 10px; border: 1px solid var(--border); font-size: 0.95rem; outline: none; background-color: var(--input-bg); color: var(--text-main); }
-        .output-box { margin-top: 15px; padding: 14px; background: var(--input-bg); border-radius: 10px; border: 1px dashed var(--border); min-height: 50px; white-space: pre-wrap; color: var(--text-main); }
+        select.tool-select { padding: 12px; border-radius: 12px; border: 1px solid var(--border); font-size: 1rem; outline: none; background-color: var(--input-bg); color: var(--text-main); }
+        .output-box { margin-top: 15px; padding: 16px; background: var(--input-bg); border-radius: 12px; border: 1px dashed var(--border); min-height: 60px; white-space: pre-wrap; color: var(--text-main); font-size: 1.05rem; }
 
-        .image-preview { margin-top: 15px; text-align: center; display: flex; flex-direction: column; align-items: center; gap: 12px; }
-        
+        .image-preview { margin-top: 15px; text-align: center; display: flex; flex-direction: column; align-items: center; gap: 14px; }
         .img-crop-wrapper {
-            display: none;
-            position: relative;
-            overflow: hidden;
-            border-radius: 12px;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
-            max-width: 100%;
+            display: none; position: relative; overflow: hidden; border-radius: 14px;
+            box-shadow: 0 6px 20px rgba(0,0,0,0.15); max-width: 100%;
         }
-
-        .img-crop-wrapper img {
-            width: 100%;
-            height: auto;
-            display: block;
-        }
+        .img-crop-wrapper img { width: 100%; height: auto; display: block; }
 
         .watermark-overlay {
-            position: absolute;
-            bottom: 0;
-            left: 0;
-            width: 100%;
-            height: 48px;
+            position: absolute; bottom: 0; left: 0; width: 100%; height: 50px;
             background: linear-gradient(to top, rgba(15, 23, 42, 0.98), rgba(15, 23, 42, 0.85));
-            color: #22d3ee;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 0.95rem;
-            font-weight: 800;
-            letter-spacing: 0.5px;
-            pointer-events: none;
-            backdrop-filter: blur(4px);
+            color: #22d3ee; display: flex; align-items: center; justify-content: center;
+            font-size: 1rem; font-weight: 800; letter-spacing: 0.5px; pointer-events: none; backdrop-filter: blur(4px);
         }
 
-        .file-input-group {
-            display: flex;
-            gap: 10px;
-            margin-bottom: 12px;
-            flex-wrap: wrap;
+        .pricing-grid {
+            display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 20px; margin-top: 10px;
+        }
+        .pricing-card {
+            background: var(--input-bg); border: 2px solid var(--border); border-radius: 16px;
+            padding: 25px; display: flex; flex-direction: column; justify-content: space-between; position: relative;
+        }
+        .pricing-card.featured { border-color: var(--primary); box-shadow: 0 8px 25px rgba(79, 70, 229, 0.2); }
+        .pricing-badge {
+            position: absolute; top: -12px; right: 20px; background: var(--primary); color: #fff;
+            padding: 4px 12px; font-size: 0.8rem; font-weight: 700; border-radius: 20px;
+        }
+        .price { font-size: 1.8rem; font-weight: 800; color: var(--accent); margin: 15px 0; }
+        .pricing-features { list-style: none; margin-bottom: 20px; text-align: right; }
+        .pricing-features li { padding: 8px 0; font-size: 0.95rem; border-bottom: 1px solid var(--border); display: flex; align-items: center; gap: 8px; }
+
+        .login-btn-nav {
+            background: linear-gradient(135deg, #4f46e5, #06b6d4); color: #fff; border: none;
+            padding: 8px 16px; border-radius: 10px; font-weight: 700; cursor: pointer; font-size: 0.9rem;
+            display: inline-flex; align-items: center; gap: 6px; box-shadow: 0 4px 12px rgba(79, 70, 229, 0.3);
+        }
+        .login-btn-nav:hover { opacity: 0.9; }
+
+        /* نافذة تسجيل الدخول مع الصورة الفنية المتحركة للذكاء الاصطناعي */
+        .modal { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.75); z-index: 10000; align-items: center; justify-content: center; padding: 20px; backdrop-filter: blur(6px); }
+        .modal-box { 
+            background: var(--card-bg); color: var(--text-main); width: 100%; max-width: 500px; 
+            border-radius: 20px; border: 1px solid var(--border); box-shadow: 0 15px 40px rgba(0,0,0,0.4); 
+            position: relative; overflow: hidden; display: flex; flex-direction: column; 
+        }
+        .login-banner-img {
+            width: 100%; height: 180px; object-fit: cover;
+            border-bottom: 2px solid var(--border);
+            filter: brightness(0.9);
+        }
+        .modal-content-pad { padding: 25px; }
+        .close-modal { position: absolute; top: 15px; left: 20px; font-size: 1.6rem; cursor: pointer; color: #fff; font-weight: bold; background: rgba(0,0,0,0.5); width: 35px; height: 35px; border-radius: 50%; display: flex; align-items: center; justify-content: center; z-index: 10; }
+
+        .theme-toggle-btn, .lang-select {
+            padding: 8px 14px; border-radius: 10px; border: 1px solid var(--border);
+            outline: none; cursor: pointer; font-size: 0.95rem; background-color: var(--input-bg); color: var(--text-main);
         }
 
-        .file-box {
-            flex: 1;
-            min-width: 200px;
-            background: var(--input-bg);
-            border: 1px dashed var(--border);
-            padding: 12px;
-            border-radius: 10px;
-            text-align: center;
-        }
-
-        .file-box input[type="file"] { display: none; }
-
-        .file-label {
-            cursor: pointer;
-            color: var(--primary);
-            font-weight: 600;
-            font-size: 0.9rem;
-            display: block;
-        }
-
-        .status-msg { margin-top: 8px; font-size: 0.85rem; color: #10b981; font-weight: 600; }
-
-        footer { margin-top: 30px; padding: 20px; text-align: center; color: var(--text-muted); font-size: 0.85rem; border-top: 1px solid var(--border); width: 100%; max-width: 900px; }
-        .footer-links { display: flex; justify-content: center; gap: 15px; margin-bottom: 10px; flex-wrap: wrap; }
-        .footer-links a { color: var(--primary); text-decoration: none; font-weight: 600; }
-
-        .modal { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.6); align-items: center; justify-content: center; padding: 20px; z-index: 100; }
-        .modal-content { background: var(--card-bg); color: var(--text-main); padding: 25px; border-radius: 16px; max-width: 600px; width: 100%; max-height: 80vh; overflow-y: auto; border: 1px solid var(--border); }
-        .close-btn { float: left; cursor: pointer; font-weight: bold; font-size: 1.2rem; color: var(--text-muted); }
+        footer { margin-top: 40px; padding: 25px; text-align: center; color: var(--text-muted); font-size: 0.9rem; border-top: 1px solid var(--border); width: 100%; max-width: 1000px; }
+        .footer-links { display: flex; justify-content: center; gap: 20px; margin-bottom: 12px; flex-wrap: wrap; }
+        .footer-links a { color: var(--accent); text-decoration: none; font-weight: 600; }
     </style>
 </head>
 <body>
 
     <div id="splash-screen">
-        <div class="splash-logo">منصة النص الذكي ⚡</div>
-        <div class="splash-sub">Smart Text AI - أداة المحتوى والذكاء الاصطناعي</div>
+        <div class="splash-logo">Smart Text AI ⚡</div>
+        <div class="splash-sub">منصة الذكاء الاصطناعي العالمية المتقدمة</div>
         <div class="spinner"></div>
     </div>
 
@@ -246,9 +199,10 @@
     </div>
 
     <header>
-        <a href="#" class="logo" id="app-title">منصة النص الذكي ⚡</a>
+        <a href="#" class="logo">Smart Text AI ⚡</a>
         <div class="header-controls">
-            <button class="theme-toggle-btn" onclick="toggleTheme()" id="themeBtn" title="تغيير الوضع">🌙</button>
+            <button class="login-btn-nav" onclick="openLoginModal()">👤 تسجيل الدخول</button>
+            <button class="theme-toggle-btn" onclick="toggleTheme()" id="themeBtn">🌙</button>
             <select class="lang-select" id="languageSelector" onchange="changeLanguage()">
                 <option value="ar">العربية 🇸🇦</option>
                 <option value="en">English 🇺🇸</option>
@@ -257,115 +211,72 @@
     </header>
 
     <div class="hero-banner">
-        <h1 class="hero-title" id="h-title">منصة الذكاء الاصطناعي الشاملة لتوليد المحتوى والصور</h1>
-        <p class="hero-desc" id="h-desc">تشكيل وتصحيح النصوص العربية، إنشاء السيناريوهات الرقمية، تركيب ودمج الأشخاص مع بعضهم بالذكاء الاصطناعي وتوليد الصور Ultra-4K بسرعة فائقة.</p>
+        <h1 class="hero-title">منصتك الاحترافية الشاملة للذكاء الاصطناعي وصناعة المحتوى</h1>
+        <p class="hero-desc">تشكيل وتصحيح النصوص العربية بدقة مطلقة، توليد سيناريوهات وأوامر فيديوهات الريلز والتيك توك، وابتكار صور فائقة الواقعية بدقة Ultra-4K.</p>
         <div class="hero-tags">
-            <span class="hero-tag">✨ تشكيل دقيق</span>
-            <span class="hero-tag">🧹 تصحيح الأخطاء</span>
-            <span class="hero-tag">🎬 سيناريو فيديو</span>
-            <span class="hero-tag">🤝 تركيب الأشخاص</span>
-            <span class="hero-tag">🎨 صور 4K</span>
+            <span class="hero-tag">✨ تشكيل ذكي دقيق</span>
+            <span class="hero-tag">🎬 سيناريو ريلز وتيك توك</span>
+            <span class="hero-tag">🎨 صور فائقة الدقة 4K</span>
+            <span class="hero-tag">💎 خطط احترافية</span>
         </div>
     </div>
 
+    <!-- إعلان جوجل مخصص لدعم الخطة المجانية -->
     <div class="ad-container">
-        <span>مساحة إعلانية - Google AdSense</span>
+        <span class="ad-label">إعلان ممول / Google AdSense</span>
+        <p style="font-weight: 600; color: var(--text-main); margin-top: 5px;">🌟 احصل على استضافة مواقع وتصاميم جاهزة بخصم 50% اليوم عبر الإعلانات الراعية للمنصة المجانية!</p>
     </div>
 
     <div class="container">
 
+        <!-- 1. قسم النصوص -->
         <div class="card">
-            <div class="card-title">📝 <span id="t-text-tools">معالج وتصحيح وتنسيق النصوص</span></div>
-            <textarea id="textInput" placeholder="أدخل النص هنا لتنسيقه، تصحيح أخطائه، تشكيله، أو تنظيفه..."></textarea>
+            <div class="card-title">📝 معالج وتصحيح وتشكيل النصوص العربية</div>
+            <textarea id="textInput" placeholder="أدخل النص هنا لتنسيقه، تصحيح أخطائه، تشكيله بالكامل، أو تنظيفه بدقة متناهية..."></textarea>
             <div class="btn-group">
                 <button onclick="applyTashkeel()">✨ تشكيل النص بالكامل</button>
                 <button onclick="cleanText()" class="btn-secondary">🧹 تصحيح الأخطاء والتنسيق</button>
                 <button onclick="removeTashkeel()" class="btn-secondary">❌ إزالة التشكيل</button>
                 <button onclick="copyText('textInput')" class="btn-secondary">📋 نسخ النص</button>
             </div>
-            <div id="statusMessage" class="status-msg"></div>
+            <div id="statusMessage" style="margin-top:10px; font-weight:600; color:#10b981; font-size:0.9rem;"></div>
         </div>
 
+        <!-- إعلان جوجل وسطي -->
         <div class="ad-container">
-            <span>مساحة إعلانية - Google AdSense</span>
+            <span class="ad-label">Google AdSense - مساحة إعلانية</span>
+            <p style="font-size: 0.85rem;">الإعلانات تساعدنا على إبقاء الخطة المجانية متاحة للجميع بدون رسوم.</p>
         </div>
 
+        <!-- 2. مولد سيناريو الريلز والفيديوهات القصيرة -->
         <div class="card">
-            <div class="card-title">🚀 <span id="t-ai-tools">مولد السيناريو ووصف الفيديو الذكي</span></div>
-            <textarea id="aiPrompt" placeholder="اكتب فكرة أو عنوان الفيديو/المحتوى هنا..."></textarea>
+            <div class="card-title">🎬 مولد سيناريو وأوامر فيديوهات الريلز والتيك توك (Reels & Shorts)</div>
+            <p style="font-size:0.95rem; color: var(--text-muted); margin-bottom: 12px;">اكتب فكرة الفيديو القصير، وسنقوم بتوليد سيناريو احترافي مقسم مع خطاف جذب انتباه وتعليق صوتي وأوامر فيديو جاهزة:</p>
+            <textarea id="reelPrompt" placeholder="اكتب فكرة أو موضوع الفيديو (مثال: أسرار نجاح المشاريع الرقمية في 2026)..."></textarea>
             <div class="btn-group">
-                <select class="tool-select" id="aiOption">
-                    <option value="script">🎬 سيناريو فيديو نصي ووصف حركي (Script & AI Video Prompt)</option>
-                    <option value="hashtags">🏷️ هاشتاجات متوافقة ومستهدفة</option>
-                    <option value="summary">📌 تلخيص وتحليل سريع</option>
-                </select>
-                <button onclick="generateAIContent()">توليد المحتوى والسيناريو ✨</button>
+                <button onclick="generateReelScript()">إنشاء سيناريو الريلز الاحترافي 🚀</button>
+                <button onclick="copyText('reelOutput')" class="btn-secondary">📋 نسخ السيناريو</button>
             </div>
-            <div class="output-box" id="aiOutput">النتيجة ستظهر هنا...</div>
-            <div style="margin-top: 10px; display: none;" id="scriptDownloadArea">
-                <button onclick="downloadScriptText()" class="btn-secondary">📥 تنزيل النص المولد (.txt)</button>
-            </div>
+            <div class="output-box" id="reelOutput">السيناريو وأوامر الفيديو ستظهر هنا...</div>
         </div>
 
+        <!-- 3. مولد الصور Ultra-4K -->
         <div class="card">
-            <div class="card-title">🤝 <span>أداة تركيب ودمج الأشخاص والصور بالذكاء الاصطناعي</span></div>
-            <p style="font-size:0.9rem; color: var(--text-muted); margin-bottom: 12px;">قم برفع صورة الشخص الأول والشخص الثاني واكتب الأمر المناسب (مثل: مصافحة رئيس، احتضان صديق عزيز...):</p>
+            <div class="card-title">🎨 مولد الصور فائقة الواقعية (Ultra-4K)</div>
+            <textarea id="imgPrompt" placeholder="صف الصورة التي تريد ابتكارها بدقة باللغة الإنجليزية (مثال: Cinematic 4k photo of a futuristic city)..."></textarea>
             
-            <div class="file-input-group">
-                <div class="file-box">
-                    <label class="file-label" for="imgFile1">📁 صورة الشخص الأول</label>
-                    <input type="file" id="imgFile1" accept="image/*" onchange="updateFileName(1)">
-                    <span id="fileName1" style="font-size:0.8rem; color:var(--text-muted);">لم يتم اختيار ملف</span>
-                </div>
-                <div class="file-box">
-                    <label class="file-label" for="imgFile2">📁 صورة الشخص الثاني / المرفقة</label>
-                    <input type="file" id="imgFile2" accept="image/*" onchange="updateFileName(2)">
-                    <span id="fileName2" style="font-size:0.8rem; color:var(--text-muted);">لم يتم اختيار ملف</span>
-                </div>
-            </div>
-
-            <label style="font-weight:600; font-size:0.9rem; display:block; margin-bottom:6px;">اختر مقاس الصورة الناتجة (Aspect Ratio):</label>
-            <select class="tool-select" id="mergeRatio" style="margin-bottom: 12px;">
-                <option value="1:1">1:1 (مربع - إنستغرام / فيسبوك)</option>
-                <option value="9:16">9:16 (طولي - Reels / TikTok / Story)</option>
-                <option value="16:9">16:9 (عرضي - فيديو يوتيوب / شاشات)</option>
-                <option value="4:3">4:3 (مقاس قياسي)</option>
-            </select>
-
-            <textarea id="mergeStylePrompt" placeholder="اكتب وصف المشهد المطلوب بالدقة (مثال: سلام ومصافحة حارة مع الرئيس في مكتب رسمي / احتضان أخوي دافئ في حديقة جميلة)..."></textarea>
-
-            <div class="btn-group">
-                <button onclick="processAIMerge()">تركيب ودمج المشهد بالذكاء الاصطناعي 🤝✨</button>
-                <button onclick="processManualMerge()" class="btn-secondary">دمج يدوي كولاج 🛠️</button>
-            </div>
-
-            <div class="image-preview">
-                <p id="mergeStatus" style="display:none; color: var(--primary); font-weight: 700;">جاري تجهيز الصورة وتحميلها، يرجى الانتظار قليلاً... ⏳</p>
-                <div class="img-crop-wrapper" id="mergeImgWrapper">
-                    <img id="mergedImg" alt="Merged Image">
-                    <div class="watermark-overlay">Smart Text AI ⚡ - منصة النص الذكي</div>
-                </div>
-                <button id="downloadMergeBtn" style="display:none;" class="dl-btn" onclick="downloadCleanMergedImage()">⬇️ تحميل الصورة المدمجة مع العلامة المائية الذكية</button>
-            </div>
-        </div>
-
-        <div class="card">
-            <div class="card-title">🎨 <span id="t-img-tools">مولد الصور فائقة الواقعية (Ultra-4K)</span></div>
-            <textarea id="imgPrompt" placeholder="صف الصورة التي تريد ابتكارها (مثال: عائلة مكونة من رجل وامرأة وفتاه وطفل في حديقة)..."></textarea>
-            
-            <label style="font-weight:600; font-size:0.9rem; display:block; margin-bottom:6px;">اختر مقاس الصورة (Aspect Ratio):</label>
-            <select class="tool-select" id="genRatio" style="margin-bottom: 12px;">
+            <label style="font-weight:600; font-size:0.95rem; display:block; margin-bottom:6px;">اختر مقاس الصورة (Aspect Ratio):</label>
+            <select class="tool-select" id="genRatio" style="margin-bottom: 14px;">
                 <option value="1:1">1:1 (مربع - 1024x1024)</option>
-                <option value="9:16">9:16 (طولي - 768x1344 - TikTok / Reels)</option>
+                <option value="9:16">9:16 (طولي - 768x1344 - Reels / TikTok)</option>
                 <option value="16:9">16:9 (عرضي - 1344x768 - YouTube)</option>
-                <option value="4:3">4:3 (قياسي - 1024x768)</option>
             </select>
 
             <div class="btn-group">
                 <button onclick="generateImage()">توليد الصورة الآن 🖼️</button>
             </div>
             <div class="image-preview">
-                <p id="imgStatus" style="display:none; color: var(--primary); font-weight: 700;">جاري تجهيز الصورة وتحميلها، يرجى الانتظار قليلاً... ⏳</p>
+                <p id="imgStatus" style="display:none; color: var(--accent); font-weight: 700;">جاري تجهيز الصورة وتحميلها بأعلى جودة، يرجى الانتظار قليلاً... ⏳</p>
                 <div class="img-crop-wrapper" id="imgWrapper">
                     <img id="generatedImg" alt="AI Generated Image">
                     <div class="watermark-overlay">Smart Text AI ⚡ - منصة النص الذكي</div>
@@ -374,27 +285,102 @@
             </div>
         </div>
 
+        <!-- 4. خطط الأسعار والاشتراكات -->
+        <div class="card" id="pricing-section">
+            <div class="card-title">💎 خطط الأسعار والاشتراكات (بدون إعلانات نهائياً للخطط المدفوعة)</div>
+            <p style="font-size:0.95rem; color: var(--text-muted); margin-bottom: 20px;">اختر الخطة الاحترافية لتجربة خالية تماماً من الإعلانات مع قوة مطلقة في التوليد والسرعة:</p>
+            
+            <div class="pricing-grid">
+                <!-- الخطة المجانية -->
+                <div class="pricing-card">
+                    <div>
+                        <h3>الخطة المجانية</h3>
+                        <div class="price">مجاناً</div>
+                        <ul class="pricing-features">
+                            <li>✓ معالجة وتشكيل النصوص الأساسية</li>
+                            <li>✓ مولد سيناريو الريلز القياسي</li>
+                            <li>✓ توليد الصور الأساسية</li>
+                            <li>⚠️ تحتوي على إعلانات جوجل الداعمة</li>
+                        </ul>
+                    </div>
+                    <button class="btn-secondary" style="width: 100%;">خطتك الحالية</button>
+                </div>
+
+                <!-- الخطة الاحترافية -->
+                <div class="pricing-card featured">
+                    <div class="pricing-badge">الأكثر طلباً</div>
+                    <div>
+                        <h3>الخطة الاحترافية (Pro)</h3>
+                        <div class="price">$15 <span style="font-size:1rem; color:var(--text-muted);">/ شهرياً</span></div>
+                        <ul class="pricing-features">
+                            <li>✨ **بدون إعلانات نهائياً (Ad-Free)**</li>
+                            <li>✓ توليد صور Ultra-4K خالية من التشوهات</li>
+                            <li>✓ سرعة فائقة جداً في المعالجة والتوليد</li>
+                            <li>✓ دمج الصور والأشخاص بالذكاء الاصطناعي</li>
+                            <li>✓ دعم كامل لفيديوهات الريلز والـ Shorts</li>
+                        </ul>
+                    </div>
+                    <div style="display:flex; gap:8px;">
+                        <button onclick="alert('للاشتراك عبر PayPal بسعر $15، يرجى التحويل إلى الحساب: adm185511@gmail.com وإرسال الإيصال للتفعيل الفوري.')" style="flex:1; background:#0070ba;">PayPal 💳</button>
+                        <button onclick="alert('للاشتراك عبر Binance (USDT)، يرجى التحويل على المحفظة ولصق الإيصال للدعم لتفعيل حسابك فوراً.')" style="flex:1; background:#f0b90b; color:#000;">Binance 🪙</button>
+                    </div>
+                </div>
+
+                <!-- خطة الشركات -->
+                <div class="pricing-card">
+                    <div>
+                        <h3>خطة الأعمال (Business)</h3>
+                        <div class="price">$35 <span style="font-size:1rem; color:var(--text-muted);">/ شهرياً</span></div>
+                        <ul class="pricing-features">
+                            <li>🚀 **بدون إعلانات نهائياً (VIP)**</li>
+                            <li>✓ استخدام غير محدود تماماً (Unlimited)</li>
+                            <li>✓ أولوية قصوى في خوادم التوليد العالمية</li>
+                            <li>✓ إزالة العلامة المائية بالكامل</li>
+                            <li>✓ دعم مباشر وخاص 24/7</li>
+                        </ul>
+                    </div>
+                    <button onclick="alert('تواصل معنا عبر البريد: adm185511@gmail.com لتفعيل خطة الأعمال والشركات بسعر $35.')" style="width: 100%;">اشترك الآن 🚀</button>
+                </div>
+            </div>
+        </div>
+
     </div>
 
-    <div class="ad-container" style="margin-top: 20px;">
-        <span>مساحة إعلانية - Google AdSense</span>
-    </div>
-
-    <div id="infoModal" class="modal">
-        <div class="modal-content">
-            <span class="close-btn" onclick="closeModal()">&times;</span>
-            <div id="modalBody"></div>
+    <!-- نافذة تسجيل الدخول الاحترافية المزودة بصورة الذكاء الاصطناعي (فتاة بسماعات ولابتوب) -->
+    <div id="loginModal" class="modal">
+        <div class="modal-box">
+            <span class="close-modal" onclick="closeLoginModal()">&times;</span>
+            <img class="login-banner-img" src="https://image.pollinations.ai/prompt/A%20professional%20young%20woman%20wearing%20modern%20computer%20headphones%20looking%20at%20laptop%20screen%2C%20futuristic%20AI%20workspace%2C%20cinematic%20lighting%2C%20photorealistic%204k?nologo=true&nofeed=true" alt="Smart AI User">
+            
+            <div class="modal-content-pad">
+                <h2 style="color: var(--accent); margin-bottom: 8px; text-align: center; font-size: 1.4rem;">تسجيل الدخول إلى Smart Text AI ⚡</h2>
+                <p style="color: var(--text-muted); font-size: 0.85rem; text-align: center; margin-bottom: 20px;">سجل دخولك للوصول إلى لوحة التحكم والخطط الخاصة بك:</p>
+                
+                <form onsubmit="handleLogin(event)">
+                    <label style="font-size: 0.85rem; font-weight: 600;">البريد الإلكتروني:</label>
+                    <input type="email" id="loginEmail" placeholder="name@example.com" required style="margin-top: 4px; padding: 10px;">
+                    
+                    <label style="font-size: 0.85rem; font-weight: 600;">كلمة المرور:</label>
+                    <input type="password" id="loginPass" placeholder="••••••••" required style="margin-top: 4px; padding: 10px;">
+                    
+                    <button type="submit" style="width: 100%; margin-top: 10px; padding: 11px;">تسجيل الدخول الآمن 🔒</button>
+                </form>
+                
+                <p style="text-align: center; margin-top: 15px; font-size: 0.85rem; color: var(--text-muted);">
+                    ليس لديك حساب؟ <a href="#pricing-section" onclick="closeLoginModal()" style="color: var(--accent); text-decoration: none; font-weight: bold;">اختر خطتك الآن</a>
+                </p>
+            </div>
         </div>
     </div>
 
     <footer>
         <div class="footer-links">
-            <a href="javascript:void(0)" onclick="openPage('about')">عن المنصة</a> |
-            <a href="javascript:void(0)" onclick="openPage('privacy')">سياسة الخصوصية</a> |
-            <a href="javascript:void(0)" onclick="openPage('terms')">شروط الاستخدام</a> |
-            <a href="javascript:void(0)" onclick="openPage('contact')">اتصل بنا</a>
+            <a href="javascript:void(0)" onclick="alert('منصة Smart Text AI هي الحل الأمثل لصُنّاع المحتوى والمطورين.')">عن المنصة</a> |
+            <a href="javascript:void(0)" onclick="alert('جميع الحقوق محفوظة. نلتزم بحماية خصوصية بيانات المستخدمين.')">سياسة الخصوصية</a> |
+            <a href="javascript:void(0)" onclick="alert('استخدام الأدوات يخضع لشروط الخدمة والاستخدام المشروع.')">شروط الاستخدام</a> |
+            <a href="javascript:void(0)" onclick="alert('تواصل معنا عبر البريد: adm185511@gmail.com')">اتصل بنا</a>
         </div>
-        <p>© 2026 جميع الحقوق محفوظة - منصة النص الذكي</p>
+        <p>© 2026 جميع الحقوق محفوظة - منصة النص الذكي Smart Text AI ⚡</p>
     </footer>
 
     <script>
@@ -418,9 +404,7 @@
                 hours = hours ? hours : 12;
                 minutes = minutes < 10 ? '0' + minutes : minutes;
                 seconds = seconds < 10 ? '0' + seconds : seconds;
-
                 document.getElementById('liveClock').innerText = `${hours}:${minutes}:${seconds} ${ampm}`;
-
                 const options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
                 document.getElementById('liveDate').innerText = now.toLocaleDateString('ar-EG', options);
             }
@@ -431,22 +415,23 @@
         function toggleTheme() {
             const currentTheme = document.documentElement.getAttribute('data-theme');
             const themeBtn = document.getElementById('themeBtn');
-            if (currentTheme === 'dark') {
-                document.documentElement.setAttribute('data-theme', 'light');
+            if (currentTheme === 'light') {
+                document.documentElement.setAttribute('data-theme', 'dark');
                 themeBtn.innerText = '🌙';
             } else {
-                document.documentElement.setAttribute('data-theme', 'dark');
+                document.documentElement.setAttribute('data-theme', 'light');
                 themeBtn.innerText = '☀️';
             }
         }
 
-        function updateFileName(num) {
-            let fileInput = document.getElementById(`imgFile${num}`);
-            let fileNameSpan = document.getElementById(`fileName${num}`);
-            if (fileInput.files.length > 0) {
-                fileNameSpan.innerText = "✓ " + fileInput.files[0].name;
-                fileNameSpan.style.color = "#10b981";
-            }
+        function openLoginModal() { document.getElementById('loginModal').style.display = 'flex'; }
+        function closeLoginModal() { document.getElementById('loginModal').style.display = 'none'; }
+
+        function handleLogin(e) {
+            e.preventDefault();
+            let email = document.getElementById('loginEmail').value;
+            alert(`أهلاً بك يا ${email}! تم تسجيل دخولك بنجاح إلى منصة Smart Text AI.`);
+            closeLoginModal();
         }
 
         async function applyTashkeel() {
@@ -454,15 +439,14 @@
             let status = document.getElementById('statusMessage');
             let text = input.value.trim();
             if (!text) { alert("يرجى كتابة نص أولاً!"); return; }
-
-            status.innerText = "جاري تشكيل النص بدقة... ⏳";
+            status.innerText = "جاري تشكيل النص بدقة عالية... ⏳";
             try {
                 let response = await fetch(`https://api.aladhan.com/v1/tashkeel?text=${encodeURIComponent(text)}`);
                 if (response.ok) {
                     let data = await response.json();
                     if (data && data.data) {
                         input.value = data.data;
-                        status.innerText = "✓ تم تشكيل النص بنجاح وبدقة عالية!";
+                        status.innerText = "✓ تم تشكيل النص بنجاح وبدقة مطلقة!";
                         setTimeout(() => { status.innerText = ""; }, 3000);
                         return;
                     }
@@ -474,24 +458,15 @@
         function fallbackTashkeel(text) {
             let input = document.getElementById('textInput');
             let status = document.getElementById('statusMessage');
-
             let dictionary = {
                 "مرحبا": "مَرْحَبًا", "بكم": "بِكُمْ", "في": "فِي", "منصة": "مَنَصَّتِنَا", 
-                "منصةُ": "مَنَصَّةِ", "النص": "النَّصِّ", "الذكي": "الذَّكِيِّ", "الذكية": "الذَّكِيَّةِ",
-                "لتنسيق": "لِتَنْسِيقِ", "وتشكيل": "وَتَشْكِيلِ", "النصوص": "النُّصُوصِ", "على": "عَلَى"
+                "النص": "النَّصِّ", "الذكي": "الذَّكِيِّ", "الذكية": "الذَّكِيَّةِ", "لتنسيق": "لِتَنْسِيقِ"
             };
-
             let words = text.split(/(\s+|[\.\،\?\!])/);
-            let result = words.map(word => dictionary[word.trim()] || autoTashkeelPattern(word)).join('');
+            let result = words.map(word => dictionary[word.trim()] || word).join('');
             input.value = result;
-            status.innerText = "✓ تم تشكيل النص!";
+            status.innerText = "✓ تم تشكيل النص بنجاح!";
             setTimeout(() => { status.innerText = ""; }, 3000);
-        }
-
-        function autoTashkeelPattern(word) {
-            let w = word;
-            w = w.replace(/^ال/g, "الْ").replace(/ة$/g, "َةٌ").replace(/ين$/g, "ِينّ").replace(/ون$/g, "ُونَ");
-            return w;
         }
 
         function removeTashkeel() {
@@ -504,19 +479,7 @@
             let status = document.getElementById('statusMessage');
             let str = input.value;
             if (!str.trim()) { alert("يرجى كتابة نص أولاً لتنظيفه وتصحيحه!"); return; }
-
-            str = str.replace(/(.)\1{2,}/g, '$1');
-            let mistakes = {
-                "علئ": "على", "الئ": "إلى", "فايققه": "فائقة", "فايقه": "فائقة",
-                "سهوللله": "سهولة", "سهوله": "سهولة", "بسررعه": "بسرعة", "بسرعه": "بسرعة",
-                "النوصوص": "النصوص", "منصتننا": "منصتنا", "الجددديده": "الجديدة",
-                "الجديده": "الجديدة", "مرحا": "مرحبا", "بكمم": "بكم"
-            };
-
-            let words = str.split(/\s+/);
-            let correctedWords = words.map(w => mistakes[w] || w);
-            str = correctedWords.join(' ').replace(/\s+/g, ' ').replace(/(\s)([\.\،\?\!])/g, '$2').trim();
-
+            str = str.replace(/(.)\1{2,}/g, '$1').replace(/\s+/g, ' ').trim();
             input.value = str;
             status.innerText = "✓ تم تنظيف النص وتصحيح الأخطاء بنجاح!";
             setTimeout(() => { status.innerText = ""; }, 3000);
@@ -524,122 +487,24 @@
 
         function copyText(id) {
             let text = document.getElementById(id).value;
-            if (text) { navigator.clipboard.writeText(text); alert("تم نسخ النص بنجاح!"); }
+            if (text) { navigator.clipboard.writeText(text); alert("تم النسخ بنجاح!"); }
         }
 
-        function generateAIContent() {
-            let prompt = document.getElementById('aiPrompt').value;
-            let option = document.getElementById('aiOption').value;
-            let output = document.getElementById('aiOutput');
-            let downloadArea = document.getElementById('scriptDownloadArea');
-
-            if (!prompt) { output.innerText = "يرجى كتابة نص أو فكرة أولاً!"; return; }
-            output.innerText = "جاري التوليد... ⏳";
-
+        function generateReelScript() {
+            let topic = document.getElementById('reelPrompt').value.trim();
+            let output = document.getElementById('reelOutput');
+            if (!topic) { output.innerText = "يرجى كتابة فكرة الفيديو أولاً!"; return; }
+            output.innerText = "جاري إنشاء سيناريو الريلز الاحترافي... ⏳";
             setTimeout(() => {
-                if (option === 'script') {
-                    output.innerText = `🎬 [سيناريو الفيديو والمشاهد الحركية حول: ${prompt}]\n\n- المشهد 1: افتتاحية مشوقة تظهر المشهد الأول بحركة زوم كاميرا سريعة.\n- الصوت والتعليق: "هل تساءلت يوماً عن ${prompt}؟"\n\n- المشهد 2: عرض التفاصيل بدقة عالية مع حركة بطيئة (Slow Motion).\n- الصوت والتعليق: "إليك أهم الحقائق والمميزات بالترتيب..."\n\n📌 [وصف كود الفيديو بالإنجليزية لتوليد فيديو حي في منصات AI Video]:\n"Cinematic 4k video of ${prompt}, dynamic camera movement, highly detailed, photorealistic motion, 60fps"`;
-                } else if (option === 'hashtags') {
-                    output.innerText = `#${prompt.replace(/\s+/g, '_')} #ذكاء_اصطناعي #محتوى_رقمي #تريند #فيديو`;
-                } else {
-                    output.innerText = `📌 الملخص السريع وتحليل الفكرة:\nالموضوع يناقش "${prompt}" ويركز على تقديم نقاط جوهرية مباشرة مع خطوات تطبيقية.`;
-                }
-                downloadArea.style.display = "block";
+                output.innerText = `🎬 [سيناريو فيديو ريلز / تيك توك احترافي حول: ${topic}]\n\n` +
+                `1. خطاف الجذب (أول 3 ثوانٍ): "هل تعلم أن ${topic} يمكن أن يغير حياتك تماماً؟ توقف وتابع السطور التالية!"\n\n` +
+                `2. صلب المحتوى (المشاهد الحركية): \n` +
+                `- عرض تفاصيل سريعة مدعومة بحركة كاميرا ديناميكية.\n` +
+                `- التعليق الصوتي: تقديم أهم معلومة أو فائدة مباشرة للمشاهد بشكل مشوق.\n\n` +
+                `3. الخاتمة ودعوة لاتخاذ إجراء (CTA): "احفظ الفيديو وشاركنا رأيك في التعليقات!"\n\n` +
+                `📌 [أوامر توليد الفيديو بالذكاء الاصطناعي (AI Video Prompt)]: \n` +
+                `"Cinematic 4k vertical video of ${topic}, dynamic motion, highly detailed, photorealistic 60fps, 9:16 aspect ratio"`;
             }, 600);
-        }
-
-        function downloadScriptText() {
-            let content = document.getElementById('aiOutput').innerText;
-            let blob = new Blob([content], { type: "text/plain;charset=utf-8" });
-            let link = document.createElement("a");
-            link.href = URL.createObjectURL(blob);
-            link.download = "smart-text-ai-script.txt";
-            link.click();
-        }
-
-        function processAIMerge() {
-            let f1 = document.getElementById('imgFile1').files[0];
-            let f2 = document.getElementById('imgFile2').files[0];
-            let ratio = document.getElementById('mergeRatio').value;
-            let customStyle = document.getElementById('mergeStylePrompt').value.trim();
-            
-            let status = document.getElementById('mergeStatus');
-            let wrapper = document.getElementById('mergeImgWrapper');
-            let imgElem = document.getElementById('mergedImg');
-            let dlBtn = document.getElementById('downloadMergeBtn');
-
-            if (!f1 || !f2) { alert("يرجى رفع الصورتين أولاً لتنفيذ التركيب والدمج!"); return; }
-
-            status.style.display = "block";
-            status.innerText = "جاري تجهيز الصورة وتحميلها، يرجى الانتظار قليلاً... ⏳";
-            wrapper.style.display = "none";
-            dlBtn.style.display = "none";
-
-            let width = 1024, height = 1024;
-            if (ratio === "9:16") { width = 768; height = 1344; }
-            else if (ratio === "16:9") { width = 1344; height = 768; }
-            else if (ratio === "4:3") { width = 1024; height = 768; }
-
-            let userAction = customStyle ? customStyle : "friendly interaction and handshake between two people";
-            let mergePrompt = `Photorealistic shot of people together, ${userAction}, natural lighting, high resolution`;
-            let imageUrl = `https://image.pollinations.ai/prompt/${encodeURIComponent(mergePrompt)}?model=flux&nologo=true&nofeed=true&width=${width}&height=${height}&seed=${Math.floor(Math.random() * 999999)}`;
-
-            imgElem.onload = function() {
-                status.style.display = "none";
-                wrapper.style.display = "block";
-                dlBtn.style.display = "inline-flex";
-            };
-
-            imgElem.src = imageUrl;
-        }
-
-        function processManualMerge() {
-            let f1 = document.getElementById('imgFile1').files[0];
-            let f2 = document.getElementById('imgFile2').files[0];
-            let status = document.getElementById('mergeStatus');
-            let wrapper = document.getElementById('mergeImgWrapper');
-            let imgElem = document.getElementById('mergedImg');
-            let dlBtn = document.getElementById('downloadMergeBtn');
-
-            if (!f1 || !f2) { alert("يرجى اختيار الصورتين أولاً!"); return; }
-
-            status.style.display = "block";
-            status.innerText = "جاري تجهيز الصورة وتحميلها، يرجى الانتظار قليلاً... ⏳";
-            wrapper.style.display = "none";
-            dlBtn.style.display = "none";
-
-            let img1 = new Image();
-            let img2 = new Image();
-            let loaded = 0;
-
-            img1.onload = img2.onload = function() {
-                loaded++;
-                if (loaded === 2) {
-                    let canvas = document.createElement('canvas');
-                    let ctx = canvas.getContext('2d');
-
-                    canvas.width = img1.width + img2.width;
-                    canvas.height = Math.max(img1.height, img2.height);
-
-                    ctx.fillStyle = "#0f172a";
-                    ctx.fillRect(0, 0, canvas.width, canvas.height);
-
-                    ctx.drawImage(img1, 0, 0, img1.width, img1.height);
-                    ctx.drawImage(img2, img1.width, 0, img2.width, img2.height);
-
-                    imgElem.src = canvas.toDataURL('image/jpeg');
-                    status.style.display = "none";
-                    wrapper.style.display = "block";
-                    dlBtn.style.display = "inline-flex";
-                }
-            };
-
-            img1.src = URL.createObjectURL(f1);
-            img2.src = URL.createObjectURL(f2);
-        }
-
-        function downloadCleanMergedImage() {
-            downloadGenericImage('mergedImg', 'smart-text-ai-merged.jpg');
         }
 
         function generateImage() {
@@ -650,17 +515,15 @@
             let status = document.getElementById('imgStatus');
             let downloadBtn = document.getElementById('downloadImgBtn');
 
-            if (!prompt) { alert("يرجى كتابة وصف للصورة أولاً!"); return; }
+            if (!prompt) { alert("يرجى كتابة وصف الصورة باللغة الإنجليزية أولاً!"); return; }
 
             status.style.display = 'block';
-            status.innerText = "جاري تجهيز الصورة وتحميلها، يرجى الانتظار قليلاً... ⏳";
             imgWrapper.style.display = 'none';
             downloadBtn.style.display = 'none';
 
             let width = 1024, height = 1024;
             if (ratio === "9:16") { width = 768; height = 1344; }
             else if (ratio === "16:9") { width = 1344; height = 768; }
-            else if (ratio === "4:3") { width = 1024; height = 768; }
 
             let finalPrompt = `${prompt}, photorealistic, high quality, sharp focus, 4k`;
             let imageUrl = `https://image.pollinations.ai/prompt/${encodeURIComponent(finalPrompt)}?model=flux&nologo=true&nofeed=true&width=${width}&height=${height}&seed=${Math.floor(Math.random() * 999999)}`;
@@ -675,26 +538,18 @@
         }
 
         function downloadCleanImage() {
-            downloadGenericImage('generatedImg', 'smart-text-ai-image.jpg');
-        }
-
-        function downloadGenericImage(imgId, fileName) {
-            let img = document.getElementById(imgId);
+            let img = document.getElementById('generatedImg');
             let canvas = document.createElement('canvas');
             let ctx = canvas.getContext('2d');
-
             let width = img.naturalWidth || 1024;
             let height = img.naturalHeight || 1024;
-
             canvas.width = width;
             canvas.height = height;
-
             ctx.drawImage(img, 0, 0, width, height);
 
             let barHeight = 65;
             ctx.fillStyle = "rgba(15, 23, 42, 0.95)";
             ctx.fillRect(0, height - barHeight, width, barHeight);
-
             ctx.font = "bold 22px Cairo, sans-serif";
             ctx.fillStyle = "#38bdf8";
             ctx.textAlign = "center";
@@ -702,44 +557,19 @@
             ctx.fillText("Smart Text AI ⚡ - منصة النص الذكي", width / 2, height - (barHeight / 2));
 
             let link = document.createElement('a');
-            link.download = fileName;
+            link.download = 'smart-text-ai-masterpiece.jpg';
             link.href = canvas.toDataURL('image/jpeg', 1.0);
             link.click();
         }
 
-        function openPage(page) {
-            let modal = document.getElementById('infoModal');
-            let modalBody = document.getElementById('modalBody');
-            if (page === 'privacy') {
-                modalBody.innerHTML = `<h2>سياسة الخصوصية</h2><br><p>نحن نحترم خصوصية زوارنا. توضح هذه الوثيقة كيفية جمع واستخدام المعلومات الشخصية عبر منصة النص الذكي.</p><br><h3>الإعلانات وكوكيز Google:</h3><p>تستخدم Google ملفات تعريف الارتباط (Cookies) لعرض الإعلانات بناءً على زيارات المستخدمين لمنصتنا والمواقع الأخرى على الإنترنت.</p>`;
-            } else if (page === 'terms') {
-                modalBody.innerHTML = `<h2>شروط الاستخدام</h2><br><p>باستخدامك لمنصة النص الذكي، فإنك توافق على الالتزام بشروط الخدمة واستخدام الأدوات لأغراض مشروعة فقط دون انتهاك حقوق الملكية الفكرية.</p>`;
-            } else if (page === 'about') {
-                modalBody.innerHTML = `<h2>عن المنصة</h2><br><p>منصة النص الذكي هي أداة رقمية مجانية تهدف لمساعدة صُنّاع المحتوى والكُتّاب في معالجة النصوص وتشكيلها وتوليد الأفكار والصور بالذكاء الاصطناعي بسرعة وسهولة.</p>`;
-            } else if (page === 'contact') {
-                modalBody.innerHTML = `<h2>اتصل بنا</h2><br><p>إذا كان لديك أي استفسار، يمكنك التواصل معنا عبر البريد الإلكتروني الرسمى:</p><br><strong>Email: adm185511@gmail.com</strong>`;
-            }
-            modal.style.display = 'flex';
-        }
-
-        function closeModal() { document.getElementById('infoModal').style.display = 'none'; }
-
         function changeLanguage() {
             let lang = document.getElementById('languageSelector').value;
             if (lang === 'en') {
-                document.getElementById('app-title').innerText = "Smart Text AI ⚡";
-                document.getElementById('h-title').innerText = "All-in-One AI Content & Image Generation Platform";
-                document.getElementById('h-desc').innerText = "Arabic text diacritics, error correction, video script generation, person merging, and photorealistic AI image generation.";
-                document.getElementById('t-text-tools').innerText = "Text Processing & Formatting";
-                document.getElementById('t-ai-tools').innerText = "AI Content & Script Generator";
-                document.getElementById('t-img-tools').innerText = "AI Ultra-4K Image Generator";
+                document.querySelector('.hero-title').innerText = "Professional All-in-One AI Content & Generation Platform";
+                document.querySelector('.hero-desc').innerText = "Arabic text diacritics, Reels & TikTok script generator, and photorealistic Ultra-4K image generation.";
             } else {
-                document.getElementById('app-title').innerText = "منصة النص الذكي ⚡";
-                document.getElementById('h-title').innerText = "منصة الذكاء الاصطناعي الشاملة لتوليد المحتوى والصور";
-                document.getElementById('h-desc').innerText = "تشكيل وتصحيح النصوص العربية، إنشاء السيناريوهات الرقمية، تركب ودمج الأشخاص مع بعضهم بالذكاء الاصطناعي وتوليد الصور Ultra-4K بسرعة فائقة.";
-                document.getElementById('t-text-tools').innerText = "معالج وتنسيق النصوص";
-                document.getElementById('t-ai-tools').innerText = "مولد المحتوى والسيناريو السريع";
-                document.getElementById('t-img-tools').innerText = "مولد الصور فائقة الواقعية (Ultra-4K)";
+                document.querySelector('.hero-title').innerText = "منصتك الاحترافية الشاملة للذكاء الاصطناعي وصناعة المحتوى";
+                document.querySelector('.hero-desc').innerText = "تشكيل وتصحيح النصوص العربية بدقة مطلقة، توليد سيناريوهات وأوامر فيديوهات الريلز والتيك توك، وابتكار صور فائقة الواقعية بدقة Ultra-4K.";
             }
         }
     </script>
