@@ -284,7 +284,7 @@
             </div>
         </div>
 
-        <!-- قسم توليد الصور بدون علامة مائية وبدقة فائقة وواقعية حقيقية -->
+        <!-- قسم توليد الصور بدون علامات مائية مع حزم واقعية وبناء دقيق -->
         <div class="card">
             <div class="card-title">🎨 <span id="t-img-tools">مولد الصور بالذكاء الاصطناعي</span></div>
             <textarea id="imgPrompt" placeholder="صف الصورة التي تريد ابتكارها بالإنجليزية أو العربية..."></textarea>
@@ -292,7 +292,7 @@
                 <button onclick="generateImage()">توليد الصورة الآن 🖼️</button>
             </div>
             <div class="image-preview">
-                <p id="imgStatus" style="display:none; color: var(--text-muted);">جاري التوليد بأسلوب فوتوغرافي واقعي... ⏳</p>
+                <p id="imgStatus" style="display:none; color: var(--text-muted);">جاري التوليد باستخدام نموذج Flux الفائق... ⏳</p>
                 <img id="generatedImg" src="" alt="AI Generated Image">
                 <a id="downloadImgBtn" style="display:none;" class="dl-btn" download="ai-image.jpg" target="_blank">⬇️ تحميل الصورة مباشرة</a>
             </div>
@@ -438,7 +438,6 @@
             link.click();
         }
 
-        // توليد صور بأسلوب تصوير فوتوغرافي واقعي جداً وبدون علامات مائية
         function generateImage() {
             let prompt = document.getElementById('imgPrompt').value;
             let imgElement = document.getElementById('generatedImg');
@@ -454,10 +453,10 @@
             imgElement.style.display = 'none';
             downloadBtn.style.display = 'none';
 
-            // إضافة أمر الواقعية الحقيقية والتصوير الفوتوغرافي بكاميرا احترافية
-            let enhancedPrompt = prompt + ", raw photo, realistic human skin texture, highly detailed photorealistic DSLR camera shot, 8k resolution, natural daylight";
-            let encodedPrompt = encodeURIComponent(enhancedPrompt);
-            let imageUrl = `https://image.pollinations.ai/prompt/${encodedPrompt}?width=1024&height=1024&model=flux&nologo=true&seed=${Math.floor(Math.random() * 1000)}`;
+            let finalPrompt = prompt + ", showing teeth joyful big warm smile, real candid photography, detailed skin pores, DSLR shot, 8k";
+            let encodedPrompt = encodeURIComponent(finalPrompt);
+
+            let imageUrl = `https://image.pollinations.ai/prompt/${encodedPrompt}?model=flux&nologo=true&width=1024&height=1024&seed=${Math.floor(Math.random() * 9999)}`;
 
             imgElement.src = imageUrl;
             imgElement.onload = function() {
