@@ -6,6 +6,10 @@
     <title>منصة النص الذكي | Smart Text AI</title>
     <meta name="description" content="منصة متكاملة لتنسيق وتشكيل النصوص العربية، تصحيح الأخطاء الإملائية، توليد سيناريو المحتوى، وإنشاء الصور بالذكاء الاصطناعي بدقة عالية.">
     <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;800&display=swap" rel="stylesheet">
+    
+    <!-- 💰 شفرة Google AdSense الرئيسية (توضع هنا مستقبلاً) -->
+    <!-- <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-XXXXXXXXXXXXXXXX" crossorigin="anonymous"></script> -->
+
     <style>
         :root {
             --primary: #4f46e5;
@@ -131,7 +135,7 @@
             text-decoration: none;
         }
 
-        /* 🖼️ غلاف رئيسي جذاب ملون بصورة خلفية متحركة */
+        /* 🖼️ غلاف رئيسي جذاب */
         .hero-banner {
             width: 100%;
             max-width: 900px;
@@ -140,7 +144,7 @@
             padding: 35px 25px;
             border-radius: 20px;
             text-align: center;
-            margin-bottom: 25px;
+            margin-bottom: 20px;
             box-shadow: 0 10px 25px rgba(79, 70, 229, 0.25);
             position: relative;
             overflow: hidden;
@@ -194,6 +198,24 @@
             font-size: 0.85rem;
             font-weight: 600;
             border: 1px solid rgba(255, 255, 255, 0.3);
+        }
+
+        /* 📢 حاويات الإعلانات المصممة لجوجل أدسينس */
+        .ad-container {
+            width: 100%;
+            max-width: 900px;
+            background: rgba(255, 255, 255, 0.4);
+            border: 1px dashed var(--border);
+            border-radius: 12px;
+            padding: 10px;
+            text-align: center;
+            margin-bottom: 20px;
+            min-height: 90px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--text-muted);
+            font-size: 0.85rem;
         }
 
         .lang-select {
@@ -441,7 +463,7 @@
         </div>
     </header>
 
-    <!-- 🖼️ الغلاف الترحيبي الرئيسي الملون بوضوح -->
+    <!-- 🖼️ الغلاف الترحيبي الرئيسي -->
     <div class="hero-banner">
         <h1 class="hero-title" id="h-title">منصة الذكاء الاصطناعي الشاملة لتوليد المحتوى والصور</h1>
         <p class="hero-desc" id="h-desc">تشكيل وتصحيح النصوص العربية، إنشاء السيناريوهات الرقمية، وتوليد الصور فائقة الواقعية مجاناً وبسرعة عالية.</p>
@@ -451,6 +473,11 @@
             <span class="hero-tag">🎬 سيناريو فيديو</span>
             <span class="hero-tag">🎨 صور 8K</span>
         </div>
+    </div>
+
+    <!-- 📢 مساحة إعلانية علوية (Top Banner Ad) -->
+    <div class="ad-container">
+        <span>مساحة إعلانية - Google AdSense</span>
     </div>
 
     <div class="container">
@@ -466,6 +493,11 @@
                 <button onclick="copyText('textInput')" class="btn-secondary">📋 نسخ النص</button>
             </div>
             <div id="statusMessage" class="status-msg"></div>
+        </div>
+
+        <!-- 📢 مساحة إعلانية وسطية (In-Feed Ad) -->
+        <div class="ad-container">
+            <span>مساحة إعلانية - Google AdSense</span>
         </div>
 
         <!-- قسم الذكاء الاصطناعي للمحتوى والسيناريو ووصف الفيديو -->
@@ -502,6 +534,11 @@
             </div>
         </div>
 
+    </div>
+
+    <!-- 📢 مساحة إعلانية سفلية (Bottom Banner Ad) -->
+    <div class="ad-container" style="margin-top: 20px;">
+        <span>مساحة إعلانية - Google AdSense</span>
     </div>
 
     <!-- نافذة السياسات والمعلومات -->
@@ -662,6 +699,7 @@
             link.click();
         }
 
+        // توليد الصور مع صرامة الجودة وتقليل النعومة وضبط الاتجاهات الفيزيائية
         function generateImage() {
             let prompt = document.getElementById('imgPrompt').value;
             let imgElement = document.getElementById('generatedImg');
@@ -675,7 +713,8 @@
             imgWrapper.style.display = 'none';
             downloadBtn.style.display = 'none';
 
-            let finalPrompt = prompt + ", raw ultra sharp photograph, detailed skin pores, hyperrealistic, sharp focus, 8k resolution, no cartoon, no blur";
+            // توجيه صارم للمحرك لمنع التنعيم والكارتونية وضبط الفيزياء
+            let finalPrompt = prompt + ", raw photography, highly detailed visible skin pores, natural texture, sharp focus, physically correct orientation, surface/sky at top, deep bottom, 8k resolution, no cartoon, no airbrushing, no smooth plastic skin";
             let imageUrl = `https://image.pollinations.ai/prompt/${encodeURIComponent(finalPrompt)}?model=flux&nologo=true&width=1024&height=1024&seed=${Math.floor(Math.random() * 999999)}`;
 
             imgElement.src = imageUrl;
@@ -686,27 +725,39 @@
             };
         }
 
+        // إزالة الشعار الخارجي تماماً وتنزيل الصورة بشعارك الرسمي
         function downloadCleanImage() {
             let img = document.getElementById('generatedImg');
             let canvas = document.createElement('canvas');
             let ctx = canvas.getContext('2d');
 
             let width = img.naturalWidth || 1024;
-            let height = img.naturalHeight || 1024;
+            let originalHeight = img.naturalHeight || 1024;
+
+            // اقتطاع 60 بكسل من أسفل الصورة لمحو علامة Pollinations.ai بالكامل
+            let cropHeight = 60;
+            let height = originalHeight - cropHeight;
 
             canvas.width = width;
             canvas.height = height;
 
-            ctx.drawImage(img, 0, 0, width, height);
+            // رسم الجزء النظيف من الصورة
+            ctx.drawImage(img, 0, 0, width, height, 0, 0, width, height);
 
-            let boxWidth = 220;
+            // طباعة العلامة المائية الخاصة بالمنصة بوضوح في أسفل اليمين
+            let boxWidth = 240;
             let boxHeight = 45;
-            let x = width - boxWidth - 20;
-            let y = height - boxHeight - 20;
+            let x = width - boxWidth - 25;
+            let y = height - boxHeight - 25;
 
-            ctx.fillStyle = "rgba(0, 0, 0, 0.65)";
-            ctx.roundRect ? ctx.roundRect(x, y, boxWidth, boxHeight, 8) : ctx.fillRect(x, y, boxWidth, boxHeight);
-            ctx.fill();
+            ctx.fillStyle = "rgba(15, 23, 42, 0.75)";
+            if (ctx.roundRect) {
+                ctx.beginPath();
+                ctx.roundRect(x, y, boxWidth, boxHeight, 10);
+                ctx.fill();
+            } else {
+                ctx.fillRect(x, y, boxWidth, boxHeight);
+            }
 
             ctx.font = "bold 20px Cairo, sans-serif";
             ctx.fillStyle = "#ffffff";
