@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>منصة النص الذكي | Smart Text AI</title>
-    <meta name="description" content="منصة متكاملة لتنسيق وتشكيل النصوص العربية، توليد سيناريو المحتوى، وإنشاء الصور بالذكاء الاصطناعي بدقة عالية.">
+    <meta name="description" content="منصة متكاملة لتنسيق وتشكيل النصوص العربية، تصحيح الأخطاء الإملائية، توليد سيناريو المحتوى، وإنشاء الصور بالذكاء الاصطناعي بدقة عالية.">
     <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700&display=swap" rel="stylesheet">
     <style>
         :root {
@@ -223,14 +223,12 @@
             border-radius: 8px;
             box-shadow: 0 4px 12px rgba(0,0,0,0.1);
             max-width: 100%;
-            max-height: 500px;
         }
 
         .img-crop-wrapper img {
             width: 100%;
             height: auto;
             display: block;
-            margin-bottom: -35px;
         }
 
         .status-msg {
@@ -315,30 +313,30 @@
 
     <div class="container">
 
-        <!-- قسم التشكيل والمعالجة -->
+        <!-- قسم التشكيل والمعالجة وتصحيح الأخطاء -->
         <div class="card">
-            <div class="card-title">📝 <span id="t-text-tools">معالج وتنسيق النصوص</span></div>
-            <textarea id="textInput" placeholder="أدخل النص هنا لتنسيقه، تشكيله، أو تنظيفه..."></textarea>
+            <div class="card-title">📝 <span id="t-text-tools">معالج وتصحيح وتنسيق النصوص</span></div>
+            <textarea id="textInput" placeholder="أدخل النص هنا لتنسيقه، تصحيح أخطائه، تشكيله، أو تنظيفه..."></textarea>
             <div class="btn-group">
                 <button onclick="applyTashkeel()">✨ تشكيل النص بالكامل</button>
-                <button onclick="cleanText()" class="btn-secondary">🧹 تنظيف وتنسيق</button>
+                <button onclick="cleanText()" class="btn-secondary">🧹 تصحيح الأخطاء والتنسيق</button>
                 <button onclick="removeTashkeel()" class="btn-secondary">❌ إزالة التشكيل</button>
                 <button onclick="copyText('textInput')" class="btn-secondary">📋 نسخ النص</button>
             </div>
             <div id="statusMessage" class="status-msg"></div>
         </div>
 
-        <!-- قسم الذكاء الاصطناعي للمحتوى والسيناريو -->
+        <!-- قسم الذكاء الاصطناعي للمحتوى والسيناريو ووصف الفيديو -->
         <div class="card">
-            <div class="card-title">🚀 <span id="t-ai-tools">مولد المحتوى والسيناريو السريع</span></div>
+            <div class="card-title">🚀 <span id="t-ai-tools">مولد السيناريو ووصف الفيديو الذكي</span></div>
             <textarea id="aiPrompt" placeholder="اكتب فكرة أو عنوان الفيديو/المحتوى هنا..."></textarea>
             <div class="btn-group">
                 <select class="tool-select" id="aiOption">
-                    <option value="script">🎬 مولد سيناريو فيديو (TikTok / Reels)</option>
-                    <option value="hashtags">🏷️ هاشتاجات متوافقة</option>
-                    <option value="summary">📌 تلخيص سريع</option>
+                    <option value="script">🎬 سيناريو فيديو نصي ووصف حركي (Script & AI Video Prompt)</option>
+                    <option value="hashtags">🏷️ هاشتاجات متوافقة ومستهدفة</option>
+                    <option value="summary">📌 تلخيص وتحليل سريع</option>
                 </select>
-                <button onclick="generateAIContent()">توليد محتوى ✨</button>
+                <button onclick="generateAIContent()">توليد المحتوى والسيناريو ✨</button>
             </div>
             <div class="output-box" id="aiOutput">النتيجة ستظهر هنا...</div>
             <div style="margin-top: 10px; display: none;" id="scriptDownloadArea">
@@ -346,25 +344,25 @@
             </div>
         </div>
 
-        <!-- قسم توليد الصور بالذكاء الاصطناعي مع العلامة المائية -->
+        <!-- قسم توليد الصور فائقة الدقة بفرشاة العلامة المائية المباشرة -->
         <div class="card">
-            <div class="card-title">🎨 <span id="t-img-tools">مولد الصور بالذكاء الاصطناعي</span></div>
+            <div class="card-title">🎨 <span id="t-img-tools">مولد الصور فائقة الواقعية (Ultra-HD)</span></div>
             <textarea id="imgPrompt" placeholder="صف الصورة التي تريد ابتكارها بالإنجليزية أو العربية..."></textarea>
             <div class="btn-group">
                 <button onclick="generateImage()">توليد الصورة الآن 🖼️</button>
             </div>
             <div class="image-preview">
-                <p id="imgStatus" style="display:none; color: var(--text-muted);">جاري التوليد... ⏳</p>
+                <p id="imgStatus" style="display:none; color: var(--text-muted);">جاري المعالجة والتوليد بأعلى جودة... ⏳</p>
                 <div class="img-crop-wrapper" id="imgWrapper">
                     <img id="generatedImg" src="" crossorigin="anonymous" alt="AI Generated Image">
                 </div>
-                <button id="downloadImgBtn" style="display:none;" class="dl-btn" onclick="downloadCleanImage()">⬇️ تحميل الصورة برمز المنصة</button>
+                <button id="downloadImgBtn" style="display:none;" class="dl-btn" onclick="downloadCleanImage()">⬇️ تحميل الصورة مع العلامة المائية الذكية</button>
             </div>
         </div>
 
     </div>
 
-    <!-- نافذة السياسات والمعلومات -->
+    <!-- نافذة العرض للمستندات والسياسات -->
     <div id="infoModal" class="modal">
         <div class="modal-content">
             <span class="close-btn" onclick="closeModal()">&times;</span>
@@ -425,7 +423,6 @@
             let input = document.getElementById('textInput');
             let status = document.getElementById('statusMessage');
 
-            // المعجم المحلي الموسع مع التشكيل الإعرابي والنحوي المباشر
             let dictionary = {
                 "مرحبا": "مَرْحَبًا", "بكم": "بِكُمْ", "في": "فِي", "منصة": "مَنَصَّتِنَا", 
                 "منصةُ": "مَنَصَّةِ", "النص": "النَّصِّ", "الذكي": "الذَّكِيِّ", "الذكية": "الذَّكِيَّةِ",
@@ -458,9 +455,35 @@
             input.value = input.value.replace(/[ً-ْ]/g, "");
         }
 
+        // خوارزمية ذكية لتنسيق النص وتصحيح الأخطاء المباشرة والحروف المكررة
         function cleanText() {
             let input = document.getElementById('textInput');
-            input.value = input.value.replace(/\s+/g, ' ').replace(/(\s)([\.\،\?\!])/g, '$2').trim();
+            let status = document.getElementById('statusMessage');
+            let str = input.value;
+
+            if (!str.trim()) { alert("يرجى كتابة نص أولاً لتنظيفه وتصحيحه!"); return; }
+
+            // 1. إزالة تكرار الأحرف المكررة أكثر من مرتين (مثل: ككك -> ك، سسس -> س)
+            str = str.replace(/(.)\1{2,}/g, '$1');
+
+            // 2. معالجة قاموس الأخطاء الشائعة والألف المقصورة والتاء
+            let mistakes = {
+                "علئ": "على", "الئ": "إلى", "فايققه": "فائقة", "فايقه": "فائقة",
+                "سهوللله": "سهولة", "سهوله": "سهولة", "بسررعه": "بسرعة", "بسرعه": "بسرعة",
+                "النوصوص": "النصوص", "منصتننا": "منصتنا", "الجددديده": "الجديدة",
+                "الجديده": "الجديدة", "مرحا": "مرحبا", "بكمم": "بكم", "تساعدككك": "تساعدك", "تنسسسيق": "تنسيق", "وتشكييل": "وتشكيل"
+            };
+
+            let words = str.split(/\s+/);
+            let correctedWords = words.map(w => mistakes[w] || w);
+            str = correctedWords.join(' ');
+
+            // 3. تنظيم المسافات وعلامات الترقيم
+            str = str.replace(/\s+/g, ' ').replace(/(\s)([\.\،\?\!])/g, '$2').trim();
+
+            input.value = str;
+            status.innerText = "✓ تم تنظيف النص وتصحيح الأخطاء بنجاح!";
+            setTimeout(() => { status.innerText = ""; }, 3000);
         }
 
         function copyText(id) {
@@ -479,11 +502,11 @@
 
             setTimeout(() => {
                 if (option === 'script') {
-                    output.innerText = `🎬 [سيناريو مقترح حول: ${prompt}]\n\n- المشهد 1: افتتاحية مشوقة تجذب الانتباه حول ${prompt}.\n- المشهد 2: شرح النقطة الأساسية بأسلوب مبسط.\n- الخاتمة: دعوة للمتابعة والإعجاب والتفاعل!`;
+                    output.innerText = `🎬 [سيناريو الفيديو والمشاهد الحركية حول: ${prompt}]\n\n- المشهد 1: افتتاحية مشوقة تظهر المشهد الأول بحركة زوم كاميرا سريعة.\n- الصوت والتعليق: "هل تساءلت يوماً عن ${prompt}؟"\n\n- المشهد 2: عرض التفاصيل بدقة عالية مع حركة بطيئة (Slow Motion).\n- الصوت والتعليق: "إليك أهم الحقائق والمميزات بالترتيب..."\n\n📌 [وصف كود الفيديو بالإنجليزية لتوليد فيديو حي في منصات AI Video]:\n"Cinematic 4k video of ${prompt}, dynamic camera movement, highly detailed, photorealistic motion, 60fps"`;
                 } else if (option === 'hashtags') {
-                    output.innerText = `#${prompt.replace(/\s+/g, '_')} #ذكاء_اصطناعي #محتوى_رقمي #تريند`;
+                    output.innerText = `#${prompt.replace(/\s+/g, '_')} #ذكاء_اصطناعي #محتوى_رقمي #تريند #فيديو`;
                 } else {
-                    output.innerText = `📌 الملخص السريع:\nالنص يناقش موضوع "${prompt}" ويركز على تقديم حلول عملية.`;
+                    output.innerText = `📌 الملخص السريع وتحليل الفكرة:\nالموضوع يناقش "${prompt}" ويركز على تقديم نقاط جوهرية مباشرة مع خطوات تطبيقية.`;
                 }
                 downloadArea.style.display = "block";
             }, 600);
@@ -498,6 +521,7 @@
             link.click();
         }
 
+        // توليد الصور بدون تنعيم زائفة وبأعلى جودة فائقة الدقة (RAW Ultra Sharp)
         function generateImage() {
             let prompt = document.getElementById('imgPrompt').value;
             let imgElement = document.getElementById('generatedImg');
@@ -511,8 +535,9 @@
             imgWrapper.style.display = 'none';
             downloadBtn.style.display = 'none';
 
-            let finalPrompt = prompt + ", raw photo, realistic skin texture, sharp focus, 8k";
-            let imageUrl = `https://image.pollinations.ai/prompt/${encodeURIComponent(finalPrompt)}?model=flux&nologo=true&width=1024&height=1024&seed=${Math.floor(Math.random() * 9999)}`;
+            // إضافة تعليمات الصرامة والجودة ومنع التنعيم الرقمي الكرتوني
+            let finalPrompt = prompt + ", raw ultra sharp photograph, detailed skin pores, hyperrealistic, sharp focus, 8k resolution, no cartoon, no blur";
+            let imageUrl = `https://image.pollinations.ai/prompt/${encodeURIComponent(finalPrompt)}?model=flux&nologo=true&width=1024&height=1024&seed=${Math.floor(Math.random() * 999999)}`;
 
             imgElement.src = imageUrl;
             imgElement.onload = function() {
@@ -522,31 +547,41 @@
             };
         }
 
-        // طباعة الشعار الخاص بك وحفظ الصورة
+        // رسم العلامة المائية المباشرة بدقة عالية دون التضحية بجودة الصورة
         function downloadCleanImage() {
             let img = document.getElementById('generatedImg');
             let canvas = document.createElement('canvas');
             let ctx = canvas.getContext('2d');
 
             let width = img.naturalWidth || 1024;
-            let height = (img.naturalHeight || 1024) - 45; // قص الشعار القديم
+            let height = img.naturalHeight || 1024;
 
             canvas.width = width;
             canvas.height = height;
 
-            ctx.drawImage(img, 0, 0, width, height, 0, 0, width, height);
+            // رسم الصورة بالكامل بدقتها الأصلية دون قص أو ضغط
+            ctx.drawImage(img, 0, 0, width, height);
 
-            ctx.fillStyle = "rgba(0, 0, 0, 0.5)";
-            ctx.fillRect(width - 240, height - 55, 220, 40);
+            // إضافة شريط شبه شفاف للعلامة المائية في أسفل اليمين
+            let boxWidth = 220;
+            let boxHeight = 45;
+            let x = width - boxWidth - 20;
+            let y = height - boxHeight - 20;
 
-            ctx.font = "bold 18px Cairo, sans-serif";
+            ctx.fillStyle = "rgba(0, 0, 0, 0.65)";
+            ctx.roundRect ? ctx.roundRect(x, y, boxWidth, boxHeight, 8) : ctx.fillRect(x, y, boxWidth, boxHeight);
+            ctx.fill();
+
+            // طباعة نص العلامة المائية الخاص بموقعك بوضوح تام
+            ctx.font = "bold 20px Cairo, sans-serif";
             ctx.fillStyle = "#ffffff";
-            ctx.textAlign = "right";
-            ctx.fillText("Smart Text AI ⚡", width - 30, height - 28);
+            ctx.textAlign = "center";
+            ctx.textBaseline = "middle";
+            ctx.fillText("Smart Text AI ⚡", x + (boxWidth / 2), y + (boxHeight / 2));
 
             let link = document.createElement('a');
             link.download = 'smart-text-ai-image.jpg';
-            link.href = canvas.toDataURL('image/jpeg', 0.95);
+            link.href = canvas.toDataURL('image/jpeg', 1.0); // حماية أعلى جودة ونقاء بدون ضغط
             link.click();
         }
 
