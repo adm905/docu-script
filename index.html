@@ -4,20 +4,20 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>منصة النص الذكي | Smart Text AI</title>
-    <meta name="description" content="منصة عالمية متكاملة لتنسيق وتشكيل النصوص العربية، توليد سيناريوهات الريلز والفيديوهات القصيرة، تركيب ودمج الصور، وإنشاء صور فائقة الواقعية بدقة Ultra-4K.">
-    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;800&display=swap" rel="stylesheet">
+    <meta name="description" content="منصة عالمية متكاملة لتنسيق وتشكيل النصوص العربية، توليد سيناريوهات الريلز والفيديوهات القصيرة، وابتكار صور فائقة الواقعية بدقة Ultra-4K.">
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;800;900&display=swap" rel="stylesheet">
     
     <style>
         :root {
             --primary: #4f46e5;
             --primary-hover: #4338ca;
             --accent: #06b6d4;
-            --bg: #0f172a;
-            --card-bg: #1e293b;
+            --bg: #0b0f19;
+            --card-bg: #131c31;
             --text-main: #f8fafc;
             --text-muted: #94a3b8;
-            --border: #334155;
-            --input-bg: #090d16;
+            --border: #1e293b;
+            --input-bg: #070a12;
         }
 
         [data-theme="light"] {
@@ -42,7 +42,7 @@
 
         body {
             background-color: var(--bg);
-            background-image: radial-gradient(at 0% 0%, rgba(99, 102, 241, 0.1) 0px, transparent 50%),
+            background-image: radial-gradient(at 50% 0%, rgba(99, 102, 241, 0.15) 0px, transparent 50%),
                               radial-gradient(at 100% 100%, rgba(6, 182, 212, 0.1) 0px, transparent 50%);
             background-attachment: fixed;
             color: var(--text-main);
@@ -55,17 +55,38 @@
 
         #splash-screen {
             position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-            background: linear-gradient(135deg, #0f172a 0%, #1e1b4b 100%);
+            background: linear-gradient(135deg, #0f172a 0%, #0b0f19 100%);
             display: flex; flex-direction: column; align-items: center; justify-content: center;
             z-index: 9999; transition: opacity 0.6s ease, visibility 0.6s ease;
         }
 
-        .splash-logo { font-size: 2.4rem; font-weight: 800; color: #ffffff; animation: pulse 1.5s infinite ease-in-out; display: flex; align-items: center; gap: 10px; }
-        .splash-sub { color: #94a3b8; font-size: 1rem; margin-top: 10px; }
-        .spinner { width: 45px; height: 45px; border: 4px solid rgba(255, 255, 255, 0.1); border-top: 4px solid var(--accent); border-radius: 50%; margin-top: 20px; animation: spin 0.8s linear infinite; }
+        .splash-logo { font-size: 2.8rem; font-weight: 900; color: #ffffff; animation: pulse 1.5s infinite ease-in-out; display: flex; align-items: center; gap: 12px; }
+        .splash-sub { color: #94a3b8; font-size: 1.1rem; margin-top: 10px; }
+        .spinner { width: 50px; height: 50px; border: 4px solid rgba(255, 255, 255, 0.1); border-top: 4px solid var(--accent); border-radius: 50%; margin-top: 25px; animation: spin 0.8s linear infinite; }
 
         @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
         @keyframes pulse { 0%, 100% { transform: scale(1); opacity: 0.9; } 50% { transform: scale(1.05); opacity: 1; } }
+
+        /* صفحة الترحيب الكبرى (Landing Page Intro) */
+        #landing-view {
+            width: 100%; max-width: 1000px; display: flex; flex-direction: column; align-items: center;
+            text-align: center; padding: 40px 20px; min-height: 85vh; justify-content: center;
+        }
+
+        .landing-brand { font-size: 3.5rem; font-weight: 900; color: #fff; margin-bottom: 15px; background: linear-gradient(135deg, #6366f1, #22d3ee); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+        .landing-subtitle { font-size: 1.25rem; color: var(--text-muted); max-width: 750px; line-height: 1.8; margin-bottom: 35px; }
+
+        .landing-actions { display: flex; gap: 15px; justify-content: center; flex-wrap: wrap; margin-bottom: 50px; }
+        .btn-main-action { background: linear-gradient(135deg, #4f46e5, #06b6d4); color: white; padding: 15px 35px; border-radius: 14px; font-weight: 800; font-size: 1.1rem; border: none; cursor: pointer; box-shadow: 0 8px 25px rgba(79, 70, 229, 0.4); }
+        .btn-main-action:hover { transform: translateY(-2px); opacity: 0.95; }
+
+        .landing-features-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 20px; width: 100%; text-align: right; margin-top: 20px; }
+        .feature-box { background: var(--card-bg); border: 1px solid var(--border); padding: 25px; border-radius: 16px; box-shadow: 0 4px 20px rgba(0,0,0,0.05); }
+        .feature-box h3 { color: var(--accent); margin-bottom: 10px; font-size: 1.2rem; }
+        .feature-box p { color: var(--text-muted); font-size: 0.95rem; line-height: 1.6; }
+
+        /* لوحة التحكم والأدوات (تظهر بعد الدخول) */
+        #app-dashboard { display: none; width: 100%; max-width: 1000px; flex-direction: column; gap: 25px; }
 
         .top-time-bar {
             width: 100%; max-width: 1000px; display: flex; justify-content: space-between; align-items: center;
@@ -80,27 +101,16 @@
         }
 
         .header-controls { display: flex; align-items: center; gap: 12px; }
-        .logo { font-size: 1.5rem; font-weight: 800; color: var(--accent); text-decoration: none; display: flex; align-items: center; gap: 8px; }
-
-        .hero-banner {
-            width: 100%; max-width: 1000px; background: linear-gradient(135deg, #4f46e5 0%, #3b82f6 50%, #06b6d4 100%);
-            color: #ffffff; padding: 40px 30px; border-radius: 20px; text-align: center; margin-bottom: 25px;
-            box-shadow: 0 10px 25px rgba(79, 70, 229, 0.25);
-        }
-        .hero-title { font-size: 2rem; font-weight: 800; margin-bottom: 12px; line-height: 1.3; }
-        .hero-desc { font-size: 1.05rem; opacity: 0.95; max-width: 700px; margin: 0 auto 20px; line-height: 1.6; }
-        .hero-tags { display: flex; justify-content: center; gap: 10px; flex-wrap: wrap; }
-        .hero-tag { background: rgba(255, 255, 255, 0.2); backdrop-filter: blur(8px); padding: 6px 14px; border-radius: 20px; font-size: 0.85rem; font-weight: 600; border: 1px solid rgba(255, 255, 255, 0.3); }
+        .logo { font-size: 1.5rem; font-weight: 800; color: var(--accent); text-decoration: none; display: flex; align-items: center; gap: 8px; cursor: pointer; }
 
         .ad-container {
-            width: 100%; max-width: 1000px; background: rgba(255, 255, 255, 0.03);
+            width: 100%; max-width: 1000px; background: rgba(255, 255, 255, 0.02);
             border: 2px dashed var(--border); border-radius: 14px; padding: 15px;
             text-align: center; margin-bottom: 20px; color: var(--text-muted); font-size: 0.9rem;
             display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 5px;
         }
         .ad-label { font-size: 0.75rem; background: var(--border); padding: 2px 8px; border-radius: 6px; color: var(--text-main); }
 
-        .container { width: 100%; max-width: 1000px; display: flex; flex-direction: column; gap: 25px; }
         .card { background: var(--card-bg); padding: 25px; border-radius: 18px; border: 1px solid var(--border); box-shadow: 0 4px 20px rgba(0,0,0,0.04); }
         .card-title { font-size: 1.25rem; font-weight: 700; margin-bottom: 15px; color: var(--accent); display: flex; align-items: center; gap: 10px; }
 
@@ -137,9 +147,7 @@
             font-size: 1rem; font-weight: 800; letter-spacing: 0.5px; pointer-events: none; backdrop-filter: blur(4px);
         }
 
-        .pricing-grid {
-            display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 20px; margin-top: 10px;
-        }
+        .pricing-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 20px; margin-top: 10px; }
         .pricing-card {
             background: var(--input-bg); border: 2px solid var(--border); border-radius: 16px;
             padding: 25px; display: flex; flex-direction: column; justify-content: space-between; position: relative;
@@ -160,33 +168,14 @@
         }
         .login-btn-nav:hover { opacity: 0.9; }
 
-        /* نافذة تسجيل الدخول مع بنر بصري ثابت ومضمون 100% */
+        /* النوافذ المنسدلة (Modals) */
         .modal { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.75); z-index: 10000; align-items: center; justify-content: center; padding: 20px; backdrop-filter: blur(6px); }
         .modal-box { 
-            background: var(--card-bg); color: var(--text-main); width: 100%; max-width: 500px; 
+            background: var(--card-bg); color: var(--text-main); width: 100%; max-width: 480px; 
             border-radius: 20px; border: 1px solid var(--border); box-shadow: 0 15px 40px rgba(0,0,0,0.4); 
-            position: relative; overflow: hidden; display: flex; flex-direction: column; 
+            position: relative; overflow: hidden; padding: 30px;
         }
-        .login-banner-box {
-            width: 100%; height: 170px;
-            background: linear-gradient(135deg, #1e1b4b, #312e81, #0f172a);
-            display: flex; flex-direction: column; align-items: center; justify-content: center;
-            border-bottom: 2px solid var(--border); position: relative; overflow: hidden;
-            text-align: center; padding: 15px;
-        }
-        .login-banner-box::after {
-            content: "🎧 AI Workspace & Studio";
-            font-size: 1.2rem; font-weight: 800; color: #22d3ee; margin-top: 8px;
-            text-shadow: 0 2px 10px rgba(0,0,0,0.5);
-        }
-        .ai-avatar-icon {
-            width: 65px; height: 65px; background: rgba(6, 182, 212, 0.2);
-            border: 2px solid var(--accent); border-radius: 50%; display: flex;
-            align-items: center; justify-content: center; font-size: 2rem;
-            box-shadow: 0 0 20px rgba(6, 182, 212, 0.4); animation: pulse 2s infinite;
-        }
-        .modal-content-pad { padding: 25px; }
-        .close-modal { position: absolute; top: 15px; left: 20px; font-size: 1.5rem; cursor: pointer; color: #fff; font-weight: bold; background: rgba(0,0,0,0.6); width: 35px; height: 35px; border-radius: 50%; display: flex; align-items: center; justify-content: center; z-index: 10; }
+        .close-modal { position: absolute; top: 15px; left: 20px; font-size: 1.5rem; cursor: pointer; color: var(--text-muted); font-weight: bold; }
 
         .theme-toggle-btn, .lang-select {
             padding: 8px 14px; border-radius: 10px; border: 1px solid var(--border);
@@ -195,7 +184,7 @@
 
         footer { margin-top: 40px; padding: 25px; text-align: center; color: var(--text-muted); font-size: 0.9rem; border-top: 1px solid var(--border); width: 100%; max-width: 1000px; }
         .footer-links { display: flex; justify-content: center; gap: 20px; margin-bottom: 12px; flex-wrap: wrap; }
-        .footer-links a { color: var(--accent); text-decoration: none; font-weight: 600; }
+        .footer-links a { color: var(--accent); text-decoration: none; font-weight: 600; cursor: pointer; }
     </style>
 </head>
 <body>
@@ -206,195 +195,196 @@
         <div class="spinner"></div>
     </div>
 
-    <div class="top-time-bar">
-        <span>⏰ الوقت الحالي: <span id="liveClock">00:00:00 AM</span></span>
-        <span id="liveDate">2026</span>
-    </div>
-
-    <header>
-        <a href="#" class="logo">Smart Text AI ⚡</a>
-        <div class="header-controls">
-            <button class="login-btn-nav" onclick="openLoginModal()">👤 تسجيل الدخول</button>
-            <button class="theme-toggle-btn" onclick="toggleTheme()" id="themeBtn">🌙</button>
-            <select class="lang-select" id="languageSelector" onchange="changeLanguage()">
-                <option value="ar">العربية 🇸🇦</option>
-                <option value="en">English 🇺🇸</option>
-            </select>
+    <!-- 1. واجهة الترحيب الكبرى (Landing Page) -->
+    <div id="landing-view">
+        <h1 class="landing-brand">Smart Text AI ⚡</h1>
+        <p class="landing-subtitle">المنصة العربية والعالمية الأولى المتكاملة لتشكيل النصوص وتصحيحها، توليد سيناريوهات فيديوهات الريلز والتيك توك الذكية، وابتكار صور فائقة الواقعية بدقة Ultra-4K.</p>
+        
+        <div class="landing-actions">
+            <button class="btn-main-action" onclick="enterDashboard()">🚀 ابدأ الاستخدام الآن مجاناً</button>
+            <button class="login-btn-nav" style="padding: 15px 30px; font-size: 1.1rem;" onclick="openLoginModal()">👤 تسجيل الدخول</button>
+            <button class="login-btn-nav" style="padding: 15px 30px; font-size: 1.1rem; background: #0e7490;" onclick="openRegisterModal()">✨ إنشئ حساب جديد</button>
         </div>
-    </header>
 
-    <div class="hero-banner">
-        <h1 class="hero-title">منصتك الاحترافية الشاملة للذكاء الاصطناعي وصناعة المحتوى</h1>
-        <p class="hero-desc">تشكيل وتصحيح النصوص العربية بدقة مطلقة، توليد سيناريوهات وأوامر فيديوهات الريلز والتيك توك، وابتكار صور فائقة الواقعية بدقة Ultra-4K.</p>
-        <div class="hero-tags">
-            <span class="hero-tag">✨ تشكيل ذكي دقيق</span>
-            <span class="hero-tag">🎬 سيناريو ريلز وتيك توك</span>
-            <span class="hero-tag">🎨 صور فائقة الدقة 4K</span>
-            <span class="hero-tag">💎 خطط احترافية</span>
-        </div>
-    </div>
-
-    <!-- إعلان جوجل مخصص لدعم الخطة المجانية -->
-    <div class="ad-container">
-        <span class="ad-label">إعلان ممول / Google AdSense</span>
-        <p style="font-weight: 600; color: var(--text-main); margin-top: 5px;">🌟 احصل على استضافة مواقع وتصاميم جاهزة بخصم 50% اليوم عبر الإعلانات الراعية للمنصة المجانية!</p>
-    </div>
-
-    <div class="container">
-
-        <!-- 1. قسم النصوص -->
-        <div class="card">
-            <div class="card-title">📝 معالج وتصحيح وتشكيل النصوص العربية</div>
-            <textarea id="textInput" placeholder="أدخل النص هنا لتنسيقه، تصحيح أخطائه، تشكيله بالكامل، أو تنظيفه بدقة متناهية..."></textarea>
-            <div class="btn-group">
-                <button onclick="applyTashkeel()">✨ تشكيل النص بالكامل</button>
-                <button onclick="cleanText()" class="btn-secondary">🧹 تصحيح الأخطاء والتنسيق</button>
-                <button onclick="removeTashkeel()" class="btn-secondary">❌ إزالة التشكيل</button>
-                <button onclick="copyText('textInput')" class="btn-secondary">📋 نسخ النص</button>
+        <div class="landing-features-grid">
+            <div class="feature-box">
+                <h3>✨ معالجة النصوص الذكية</h3>
+                <p>تشكيل وتصحيح النصوص العربية بدقة مطلقة لضمان محتوى خالي من أي أخطاء لغوية.</p>
             </div>
-            <div id="statusMessage" style="margin-top:10px; font-weight:600; color:#10b981; font-size:0.9rem;"></div>
+            <div class="feature-box">
+                <h3>🎬 سيناريوهات الريلز والتيك توك</h3>
+                <p>أنشئ خطافات جذب واهتمام وأوامر فيديو متكاملة لمحتوى رقمي يحقق انتشاراً واسعاً.</p>
+            </div>
+            <div class="feature-box">
+                <h3>🎨 مولد الصور Ultra-4K</h3>
+                <p>ابتكر صوراً واقعية ومذهلة بدقات عالية ومناسبات متعددة لمنصات التواصل الاجتماعي.</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- 2. لوحة التحكم والخدمات (تفتح بعد الدخول) -->
+    <div id="app-dashboard">
+        <div class="top-time-bar">
+            <span>⏰ الوقت الحالي: <span id="liveClock">00:00:00 AM</span></span>
+            <span id="liveDate">2026</span>
         </div>
 
-        <!-- إعلان جوجل وسطي -->
+        <header>
+            <a class="logo" onclick="backToLanding()">Smart Text AI ⚡ (الرئيسية)</a>
+            <div class="header-controls">
+                <button class="login-btn-nav" onclick="openLoginModal()">👤 الحساب</button>
+                <button class="theme-toggle-btn" onclick="toggleTheme()" id="themeBtn">🌙</button>
+                <select class="lang-select" id="languageSelector" onchange="changeLanguage()">
+                    <option value="ar">العربية 🇸🇦</option>
+                    <option value="en">English 🇺🇸</option>
+                </select>
+            </div>
+        </header>
+
         <div class="ad-container">
-            <span class="ad-label">Google AdSense - مساحة إعلانية</span>
-            <p style="font-size: 0.85rem;">الإعلانات تساعدنا على إبقاء الخطة المجانية متاحة للجميع بدون رسوم.</p>
+            <span class="ad-label">إعلان ممول / Google AdSense</span>
+            <p style="font-weight: 600; color: var(--text-main); margin-top: 5px;">🌟 احصل على استضافة مواقع وتصاميم جاهزة بخصم 50% اليوم عبر الإعلانات الراعية للمنصة المجانية!</p>
         </div>
 
-        <!-- 2. مولد سيناريو الريلز والفيديوهات القصيرة -->
-        <div class="card">
-            <div class="card-title">🎬 مولد سيناريو وأوامر فيديوهات الريلز والتيك توك (Reels & Shorts)</div>
-            <p style="font-size:0.95rem; color: var(--text-muted); margin-bottom: 12px;">اكتب فكرة الفيديو القصير، وسنقوم بتوليد سيناريو احترافي مقسم مع خطاف جذب انتباه وتعليق صوتي وأوامر فيديو جاهزة:</p>
-            <textarea id="reelPrompt" placeholder="اكتب فكرة أو موضوع الفيديو (مثال: أسرار نجاح المشاريع الرقمية في 2026)..."></textarea>
-            <div class="btn-group">
-                <button onclick="generateReelScript()">إنشاء سيناريو الريلز الاحترافي 🚀</button>
-                <button onclick="copyText('reelOutput')" class="btn-secondary">📋 نسخ السيناريو</button>
+        <div class="container" style="width:100%; display:flex; flex-direction:column; gap:25px;">
+
+            <!-- أداة النصوص -->
+            <div class="card">
+                <div class="card-title">📝 معالج وتصحيح وتشكيل النصوص العربية</div>
+                <textarea id="textInput" placeholder="أدخل النص هنا لتنسيقه، تصحيح أخطائه، تشكيله بالكامل، أو تنظيفه بدقة متناهية..."></textarea>
+                <div class="btn-group">
+                    <button onclick="applyTashkeel()">✨ تشكيل النص بالكامل</button>
+                    <button onclick="cleanText()" class="btn-secondary">🧹 تصحيح الأخطاء والتنسيق</button>
+                    <button onclick="removeTashkeel()" class="btn-secondary">❌ إزالة التشكيل</button>
+                    <button onclick="copyText('textInput')" class="btn-secondary">📋 نسخ النص</button>
+                </div>
+                <div id="statusMessage" style="margin-top:10px; font-weight:600; color:#10b981; font-size:0.9rem;"></div>
             </div>
-            <div class="output-box" id="reelOutput">السيناريو وأوامر الفيديو ستظهر هنا...</div>
+
+            <!-- أداة الريلز -->
+            <div class="card">
+                <div class="card-title">🎬 مولد سيناريو وأوامر فيديوهات الريلز والتيك توك (Reels & Shorts)</div>
+                <textarea id="reelPrompt" placeholder="اكتب فكرة أو موضوع الفيديو (مثال: أسرار نجاح المشاريع الرقمية في 2026)..."></textarea>
+                <div class="btn-group">
+                    <button onclick="generateReelScript()">إنشاء سيناريو الريلز الاحترافي 🚀</button>
+                    <button onclick="copyText('reelOutput')" class="btn-secondary">📋 نسخ السيناريو</button>
+                </div>
+                <div class="output-box" id="reelOutput">السيناريو وأوامر الفيديو ستظهر هنا...</div>
+            </div>
+
+            <!-- أداة الصور -->
+            <div class="card">
+                <div class="card-title">🎨 مولد الصور فائقة الواقعية (Ultra-4K)</div>
+                <textarea id="imgPrompt" placeholder="صف الصورة باللغة الإنجليزية (مثال: Cinematic 4k photo of a futuristic city)..."></textarea>
+                <label style="font-weight:600; font-size:0.95rem; display:block; margin-bottom:6px;">اختر مقاس الصورة:</label>
+                <select class="tool-select" id="genRatio" style="margin-bottom: 14px;">
+                    <option value="1:1">1:1 (مربع - 1024x1024)</option>
+                    <option value="9:16">9:16 (طولي - 768x1344 - Reels / TikTok)</option>
+                    <option value="16:9">16:9 (عرضي - 1344x768 - YouTube)</option>
+                </select>
+                <div class="btn-group">
+                    <button onclick="generateImage()">توليد الصورة الآن 🖼️</button>
+                </div>
+                <div class="image-preview">
+                    <p id="imgStatus" style="display:none; color: var(--accent); font-weight: 700;">جاري تجهيز الصورة وتحميلها، يرجى الانتظار قليلاً... ⏳</p>
+                    <div class="img-crop-wrapper" id="imgWrapper">
+                        <img id="generatedImg" alt="AI Generated Image">
+                        <div class="watermark-overlay">Smart Text AI ⚡ - منصة النص الذكي</div>
+                    </div>
+                    <button id="downloadImgBtn" style="display:none;" class="dl-btn" onclick="downloadCleanImage()">⬇️ تحميل الصورة مع العلامة المائية الذكية</button>
+                </div>
+            </div>
+
+            <!-- خطط الأسعار -->
+            <div class="card" id="pricing-section">
+                <div class="card-title">💎 خطط الأسعار والاشتراكات (بدون إعلانات نهائياً للخطط المدفوعة)</div>
+                <div class="pricing-grid">
+                    <div class="pricing-card">
+                        <div>
+                            <h3>الخطة المجانية</h3>
+                            <div class="price">مجاناً</div>
+                            <ul class="pricing-features">
+                                <li>✓ معالجة وتشكيل النصوص الأساسية</li>
+                                <li>✓ توليد الصور الأساسية</li>
+                                <li>⚠️ تحتوي على إعلانات جوجل الداعمة</li>
+                            </ul>
+                        </div>
+                        <button class="btn-secondary" style="width: 100%;">خطتك الحالية</button>
+                    </div>
+
+                    <div class="pricing-card featured">
+                        <div class="pricing-badge">الأكثر طلباً</div>
+                        <div>
+                            <h3>الخطة الاحترافية (Pro)</h3>
+                            <div class="price">$15 <span style="font-size:1rem; color:var(--text-muted);">/ شهرياً</span></div>
+                            <ul class="pricing-features">
+                                <li>✨ **بدون إعلانات نهائياً (Ad-Free)**</li>
+                                <li>✓ توليد صور Ultra-4K خالية من التشوهات</li>
+                                <li>✓ سرعة فائقة جداً في المعالجة والتوليد</li>
+                            </ul>
+                        </div>
+                        <div style="display:flex; gap:8px;">
+                            <button onclick="alert('للاشتراك عبر PayPal بسعر $15، يرجى التحويل إلى: adm185511@gmail.com وإرسال الإيصال.')" style="flex:1; background:#0070ba;">PayPal 💳</button>
+                            <button onclick="alert('للاشتراك عبر Binance (USDT)، يرجى التحويل على المحفظة ولصق الإيصال للدعم.')" style="flex:1; background:#f0b90b; color:#000;">Binance 🪙</button>
+                        </div>
+                    </div>
+
+                    <div class="pricing-card">
+                        <div>
+                            <h3>خطة الأعمال (Business)</h3>
+                            <div class="price">$35 <span style="font-size:1rem; color:var(--text-muted);">/ شهرياً</span></div>
+                            <ul class="pricing-features">
+                                <li>🚀 **بدون إعلانات نهائياً (VIP)**</li>
+                                <li>✓ استخدام غير محدود تماماً (Unlimited)</li>
+                                <li>✓ دعم مباشر وخاص 24/7</li>
+                            </ul>
+                        </div>
+                        <button onclick="alert('تواصل معنا عبر البريد: adm185511@gmail.com لتفعيل خطة الأعمال والشركات.')" style="width: 100%;">اشترك الآن 🚀</button>
+                    </div>
+                </div>
+            </div>
+
         </div>
-
-        <!-- 3. مولد الصور Ultra-4K -->
-        <div class="card">
-            <div class="card-title">🎨 مولد الصور فائقة الواقعية (Ultra-4K)</div>
-            <textarea id="imgPrompt" placeholder="صف الصورة التي تريد ابتكارها بدقة باللغة الإنجليزية (مثال: Cinematic 4k photo of a futuristic city)..."></textarea>
-            
-            <label style="font-weight:600; font-size:0.95rem; display:block; margin-bottom:6px;">اختر مقاس الصورة (Aspect Ratio):</label>
-            <select class="tool-select" id="genRatio" style="margin-bottom: 14px;">
-                <option value="1:1">1:1 (مربع - 1024x1024)</option>
-                <option value="9:16">9:16 (طولي - 768x1344 - Reels / TikTok)</option>
-                <option value="16:9">16:9 (عرضي - 1344x768 - YouTube)</option>
-            </select>
-
-            <div class="btn-group">
-                <button onclick="generateImage()">توليد الصورة الآن 🖼️</button>
-            </div>
-            <div class="image-preview">
-                <p id="imgStatus" style="display:none; color: var(--accent); font-weight: 700;">جاري تجهيز الصورة وتحميلها بأعلى جودة، يرجى الانتظار قليلاً... ⏳</p>
-                <div class="img-crop-wrapper" id="imgWrapper">
-                    <img id="generatedImg" alt="AI Generated Image">
-                    <div class="watermark-overlay">Smart Text AI ⚡ - منصة النص الذكي</div>
-                </div>
-                <button id="downloadImgBtn" style="display:none;" class="dl-btn" onclick="downloadCleanImage()">⬇️ تحميل الصورة مع العلامة المائية الذكية</button>
-            </div>
-        </div>
-
-        <!-- 4. خطط الأسعار والاشتراكات -->
-        <div class="card" id="pricing-section">
-            <div class="card-title">💎 خطط الأسعار والاشتراكات (بدون إعلانات نهائياً للخطط المدفوعة)</div>
-            <p style="font-size:0.95rem; color: var(--text-muted); margin-bottom: 20px;">اختر الخطة الاحترافية لتجربة خالية تماماً من الإعلانات مع قوة مطلقة في التوليد والسرعة:</p>
-            
-            <div class="pricing-grid">
-                <!-- الخطة المجانية -->
-                <div class="pricing-card">
-                    <div>
-                        <h3>الخطة المجانية</h3>
-                        <div class="price">مجاناً</div>
-                        <ul class="pricing-features">
-                            <li>✓ معالجة وتشكيل النصوص الأساسية</li>
-                            <li>✓ مولد سيناريو الريلز القياسي</li>
-                            <li>✓ توليد الصور الأساسية</li>
-                            <li>⚠️ تحتوي على إعلانات جوجل الداعمة</li>
-                        </ul>
-                    </div>
-                    <button class="btn-secondary" style="width: 100%;">خطتك الحالية</button>
-                </div>
-
-                <!-- الخطة الاحترافية -->
-                <div class="pricing-card featured">
-                    <div class="pricing-badge">الأكثر طلباً</div>
-                    <div>
-                        <h3>الخطة الاحترافية (Pro)</h3>
-                        <div class="price">$15 <span style="font-size:1rem; color:var(--text-muted);">/ شهرياً</span></div>
-                        <ul class="pricing-features">
-                            <li>✨ **بدون إعلانات نهائياً (Ad-Free)**</li>
-                            <li>✓ توليد صور Ultra-4K خالية من التشوهات</li>
-                            <li>✓ سرعة فائقة جداً في المعالجة والتوليد</li>
-                            <li>✓ دمج الصور والأشخاص بالذكاء الاصطناعي</li>
-                            <li>✓ دعم كامل لفيديوهات الريلز والـ Shorts</li>
-                        </ul>
-                    </div>
-                    <div style="display:flex; gap:8px;">
-                        <button onclick="alert('للاشتراك عبر PayPal بسعر $15، يرجى التحويل إلى الحساب: adm185511@gmail.com وإرسال الإيصال للتفعيل الفوري.')" style="flex:1; background:#0070ba;">PayPal 💳</button>
-                        <button onclick="alert('للاشتراك عبر Binance (USDT)، يرجى التحويل على المحفظة ولصق الإيصال للدعم لتفعيل حسابك فوراً.')" style="flex:1; background:#f0b90b; color:#000;">Binance 🪙</button>
-                    </div>
-                </div>
-
-                <!-- خطة الشركات -->
-                <div class="pricing-card">
-                    <div>
-                        <h3>خطة الأعمال (Business)</h3>
-                        <div class="price">$35 <span style="font-size:1rem; color:var(--text-muted);">/ شهرياً</span></div>
-                        <ul class="pricing-features">
-                            <li>🚀 **بدون إعلانات نهائياً (VIP)**</li>
-                            <li>✓ استخدام غير محدود تماماً (Unlimited)</li>
-                            <li>✓ أولوية قصوى في خوادم التوليد العالمية</li>
-                            <li>✓ إزالة العلامة المائية بالكامل</li>
-                            <li>✓ دعم مباشر وخاص 24/7</li>
-                        </ul>
-                    </div>
-                    <button onclick="alert('تواصل معنا عبر البريد: adm185511@gmail.com لتفعيل خطة الأعمال والشركات بسعر $35.')" style="width: 100%;">اشترك الآن 🚀</button>
-                </div>
-            </div>
-        </div>
-
     </div>
 
-    <!-- نافذة تسجيل الدخول مع الواجهة البصرية المضمونة -->
+    <!-- نافذة تسجيل الدخول -->
     <div id="loginModal" class="modal">
         <div class="modal-box">
-            <span class="close-modal" onclick="closeLoginModal()">&times;</span>
-            
-            <div class="login-banner-box">
-                <div class="ai-avatar-icon">💻</div>
-            </div>
-            
-            <div class="modal-content-pad">
-                <h2 style="color: var(--accent); margin-bottom: 8px; text-align: center; font-size: 1.4rem;">تسجيل الدخول إلى Smart Text AI ⚡</h2>
-                <p style="color: var(--text-muted); font-size: 0.85rem; text-align: center; margin-bottom: 20px;">سجل دخولك للوصول إلى لوحة التحكم والخطط الخاصة بك:</p>
-                
-                <form onsubmit="handleLogin(event)">
-                    <label style="font-size: 0.85rem; font-weight: 600;">البريد الإلكتروني:</label>
-                    <input type="email" id="loginEmail" placeholder="name@example.com" required style="margin-top: 4px; padding: 10px;">
-                    
-                    <label style="font-size: 0.85rem; font-weight: 600;">كلمة المرور:</label>
-                    <input type="password" id="loginPass" placeholder="••••••••" required style="margin-top: 4px; padding: 10px;">
-                    
-                    <button type="submit" style="width: 100%; margin-top: 10px; padding: 11px;">تسجيل الدخول الآمن 🔒</button>
-                </form>
-                
-                <p style="text-align: center; margin-top: 15px; font-size: 0.85rem; color: var(--text-muted);">
-                    ليس لديك حساب؟ <a href="#pricing-section" onclick="closeLoginModal()" style="color: var(--accent); text-decoration: none; font-weight: bold;">اختر خطتك الآن</a>
-                </p>
-            </div>
+            <span class="close-modal" onclick="closeModals()">&times;</span>
+            <h2 style="color: var(--accent); margin-bottom: 15px; text-align: center;">تسجيل الدخول</h2>
+            <form onsubmit="handleAuth(event, 'تسجيل الدخول')">
+                <label style="font-size: 0.85rem; font-weight: 600;">البريد الإلكتروني:</label>
+                <input type="email" placeholder="name@example.com" required style="margin-top: 4px;">
+                <label style="font-size: 0.85rem; font-weight: 600;">كلمة المرور:</label>
+                <input type="password" placeholder="••••••••" required style="margin-top: 4px;">
+                <button type="submit" style="width: 100%; margin-top: 10px; padding: 11px;">دخول آمن 🔒</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- نافذة إنشاء حساب جديد -->
+    <div id="registerModal" class="modal">
+        <div class="modal-box">
+            <span class="close-modal" onclick="closeModals()">&times;</span>
+            <h2 style="color: var(--accent); margin-bottom: 15px; text-align: center;">إنشاء حساب جديد</h2>
+            <form onsubmit="handleAuth(event, 'إنشاء الحساب')">
+                <label style="font-size: 0.85rem; font-weight: 600;">الاسم الكامل:</label>
+                <input type="text" placeholder="اسمك الكريم" required style="margin-top: 4px;">
+                <label style="font-size: 0.85rem; font-weight: 600;">البريد الإلكتروني:</label>
+                <input type="email" placeholder="name@example.com" required style="margin-top: 4px;">
+                <label style="font-size: 0.85rem; font-weight: 600;">كلمة المرور:</label>
+                <input type="password" placeholder="••••••••" required style="margin-top: 4px;">
+                <button type="submit" style="width: 100%; margin-top: 10px; padding: 11px;">تسجيل وتفعيل الحساب ✨</button>
+            </form>
         </div>
     </div>
 
     <footer>
         <div class="footer-links">
-            <a href="javascript:void(0)" onclick="alert('منصة Smart Text AI هي الحل الأمثل لصُنّاع المحتوى والمطورين.')">عن المنصة</a> |
-            <a href="javascript:void(0)" onclick="alert('جميع الحقوق محفوظة. نلتزم بحماية خصوصية بيانات المستخدمين.')">سياسة الخصوصية</a> |
-            <a href="javascript:void(0)" onclick="alert('استخدام الأدوات يخضع لشروط الخدمة والاستخدام المشروع.')">شروط الاستخدام</a> |
-            <a href="javascript:void(0)" onclick="alert('تواصل معنا عبر البريد: adm185511@gmail.com')">اتصل بنا</a>
+            <a onclick="alert('Smart Text AI هي المنصة الأولى عالمياً لخدمات الذكاء الاصطناعي.')">عن المنصة</a> |
+            <a onclick="alert('نلتزم بحماية خصوصية بيانات جميع المستخدمين والزوار.')">سياسة الخصوصية</a> |
+            <a onclick="alert('جميع الحقوق محفوظة. الاستخدام يخضع لشروط الخدمة.')">شروط الاستخدام</a> |
+            <a onclick="alert('تواصل معنا عبر البريد: adm185511@gmail.com')">اتصل بنا</a>
         </div>
         <p>© 2026 جميع الحقوق محفوظة - منصة النص الذكي Smart Text AI ⚡</p>
     </footer>
@@ -408,6 +398,18 @@
             }, 800);
             startClock();
         });
+
+        function enterDashboard() {
+            document.getElementById('landing-view').style.display = 'none';
+            document.getElementById('app-dashboard').style.display = 'flex';
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        function backToLanding() {
+            document.getElementById('app-dashboard').style.display = 'none';
+            document.getElementById('landing-view').style.display = 'flex';
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
 
         function startClock() {
             function update() {
@@ -441,13 +443,17 @@
         }
 
         function openLoginModal() { document.getElementById('loginModal').style.display = 'flex'; }
-        function closeLoginModal() { document.getElementById('loginModal').style.display = 'none'; }
+        function openRegisterModal() { document.getElementById('registerModal').style.display = 'flex'; }
+        function closeModals() { 
+            document.getElementById('loginModal').style.display = 'none'; 
+            document.getElementById('registerModal').style.display = 'none'; 
+        }
 
-        function handleLogin(e) {
+        function handleAuth(e, actionType) {
             e.preventDefault();
-            let email = document.getElementById('loginEmail').value;
-            alert(`أهلاً بك يا ${email}! تم تسجيل دخولك بنجاح إلى منصة Smart Text AI.`);
-            closeLoginModal();
+            alert(`تم ${actionType} بنجاح! أهلاً بك في منصة Smart Text AI.`);
+            closeModals();
+            enterDashboard();
         }
 
         async function applyTashkeel() {
@@ -581,11 +587,11 @@
         function changeLanguage() {
             let lang = document.getElementById('languageSelector').value;
             if (lang === 'en') {
-                document.querySelector('.hero-title').innerText = "Professional All-in-One AI Content & Generation Platform";
-                document.querySelector('.hero-desc').innerText = "Arabic text diacritics, Reels & TikTok script generator, and photorealistic Ultra-4K image generation.";
+                document.querySelector('.landing-brand').innerText = "Smart Text AI ⚡";
+                document.querySelector('.landing-subtitle').innerText = "The leading global platform for Arabic text diacritics, AI Reels scripts, and Ultra-4K image generation.";
             } else {
-                document.querySelector('.hero-title').innerText = "منصتك الاحترافية الشاملة للذكاء الاصطناعي وصناعة المحتوى";
-                document.querySelector('.hero-desc').innerText = "تشكيل وتصحيح النصوص العربية بدقة مطلقة، توليد سيناريوهات وأوامر فيديوهات الريلز والتيك توك، وابتكار صور فائقة الواقعية بدقة Ultra-4K.";
+                document.querySelector('.landing-brand').innerText = "Smart Text AI ⚡";
+                document.querySelector('.landing-subtitle').innerText = "المنصة العربية والعالمية الأولى المتكاملة لتشكيل النصوص وتصحيحها، توليد سيناريوهات فيديوهات الريلز والتيك توك الذكية، وابتكار صور فائقة الواقعية بدقة Ultra-4K.";
             }
         }
     </script>
