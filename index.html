@@ -258,7 +258,7 @@
             <div class="card-title">📝 <span id="t-text-tools">معالج وتنسيق النصوص</span></div>
             <textarea id="textInput" placeholder="أدخل النص هنا لتنسيقه، تشكيله، أو تنظيفه..."></textarea>
             <div class="btn-group">
-                <button onclick="applyTashkeel()">✨ تشكيل النص</button>
+                <button onclick="applyTashkeel()">✨ تشكيل النص بالكامل</button>
                 <button onclick="cleanText()" class="btn-secondary">🧹 تنظيف وتنسيق</button>
                 <button onclick="removeTashkeel()" class="btn-secondary">❌ إزالة التشكيل</button>
                 <button onclick="copyText('textInput')" class="btn-secondary">📋 نسخ النص</button>
@@ -284,7 +284,7 @@
             </div>
         </div>
 
-        <!-- قسم توليد الصور -->
+        <!-- قسم توليد الصور بدون علامة مائية -->
         <div class="card">
             <div class="card-title">🎨 <span id="t-img-tools">مولد الصور بالذكاء الاصطناعي</span></div>
             <textarea id="imgPrompt" placeholder="صف الصورة التي تريد ابتكارها بالإنجليزية أو العربية..."></textarea>
@@ -305,7 +305,6 @@
     </footer>
 
     <script>
-        // تبديل الوضع الليلي والنهاري
         function toggleTheme() {
             const currentTheme = document.documentElement.getAttribute('data-theme');
             const themeBtn = document.getElementById('themeBtn');
@@ -330,40 +329,31 @@
             }
 
             let dictionary = {
-                "مرحبا": "مَرْحَبًا",
-                "بكم": "بِكُمْ",
-                "في": "فِي",
-                "منصتنا": "مَنَصَّتِنَا",
-                "الذكيه": "الذَّكِيَّةِ",
-                "الذكية": "الذَّكِيَّةِ",
-                "نحن": "نَحْنُ",
-                "نساعدكم": "نُسَاعِدُكُمْ",
-                "على": "عَلَى",
-                "علي": "عَلَى",
-                "كتابة": "كِتَابَةِ",
-                "المحتوي": "الْمُحْتَوَى",
-                "المحتوى": "الْمُحْتَوَى",
-                "وتنسيق": "وَتَنْسِيقِ",
-                "النصوص": "النُّصُوصِ",
-                "هذا": "هٰذَا",
-                "هذه": "هٰذِهِ",
-                "من": "مِنْ",
-                "عن": "عَنْ",
-                "إلى": "إِلَى",
-                "الي": "إِلَى",
-                "الله": "اللَّهِ",
-                "تطبيق": "تَطْبِيقُ",
-                "سهل": "سَهْلٌ",
-                "وسريع": "وَسَرِيعٌ",
-                "الذكاء": "الذَّكَاءِ",
-                "الاصطناعي": "الاصْطِنَاعِيِّ",
-                "الاصطناعى": "الاصْطِنَاعِيِّ"
+                "مرحبا": "مَرْحَبًا", "بكم": "بِكُمْ", "في": "فِي", "منصتنا": "مَنَصَّتِنَا", "الذكيه": "الذَّكِيَّةِ",
+                "الذكية": "الذَّكِيَّةِ", "نحن": "نَحْنُ", "نساعدكم": "نُسَاعِدُكُمْ", "نساعدك": "نُسَاعِدُكَ",
+                "على": "عَلَى", "علي": "عَلَى", "كتابة": "كِتَابَةِ", "المحتوي": "الْمُحْتَوَى", "المحتوى": "الْمُحْتَوَى",
+                "وتنسيق": "وَتَنْسِيقِ", "النصوص": "النُّصُوصِ", "هذا": "هٰذَا", "هذه": "هٰذِهِ", "من": "مِنْ",
+                "عن": "عَنْ", "إلى": "إِلَى", "الي": "إِلَى", "الله": "اللَّهِ", "تطبيق": "تَطْبِيقُ",
+                "سهل": "سَهْلٌ", "وسريع": "وَسَرِيعٌ", "الذكاء": "الذَّكَاءِ", "الاصطناعي": "الاصْطِنَاعِيِّ",
+                "الاصطناعى": "الاصْطِنَاعِيِّ", "تطبيقنا": "تَطْبِيقِنَا", "الجديد": "الْجَدِيدِ", "انشاءالله": "إِنْ شَاءَ اللَّهُ",
+                "سوف": "سَوْفَ", "الرسائل": "الرَّسَائِلِ", "تنضيم": "تَنْظِيمِ", "تنظيم": "تَنْظِيمِ", "المقالات": "الْمَقَالَاتِ",
+                "باسلوب": "بِأُسْلُوبٍ", "بأسلوب": "بِأُسْلُوبٍ", "جميل": "جَمِيلٍ", "واحترافي": "وَاحْتِرَافِيٍّ",
+                "هل": "هَلْ", "تراقب": "تُرَاقِبُ", "التطويرات": "التَّطْوِيرَاتِ", "التى": "الَّتِي", "التي": "الَّتِي",
+                "نقوم": "نَقُومُ", "بها": "بِهَا", "ان": "إِنَّ", "إن": "إِنَّ", "الهدف": "الْهَدَفُ",
+                "الرئيسي": "الرَّئِيسِيُّ", "هوا": "هُوَ", "هو": "هُوَ", "تسهيل": "تَسْهِيلُ", "العمل": "الْعَمَلِ",
+                "وزياده": "وَزِيَادَةُ", "وزيادة": "وَزِيَادَةُ", "الانتاجيه": "الْإِنْتَاجِيَّةِ", "الإنتاجية": "الْإِنْتَاجِيَّةِ",
+                "بدون": "بِدُونِ", "اي": "أَيِّ", "أي": "أَيِّ", "تعقيدات": "تَعْقِيدَاتٍ"
             };
 
             let words = text.split(/(\s+|[\.\،\?\!])/);
             let result = words.map(word => {
                 let clean = word.trim();
-                return dictionary[clean] ? dictionary[clean] : autoTashkeelWord(word);
+                if (dictionary[clean]) {
+                    return dictionary[clean];
+                } else if (clean.length > 0 && !/[\u064B-\u0652]/.test(clean)) {
+                    return autoTashkeelPattern(word);
+                }
+                return word;
             }).join('');
 
             input.value = result;
@@ -371,13 +361,16 @@
             setTimeout(() => { status.innerText = ""; }, 3000);
         }
 
-        function autoTashkeelWord(word) {
-            if (/[\u064B-\u0652]/.test(word)) return word;
-            return word
-                .replace(/^ال/g, "الْ")
-                .replace(/ة$/g, "َةً")
-                .replace(/ين$/g, "ِينّ")
-                .replace(/ون$/g, "ُونَ");
+        function autoTashkeelPattern(word) {
+            let w = word;
+            w = w.replace(/^ال/g, "الْ");
+            w = w.replace(/ة$/g, "َةٌ");
+            w = w.replace(/ين$/g, "ِينّ");
+            w = w.replace(/ون$/g, "ُونَ");
+            w = w.replace(/ات$/g, "َاتٍ");
+            w = w.replace(/هم$/g, "هُمْ");
+            w = w.replace(/كم$/g, "كُمْ");
+            return w;
         }
 
         function removeTashkeel() {
@@ -440,6 +433,7 @@
             link.click();
         }
 
+        // توليد الصور بدون علامات مائية
         function generateImage() {
             let prompt = document.getElementById('imgPrompt').value;
             let imgElement = document.getElementById('generatedImg');
@@ -456,6 +450,7 @@
             downloadBtn.style.display = 'none';
 
             let encodedPrompt = encodeURIComponent(prompt);
+            // إضافة معلمة nologo=true لإلغاء العلامة المائية
             let imageUrl = `https://image.pollinations.ai/prompt/${encodedPrompt}?width=800&height=800&nologo=true&seed=${Math.floor(Math.random() * 1000)}`;
 
             imgElement.src = imageUrl;
