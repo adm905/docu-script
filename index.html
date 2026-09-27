@@ -5,23 +5,25 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>منصة النص الذكي | Smart Text AI</title>
     <meta name="description" content="منصة متكاملة لتنسيق وتشكيل النصوص العربية، تصحيح الأخطاء الإملائية، توليد سيناريو المحتوى، وإنشاء الصور بالذكاء الاصطناعي بدقة عالية.">
-    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;800&display=swap" rel="stylesheet">
     <style>
         :root {
             --primary: #4f46e5;
             --primary-hover: #4338ca;
-            --bg: #f8fafc;
+            --accent: #06b6d4;
+            --bg: #eef2ff;
             --card-bg: #ffffff;
             --text-main: #0f172a;
             --text-muted: #64748b;
-            --border: #e2e8f0;
-            --input-bg: #ffffff;
+            --border: #cbd5e1;
+            --input-bg: #f8fafc;
         }
 
         [data-theme="dark"] {
             --primary: #6366f1;
             --primary-hover: #4f46e5;
-            --bg: #0f172a;
+            --accent: #22d3ee;
+            --bg: #090d16;
             --card-bg: #1e293b;
             --text-main: #f8fafc;
             --text-muted: #94a3b8;
@@ -39,6 +41,9 @@
 
         body {
             background-color: var(--bg);
+            background-image: radial-gradient(at 0% 0%, rgba(99, 102, 241, 0.15) 0px, transparent 50%),
+                              radial-gradient(at 100% 100%, rgba(6, 182, 212, 0.15) 0px, transparent 50%);
+            background-attachment: fixed;
             color: var(--text-main);
             min-height: 100vh;
             display: flex;
@@ -47,17 +52,69 @@
             padding: 20px;
         }
 
+        /* 🎬 شاشة الافتتاح المتحركة */
+        #splash-screen {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, #0f172a 0%, #1e1b4b 100%);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            z-index: 9999;
+            transition: opacity 0.6s ease, visibility 0.6s ease;
+        }
+
+        .splash-logo {
+            font-size: 2.2rem;
+            font-weight: 800;
+            color: #ffffff;
+            animation: pulse 1.5s infinite ease-in-out;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .splash-sub {
+            color: #94a3b8;
+            font-size: 0.95rem;
+            margin-top: 10px;
+        }
+
+        .spinner {
+            width: 40px;
+            height: 40px;
+            border: 4px solid rgba(255, 255, 255, 0.1);
+            border-top: 4px solid var(--accent);
+            border-radius: 50%;
+            margin-top: 20px;
+            animation: spin 0.8s linear infinite;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); opacity: 0.9; }
+            50% { transform: scale(1.05); opacity: 1; }
+        }
+
         header {
             width: 100%;
             max-width: 900px;
             display: flex;
             justify-content: space-between;
             align-items: center;
-            margin-bottom: 25px;
+            margin-bottom: 20px;
             background: var(--card-bg);
             padding: 15px 20px;
-            border-radius: 12px;
-            box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+            border-radius: 16px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.06);
             border: 1px solid var(--border);
         }
 
@@ -72,6 +129,71 @@
             font-weight: 700;
             color: var(--primary);
             text-decoration: none;
+        }
+
+        /* 🖼️ غلاف رئيسي جذاب ملون بصورة خلفية متحركة */
+        .hero-banner {
+            width: 100%;
+            max-width: 900px;
+            background: linear-gradient(135deg, #4f46e5 0%, #3b82f6 50%, #06b6d4 100%);
+            color: #ffffff;
+            padding: 35px 25px;
+            border-radius: 20px;
+            text-align: center;
+            margin-bottom: 25px;
+            box-shadow: 0 10px 25px rgba(79, 70, 229, 0.25);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero-banner::before {
+            content: "";
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(255,255,255,0.1) 10%, transparent 20%);
+            background-size: 20px 20px;
+            transform: rotate(15deg);
+        }
+
+        .hero-title {
+            font-size: 1.8rem;
+            font-weight: 800;
+            margin-bottom: 10px;
+            line-height: 1.3;
+            position: relative;
+            z-index: 1;
+        }
+
+        .hero-desc {
+            font-size: 1rem;
+            opacity: 0.95;
+            max-width: 650px;
+            margin: 0 auto 20px;
+            line-height: 1.6;
+            position: relative;
+            z-index: 1;
+        }
+
+        .hero-tags {
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+            flex-wrap: wrap;
+            position: relative;
+            z-index: 1;
+        }
+
+        .hero-tag {
+            background: rgba(255, 255, 255, 0.25);
+            backdrop-filter: blur(8px);
+            padding: 6px 14px;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            border: 1px solid rgba(255, 255, 255, 0.3);
         }
 
         .lang-select {
@@ -112,16 +234,16 @@
 
         .card {
             background: var(--card-bg);
-            padding: 20px;
-            border-radius: 12px;
+            padding: 22px;
+            border-radius: 16px;
             border: 1px solid var(--border);
-            box-shadow: 0 2px 8px rgba(0,0,0,0.02);
+            box-shadow: 0 4px 15px rgba(0,0,0,0.03);
         }
 
         .card-title {
-            font-size: 1.1rem;
+            font-size: 1.15rem;
             font-weight: 700;
-            margin-bottom: 12px;
+            margin-bottom: 14px;
             color: var(--primary);
             display: flex;
             align-items: center;
@@ -131,7 +253,7 @@
         textarea, input[type="text"], input[type="email"] {
             width: 100%;
             padding: 12px;
-            border-radius: 8px;
+            border-radius: 10px;
             border: 1px solid var(--border);
             font-size: 1.05rem;
             margin-bottom: 12px;
@@ -148,6 +270,7 @@
 
         textarea:focus, input:focus {
             border-color: var(--primary);
+            box-shadow: 0 0 0 3px rgba(79, 70, 229, 0.1);
         }
 
         .btn-group {
@@ -161,7 +284,7 @@
             color: #fff;
             border: none;
             padding: 10px 18px;
-            border-radius: 8px;
+            border-radius: 10px;
             cursor: pointer;
             font-weight: 600;
             transition: 0.2s;
@@ -189,7 +312,7 @@
 
         select.tool-select {
             padding: 10px;
-            border-radius: 8px;
+            border-radius: 10px;
             border: 1px solid var(--border);
             font-size: 0.95rem;
             outline: none;
@@ -199,9 +322,9 @@
 
         .output-box {
             margin-top: 15px;
-            padding: 12px;
+            padding: 14px;
             background: var(--input-bg);
-            border-radius: 8px;
+            border-radius: 10px;
             border: 1px dashed var(--border);
             min-height: 50px;
             white-space: pre-wrap;
@@ -220,8 +343,8 @@
         .img-crop-wrapper {
             display: none;
             overflow: hidden;
-            border-radius: 8px;
-            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+            border-radius: 12px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
             max-width: 100%;
         }
 
@@ -281,7 +404,7 @@
             background: var(--card-bg);
             color: var(--text-main);
             padding: 25px;
-            border-radius: 12px;
+            border-radius: 16px;
             max-width: 600px;
             width: 100%;
             max-height: 80vh;
@@ -300,6 +423,13 @@
 </head>
 <body>
 
+    <!-- 🎬 الشاشة الافتتاحية المتحركة -->
+    <div id="splash-screen">
+        <div class="splash-logo">منصة النص الذكي ⚡</div>
+        <div class="splash-sub">Smart Text AI - أداة المحتوى والذكاء الاصطناعي</div>
+        <div class="spinner"></div>
+    </div>
+
     <header>
         <a href="#" class="logo" id="app-title">منصة النص الذكي ⚡</a>
         <div class="header-controls">
@@ -310,6 +440,18 @@
             </select>
         </div>
     </header>
+
+    <!-- 🖼️ الغلاف الترحيبي الرئيسي الملون بوضوح -->
+    <div class="hero-banner">
+        <h1 class="hero-title" id="h-title">منصة الذكاء الاصطناعي الشاملة لتوليد المحتوى والصور</h1>
+        <p class="hero-desc" id="h-desc">تشكيل وتصحيح النصوص العربية، إنشاء السيناريوهات الرقمية، وتوليد الصور فائقة الواقعية مجاناً وبسرعة عالية.</p>
+        <div class="hero-tags">
+            <span class="hero-tag">✨ تشكيل دقيق</span>
+            <span class="hero-tag">🧹 تصحيح الأخطاء</span>
+            <span class="hero-tag">🎬 سيناريو فيديو</span>
+            <span class="hero-tag">🎨 صور 8K</span>
+        </div>
+    </div>
 
     <div class="container">
 
@@ -362,7 +504,7 @@
 
     </div>
 
-    <!-- نافذة العرض للمستندات والسياسات -->
+    <!-- نافذة السياسات والمعلومات -->
     <div id="infoModal" class="modal">
         <div class="modal-content">
             <span class="close-btn" onclick="closeModal()">&times;</span>
@@ -381,6 +523,14 @@
     </footer>
 
     <script>
+        window.addEventListener('load', () => {
+            setTimeout(() => {
+                const splash = document.getElementById('splash-screen');
+                splash.style.opacity = '0';
+                splash.style.visibility = 'hidden';
+            }, 800);
+        });
+
         function toggleTheme() {
             const currentTheme = document.documentElement.getAttribute('data-theme');
             const themeBtn = document.getElementById('themeBtn');
@@ -393,7 +543,6 @@
             }
         }
 
-        // تشكيل النصوص وقاموس موسع ومضبوط نحوياً
         async function applyTashkeel() {
             let input = document.getElementById('textInput');
             let status = document.getElementById('statusMessage');
@@ -429,11 +578,7 @@
                 "لتنسيق": "لِتَنْسِيقِ", "وتشكيل": "وَتَشْكِيلِ", "النصوص": "النُّصُوصِ", "على": "عَلَى",
                 "كتابة": "كِتَابَةِ", "المحتوى": "الْمُحْتَوَى", "الجديد": "الْجَدِيدِ", "الذي": "الَّذِي",
                 "يستخدم": "يَسْتَخْدِمُ", "الذكاء": "الذَّكَاءَ", "الاصطناعي": "الاصْطِنَاعِيَّ", "لتطوير": "لِتَطْوِيرِ",
-                "العربي": "الْعَرَبِيِّ", "أهلا": "أَهْلًا", "وسهلا": "وَسَهْلًا", "منصتنا": "مَنَصَّتِنَا",
-                "تصميم": "تَصْمِيمِ", "إنشاء": "إِنْشَاءِ", "الصور": "الصُّوَرِ", "فيديو": "فِيدْيُو",
-                "سيناريو": "سِينَارْيُو", "ملخص": "مُلَخَّصٌ", "الآن": "الْآنَ", "حفظ": "حِفْظِ",
-                "الموقع": "الْمَوْقِعِ", "مجاني": "مَجَّانِيٌّ", "سريع": "سَرِيعٌ", "خدمة": "خِدْمَةِ",
-                "سهل": "سَهْلٌ", "استخدام": "اسْتِخْدَامِ", "جودة": "جَوْدَةِ", "عالية": "عَالِيَةٍ"
+                "العربي": "الْعَرَبِيِّ", "أهلا": "أَهْلًا", "وسهلا": "وَسَهْلًا", "منصتنا": "مَنَصَّتِنَا"
             };
 
             let words = text.split(/(\s+|[\.\،\?\!])/);
@@ -455,7 +600,6 @@
             input.value = input.value.replace(/[ً-ْ]/g, "");
         }
 
-        // خوارزمية ذكية لتنسيق النص وتصحيح الأخطاء المباشرة والحروف المكررة
         function cleanText() {
             let input = document.getElementById('textInput');
             let status = document.getElementById('statusMessage');
@@ -463,10 +607,8 @@
 
             if (!str.trim()) { alert("يرجى كتابة نص أولاً لتنظيفه وتصحيحه!"); return; }
 
-            // 1. إزالة تكرار الأحرف المكررة أكثر من مرتين (مثل: ككك -> ك، سسس -> س)
             str = str.replace(/(.)\1{2,}/g, '$1');
 
-            // 2. معالجة قاموس الأخطاء الشائعة والألف المقصورة والتاء
             let mistakes = {
                 "علئ": "على", "الئ": "إلى", "فايققه": "فائقة", "فايقه": "فائقة",
                 "سهوللله": "سهولة", "سهوله": "سهولة", "بسررعه": "بسرعة", "بسرعه": "بسرعة",
@@ -478,7 +620,6 @@
             let correctedWords = words.map(w => mistakes[w] || w);
             str = correctedWords.join(' ');
 
-            // 3. تنظيم المسافات وعلامات الترقيم
             str = str.replace(/\s+/g, ' ').replace(/(\s)([\.\،\?\!])/g, '$2').trim();
 
             input.value = str;
@@ -521,7 +662,6 @@
             link.click();
         }
 
-        // توليد الصور بدون تنعيم زائفة وبأعلى جودة فائقة الدقة (RAW Ultra Sharp)
         function generateImage() {
             let prompt = document.getElementById('imgPrompt').value;
             let imgElement = document.getElementById('generatedImg');
@@ -535,7 +675,6 @@
             imgWrapper.style.display = 'none';
             downloadBtn.style.display = 'none';
 
-            // إضافة تعليمات الصرامة والجودة ومنع التنعيم الرقمي الكرتوني
             let finalPrompt = prompt + ", raw ultra sharp photograph, detailed skin pores, hyperrealistic, sharp focus, 8k resolution, no cartoon, no blur";
             let imageUrl = `https://image.pollinations.ai/prompt/${encodeURIComponent(finalPrompt)}?model=flux&nologo=true&width=1024&height=1024&seed=${Math.floor(Math.random() * 999999)}`;
 
@@ -547,7 +686,6 @@
             };
         }
 
-        // رسم العلامة المائية المباشرة بدقة عالية دون التضحية بجودة الصورة
         function downloadCleanImage() {
             let img = document.getElementById('generatedImg');
             let canvas = document.createElement('canvas');
@@ -559,10 +697,8 @@
             canvas.width = width;
             canvas.height = height;
 
-            // رسم الصورة بالكامل بدقتها الأصلية دون قص أو ضغط
             ctx.drawImage(img, 0, 0, width, height);
 
-            // إضافة شريط شبه شفاف للعلامة المائية في أسفل اليمين
             let boxWidth = 220;
             let boxHeight = 45;
             let x = width - boxWidth - 20;
@@ -572,7 +708,6 @@
             ctx.roundRect ? ctx.roundRect(x, y, boxWidth, boxHeight, 8) : ctx.fillRect(x, y, boxWidth, boxHeight);
             ctx.fill();
 
-            // طباعة نص العلامة المائية الخاص بموقعك بوضوح تام
             ctx.font = "bold 20px Cairo, sans-serif";
             ctx.fillStyle = "#ffffff";
             ctx.textAlign = "center";
@@ -581,7 +716,7 @@
 
             let link = document.createElement('a');
             link.download = 'smart-text-ai-image.jpg';
-            link.href = canvas.toDataURL('image/jpeg', 1.0); // حماية أعلى جودة ونقاء بدون ضغط
+            link.href = canvas.toDataURL('image/jpeg', 1.0);
             link.click();
         }
 
@@ -609,11 +744,15 @@
             let lang = document.getElementById('languageSelector').value;
             if (lang === 'en') {
                 document.getElementById('app-title').innerText = "Smart Text AI ⚡";
+                document.getElementById('h-title').innerText = "All-in-One AI Content & Image Generation Platform";
+                document.getElementById('h-desc').innerText = "Arabic text diacritics, error correction, video script generation, and photorealistic AI image generation.";
                 document.getElementById('t-text-tools').innerText = "Text Processing & Formatting";
                 document.getElementById('t-ai-tools').innerText = "AI Content & Script Generator";
                 document.getElementById('t-img-tools').innerText = "AI Image Generator";
             } else {
                 document.getElementById('app-title').innerText = "منصة النص الذكي ⚡";
+                document.getElementById('h-title').innerText = "منصة الذكاء الاصطناعي الشاملة لتوليد المحتوى والصور";
+                document.getElementById('h-desc').innerText = "تشكيل وتصحيح النصوص العربية، إنشاء السيناريوهات الرقمية، وتوليد الصور فائقة الواقعية مجاناً وبسرعة عالية.";
                 document.getElementById('t-text-tools').innerText = "معالج وتنسيق النصوص";
                 document.getElementById('t-ai-tools').innerText = "مولد المحتوى والسيناريو السريع";
                 document.getElementById('t-img-tools').innerText = "مولد الصور بالذكاء الاصطناعي";
