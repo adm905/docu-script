@@ -110,7 +110,7 @@
             gap: 10px;
         }
 
-        button {
+        button, .dl-btn {
             background-color: var(--primary);
             color: #fff;
             border: none;
@@ -119,12 +119,15 @@
             cursor: pointer;
             font-weight: 600;
             transition: 0.2s;
-            display: flex;
+            display: inline-flex;
             align-items: center;
+            justify-content: center;
             gap: 6px;
+            text-decoration: none;
+            font-size: 0.95rem;
         }
 
-        button:hover {
+        button:hover, .dl-btn:hover {
             background-color: var(--primary-hover);
         }
 
@@ -159,6 +162,10 @@
         .image-preview {
             margin-top: 15px;
             text-align: center;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 12px;
         }
 
         .image-preview img {
@@ -212,10 +219,10 @@
             <div id="statusMessage" class="status-msg"></div>
         </div>
 
-        <!-- قسم الذكاء الاصطناعي للمحتوى -->
+        <!-- قسم الذكاء الاصطناعي للمحتوى والسيناريو -->
         <div class="card">
-            <div class="card-title">🚀 <span id="t-ai-tools">مولد المحتوى السريع</span></div>
-            <textarea id="aiPrompt" placeholder="اكتب فكرة أو عنوان المحتوى هنا..."></textarea>
+            <div class="card-title">🚀 <span id="t-ai-tools">مولد المحتوى والسيناريو السريع</span></div>
+            <textarea id="aiPrompt" placeholder="اكتب فكرة أو عنوان الفيديو/المحتوى هنا..."></textarea>
             <div class="btn-group">
                 <select class="tool-select" id="aiOption">
                     <option value="script">🎬 مولد سيناريو فيديو (TikTok / Reels)</option>
@@ -225,6 +232,9 @@
                 <button onclick="generateAIContent()">توليد محتوى ✨</button>
             </div>
             <div class="output-box" id="aiOutput">النتيجة ستظهر هنا...</div>
+            <div style="margin-top: 10px; display: none;" id="scriptDownloadArea">
+                <button onclick="downloadScriptText()" class="btn-secondary">📥 تنزيل النص المولد (.txt)</button>
+            </div>
         </div>
 
         <!-- قسم توليد الصور -->
@@ -237,6 +247,7 @@
             <div class="image-preview">
                 <p id="imgStatus" style="display:none; color: var(--text-muted);">جاري إنشاء الصورة... ⏳</p>
                 <img id="generatedImg" src="" alt="AI Generated Image">
+                <a id="downloadImgBtn" style="display:none;" class="dl-btn" download="ai-image.jpg" target="_blank">⬇️ تحميل الصورة مباشرة</a>
             </div>
         </div>
 
@@ -247,7 +258,6 @@
     </footer>
 
     <script>
-        // محرك التشكيل الذكي المحلي والمباشر
         function applyTashkeel() {
             let input = document.getElementById('textInput');
             let status = document.getElementById('statusMessage');
@@ -258,7 +268,6 @@
                 return;
             }
 
-            // قاموس إعراب وتشكيل القواعد والكلمات الشائعة
             let dictionary = {
                 "مرحبا": "مَرْحَبًا",
                 "بكم": "بِكُمْ",
@@ -301,11 +310,8 @@
             setTimeout(() => { status.innerText = ""; }, 3000);
         }
 
-        // تشكيل تلقائي للحروف المساندة
         function autoTashkeelWord(word) {
-            if (/[\u064B-\u0652]/.test(word)) return word; // إذا كان مشكلاً بالفعل
-            
-            // إضافة حركات خفيفة وقواعد تلقائية
+            if (/[\u064B-\u0652]/.test(word)) return word;
             return word
                 .replace(/^ال/g, "الْ")
                 .replace(/ة$/g, "َةً")
@@ -341,9 +347,11 @@
             let prompt = document.getElementById('aiPrompt').value;
             let option = document.getElementById('aiOption').value;
             let output = document.getElementById('aiOutput');
+            let downloadArea = document.getElementById('scriptDownloadArea');
 
             if (!prompt) {
                 output.innerText = "يرجى كتابة نص أو فكرة أولاً!";
+                downloadArea.style.display = "none";
                 return;
             }
 
@@ -358,13 +366,24 @@
                 } else if (option === 'summary') {
                     output.innerText = `📌 الملخص السريع:\nالنص يناقش موضوع "${prompt}" ويركز على تقديم حلول عملية وبسيطة للمستخدم.`;
                 }
+                downloadArea.style.display = "block";
             }, 600);
+        }
+
+        function downloadScriptText() {
+            let content = document.getElementById('aiOutput').innerText;
+            let blob = new Blob([content], { type: "text/plain;charset=utf-8" });
+            let link = document.createElement("a");
+            link.href = URL.createObjectURL(blob);
+            link.download = "ai-script.txt";
+            link.click();
         }
 
         function generateImage() {
             let prompt = document.getElementById('imgPrompt').value;
             let imgElement = document.getElementById('generatedImg');
             let status = document.getElementById('imgStatus');
+            let downloadBtn = document.getElementById('downloadImgBtn');
 
             if (!prompt) {
                 alert("يرجى كتابة وصف للصورة أولاً!");
@@ -373,14 +392,28 @@
 
             status.style.display = 'block';
             imgElement.style.display = 'none';
+            downloadBtn.style.display = 'none';
 
             let encodedPrompt = encodeURIComponent(prompt);
-            let imageUrl = `https://image.pollinations.ai/prompt/${encodedPrompt}?width=800&height=800&seed=${Math.floor(Math.random() * 1000)}`;
+            let imageUrl = `https://image.pollinations.ai/prompt/${encodedPrompt}?width=800&height=800&nologo=true&seed=${Math.floor(Math.random() * 1000)}`;
 
             imgElement.src = imageUrl;
             imgElement.onload = function() {
                 status.style.display = 'none';
-                imgElement.style.display = 'inline-block';
+                imgElement.style.display = 'block';
+                
+                // تجهيز زر التحميل المباشر للصورة
+                fetch(imageUrl)
+                    .then(response => response.blob())
+                    .then(blob => {
+                        let blobUrl = URL.createObjectURL(blob);
+                        downloadBtn.href = blobUrl;
+                        downloadBtn.style.display = 'inline-flex';
+                    })
+                    .catch(() => {
+                        downloadBtn.href = imageUrl;
+                        downloadBtn.style.display = 'inline-flex';
+                    });
             };
         }
 
@@ -389,12 +422,12 @@
             if (lang === 'en') {
                 document.getElementById('app-title').innerText = "Smart Text AI ⚡";
                 document.getElementById('t-text-tools').innerText = "Text Processing & Formatting";
-                document.getElementById('t-ai-tools').innerText = "AI Content Generator";
+                document.getElementById('t-ai-tools').innerText = "AI Content & Script Generator";
                 document.getElementById('t-img-tools').innerText = "AI Image Generator";
             } else if (lang === 'ar') {
                 document.getElementById('app-title').innerText = "منصة النص الذكي ⚡";
                 document.getElementById('t-text-tools').innerText = "معالج وتنسيق النصوص";
-                document.getElementById('t-ai-tools').innerText = "مولد المحتوى السريع";
+                document.getElementById('t-ai-tools').innerText = "مولد المحتوى والسيناريو السريع";
                 document.getElementById('t-img-tools').innerText = "مولد الصور بالذكاء الاصطناعي";
             }
         }
