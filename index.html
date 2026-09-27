@@ -284,7 +284,7 @@
             </div>
         </div>
 
-        <!-- قسم توليد الصور بدون علامة مائية -->
+        <!-- قسم توليد الصور بدون علامة مائية وبدقة فائقة وواقعية حقيقية -->
         <div class="card">
             <div class="card-title">🎨 <span id="t-img-tools">مولد الصور بالذكاء الاصطناعي</span></div>
             <textarea id="imgPrompt" placeholder="صف الصورة التي تريد ابتكارها بالإنجليزية أو العربية..."></textarea>
@@ -292,7 +292,7 @@
                 <button onclick="generateImage()">توليد الصورة الآن 🖼️</button>
             </div>
             <div class="image-preview">
-                <p id="imgStatus" style="display:none; color: var(--text-muted);">جاري إنشاء الصورة... ⏳</p>
+                <p id="imgStatus" style="display:none; color: var(--text-muted);">جاري التوليد بأسلوب فوتوغرافي واقعي... ⏳</p>
                 <img id="generatedImg" src="" alt="AI Generated Image">
                 <a id="downloadImgBtn" style="display:none;" class="dl-btn" download="ai-image.jpg" target="_blank">⬇️ تحميل الصورة مباشرة</a>
             </div>
@@ -350,7 +350,7 @@
                 let clean = word.trim();
                 if (dictionary[clean]) {
                     return dictionary[clean];
-                } else if (clean.length > 0 && !/[\u064B-\u0652]/.test(clean)) {
+                } else if (clean.length > 0 && !/[ً-ْ]/.test(clean)) {
                     return autoTashkeelPattern(word);
                 }
                 return word;
@@ -376,7 +376,7 @@
         function removeTashkeel() {
             let input = document.getElementById('textInput');
             let status = document.getElementById('statusMessage');
-            input.value = input.value.replace(/[\u064B-\u0652]/g, "");
+            input.value = input.value.replace(/[ً-ْ]/g, "");
             status.innerText = "✓ تمت إزالة التشكيل.";
             setTimeout(() => { status.innerText = ""; }, 3000);
         }
@@ -413,12 +413,17 @@
 
             setTimeout(() => {
                 if (option === 'script') {
-                    output.innerText = `🎬 [سيناريو مقترح حول: ${prompt}]\n\n- المشهد 1: افتتاحية مشوقة تجذب الانتباه حول ${prompt}.\n- المشهد 2: شرح النقطة الأساسية بأسلوب مبسط.\n- الخاتمة: دعوة للمتابعة والإعجاب والتفاعل!`;
+                    output.innerText = `🎬 [سيناريو مقترح حول: ${prompt}]
+
+- المشهد 1: افتتاحية مشوقة تجذب الانتباه حول ${prompt}.
+- المشهد 2: شرح النقطة الأساسية بأسلوب مبسط.
+- الخاتمة: دعوة للمتابعة والإعجاب والتفاعل!`;
                 } else if (option === 'hashtags') {
                     let cleanWord = prompt.replace(/\s+/g, '_');
                     output.innerText = `#${cleanWord} #ذكاء_اصطناعي #محتوى_رقمي #تريند #تطور #تكنولوجيا`;
                 } else if (option === 'summary') {
-                    output.innerText = `📌 الملخص السريع:\nالنص يناقش موضوع "${prompt}" ويركز على تقديم حلول عملية وبسيطة للمستخدم.`;
+                    output.innerText = `📌 الملخص السريع:
+النص يناقش موضوع "${prompt}" ويركز على تقديم حلول عملية وبسيطة للمستخدم.`;
                 }
                 downloadArea.style.display = "block";
             }, 600);
@@ -433,7 +438,7 @@
             link.click();
         }
 
-        // توليد الصور بدون علامات مائية
+        // توليد صور بأسلوب تصوير فوتوغرافي واقعي جداً وبدون علامات مائية
         function generateImage() {
             let prompt = document.getElementById('imgPrompt').value;
             let imgElement = document.getElementById('generatedImg');
@@ -449,9 +454,10 @@
             imgElement.style.display = 'none';
             downloadBtn.style.display = 'none';
 
-            let encodedPrompt = encodeURIComponent(prompt);
-            // إضافة معلمة nologo=true لإلغاء العلامة المائية
-            let imageUrl = `https://image.pollinations.ai/prompt/${encodedPrompt}?width=800&height=800&nologo=true&seed=${Math.floor(Math.random() * 1000)}`;
+            // إضافة أمر الواقعية الحقيقية والتصوير الفوتوغرافي بكاميرا احترافية
+            let enhancedPrompt = prompt + ", raw photo, realistic human skin texture, highly detailed photorealistic DSLR camera shot, 8k resolution, natural daylight";
+            let encodedPrompt = encodeURIComponent(enhancedPrompt);
+            let imageUrl = `https://image.pollinations.ai/prompt/${encodedPrompt}?width=1024&height=1024&model=flux&nologo=true&seed=${Math.floor(Math.random() * 1000)}`;
 
             imgElement.src = imageUrl;
             imgElement.onload = function() {
