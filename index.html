@@ -14,6 +14,18 @@
             --text-main: #0f172a;
             --text-muted: #64748b;
             --border: #e2e8f0;
+            --input-bg: #ffffff;
+        }
+
+        [data-theme="dark"] {
+            --primary: #6366f1;
+            --primary-hover: #4f46e5;
+            --bg: #0f172a;
+            --card-bg: #1e293b;
+            --text-main: #f8fafc;
+            --text-muted: #94a3b8;
+            --border: #334155;
+            --input-bg: #0f172a;
         }
 
         * {
@@ -21,6 +33,7 @@
             margin: 0;
             padding: 0;
             font-family: 'Cairo', sans-serif;
+            transition: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease;
         }
 
         body {
@@ -44,6 +57,13 @@
             padding: 15px 20px;
             border-radius: 12px;
             box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+            border: 1px solid var(--border);
+        }
+
+        .header-controls {
+            display: flex;
+            align-items: center;
+            gap: 10px;
         }
 
         .logo {
@@ -59,6 +79,25 @@
             outline: none;
             cursor: pointer;
             font-size: 0.9rem;
+            background-color: var(--input-bg);
+            color: var(--text-main);
+        }
+
+        .theme-toggle-btn {
+            background: var(--input-bg);
+            color: var(--text-main);
+            border: 1px solid var(--border);
+            padding: 8px 12px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 1rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .theme-toggle-btn:hover {
+            background-color: var(--border);
         }
 
         .container {
@@ -98,6 +137,8 @@
             margin-bottom: 12px;
             outline: none;
             line-height: 1.6;
+            background-color: var(--input-bg);
+            color: var(--text-main);
         }
 
         textarea:focus {
@@ -132,13 +173,13 @@
         }
 
         .btn-secondary {
-            background-color: #f1f5f9;
+            background-color: var(--input-bg);
             color: var(--text-main);
             border: 1px solid var(--border);
         }
 
         .btn-secondary:hover {
-            background-color: #e2e8f0;
+            background-color: var(--border);
         }
 
         select.tool-select {
@@ -147,16 +188,19 @@
             border: 1px solid var(--border);
             font-size: 0.95rem;
             outline: none;
+            background-color: var(--input-bg);
+            color: var(--text-main);
         }
 
         .output-box {
             margin-top: 15px;
             padding: 12px;
-            background: #f8fafc;
+            background: var(--input-bg);
             border-radius: 8px;
             border: 1px dashed var(--border);
             min-height: 50px;
             white-space: pre-wrap;
+            color: var(--text-main);
         }
 
         .image-preview {
@@ -178,7 +222,7 @@
         .status-msg {
             margin-top: 8px;
             font-size: 0.85rem;
-            color: #059669;
+            color: #10b981;
             font-weight: 600;
         }
 
@@ -195,13 +239,16 @@
 
     <header>
         <div class="logo" id="app-title">منصة النص الذكي ⚡</div>
-        <select class="lang-select" id="languageSelector" onchange="changeLanguage()">
-            <option value="ar">العربية 🇸🇦</option>
-            <option value="en">English 🇺🇸</option>
-            <option value="fr">Français 🇫🇷</option>
-            <option value="es">Español 🇪🇸</option>
-            <option value="de">Deutsch 🇩🇪</option>
-        </select>
+        <div class="header-controls">
+            <button class="theme-toggle-btn" onclick="toggleTheme()" id="themeBtn" title="تغيير الوضع">🌙</button>
+            <select class="lang-select" id="languageSelector" onchange="changeLanguage()">
+                <option value="ar">العربية 🇸🇦</option>
+                <option value="en">English 🇺🇸</option>
+                <option value="fr">Français 🇫🇷</option>
+                <option value="es">Español 🇪🇸</option>
+                <option value="de">Deutsch 🇩🇪</option>
+            </select>
+        </div>
     </header>
 
     <div class="container">
@@ -258,6 +305,20 @@
     </footer>
 
     <script>
+        // تبديل الوضع الليلي والنهاري
+        function toggleTheme() {
+            const currentTheme = document.documentElement.getAttribute('data-theme');
+            const themeBtn = document.getElementById('themeBtn');
+            
+            if (currentTheme === 'dark') {
+                document.documentElement.setAttribute('data-theme', 'light');
+                themeBtn.innerText = '🌙';
+            } else {
+                document.documentElement.setAttribute('data-theme', 'dark');
+                themeBtn.innerText = '☀️';
+            }
+        }
+
         function applyTashkeel() {
             let input = document.getElementById('textInput');
             let status = document.getElementById('statusMessage');
@@ -402,7 +463,6 @@
                 status.style.display = 'none';
                 imgElement.style.display = 'block';
                 
-                // تجهيز زر التحميل المباشر للصورة
                 fetch(imageUrl)
                     .then(response => response.blob())
                     .then(blob => {
