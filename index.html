@@ -82,7 +82,6 @@
         @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
         @keyframes pulse { 0%, 100% { transform: scale(1); opacity: 0.9; } 50% { transform: scale(1.05); opacity: 1; } }
 
-        /* 🕒 الشريط العلوي المرفق بالساعة الرقمية */
         .top-time-bar {
             width: 100%;
             max-width: 900px;
@@ -241,7 +240,6 @@
         <div class="spinner"></div>
     </div>
 
-    <!-- 🕒 الساعة الرقمية العائمة في الأعلى -->
     <div class="top-time-bar">
         <span>⏰ الوقت الحالي: <span id="liveClock">00:00:00 AM</span></span>
         <span id="liveDate">2026</span>
@@ -260,7 +258,7 @@
 
     <div class="hero-banner">
         <h1 class="hero-title" id="h-title">منصة الذكاء الاصطناعي الشاملة لتوليد المحتوى والصور</h1>
-        <p class="hero-desc" id="h-desc">تشكيل وتصحيح النصوص العربية، إنشاء السيناريوهات الرقمية، تركب ودمج الأشخاص مع بعضهم بالذكاء الاصطناعي وتوليد الصور Ultra-4K بسرعة فائقة.</p>
+        <p class="hero-desc" id="h-desc">تشكيل وتصحيح النصوص العربية، إنشاء السيناريوهات الرقمية، تركيب ودمج الأشخاص مع بعضهم بالذكاء الاصطناعي وتوليد الصور Ultra-4K بسرعة فائقة.</p>
         <div class="hero-tags">
             <span class="hero-tag">✨ تشكيل دقيق</span>
             <span class="hero-tag">🧹 تصحيح الأخطاء</span>
@@ -309,7 +307,6 @@
             </div>
         </div>
 
-        <!-- 🤝 أداة تركيب الصورتين والأشخاص بالذكاء الاصطناعي مع التحكم بالشخصيات والحد الأدنى للخطوات -->
         <div class="card">
             <div class="card-title">🤝 <span>أداة تركيب ودمج الأشخاص والصور بالذكاء الاصطناعي</span></div>
             <p style="font-size:0.9rem; color: var(--text-muted); margin-bottom: 12px;">قم برفع صورة الشخص الأول والشخص الثاني واكتب الأمر المناسب (مثل: مصافحة رئيس، احتضان صديق عزيز...):</p>
@@ -352,10 +349,9 @@
             </div>
         </div>
 
-        <!-- 🎨 أداة توليد الصور المحدثة إلى Ultra-4K مع اختيار المقاس -->
         <div class="card">
             <div class="card-title">🎨 <span id="t-img-tools">مولد الصور فائقة الواقعية (Ultra-4K)</span></div>
-            <textarea id="imgPrompt" placeholder="صف الصورة التي تريد ابتكارها بالإنجليزية أو العربية..."></textarea>
+            <textarea id="imgPrompt" placeholder="صف الصورة التي تريد ابتكارها بالإنجليزية أو العربية (مثل: صقر عربي، أسد، منظر طبيعي)..."></textarea>
             
             <label style="font-weight:600; font-size:0.9rem; display:block; margin-bottom:6px;">اختر مقاس الصورة (Aspect Ratio):</label>
             <select class="tool-select" id="genRatio" style="margin-bottom: 12px;">
@@ -561,12 +557,11 @@
             link.click();
         }
 
-        // 🤝 دمج وتركيب الأشخاص بالذكاء الاصطناعي بناءً على وصف المشهد
         function processAIMerge() {
             let f1 = document.getElementById('imgFile1').files[0];
             let f2 = document.getElementById('imgFile2').files[0];
             let ratio = document.getElementById('mergeRatio').value;
-            let customStyle = document.getElementById('mergeStylePrompt').value;
+            let customStyle = document.getElementById('mergeStylePrompt').value.trim();
             
             let status = document.getElementById('mergeStatus');
             let wrapper = document.getElementById('mergeImgWrapper');
@@ -585,7 +580,7 @@
             else if (ratio === "4:3") { width = 1024; height = 768; }
 
             let userAction = customStyle ? customStyle : "friendly interaction and handshake between two people";
-            let mergePrompt = `Photorealistic 4k shot of two people together, ${userAction}, natural lighting, seamless blending, high resolution, highly detailed visible facial features`;
+            let mergePrompt = `Photorealistic 4k shot of two people together, ${userAction}, natural lighting, seamless blending, high resolution, correct body proportions`;
             let imageUrl = `https://image.pollinations.ai/prompt/${encodeURIComponent(mergePrompt)}?model=flux&nologo=true&nofeed=true&width=${width}&height=${height}&seed=${Math.floor(Math.random() * 999999)}`;
 
             imgElem.src = imageUrl;
@@ -644,8 +639,9 @@
             downloadGenericImage('mergedImg', 'smart-text-ai-merged.jpg');
         }
 
+        // 🎨 توليد الصور المحسّن بدون تراكم الأوامر المسببة للتشوه
         function generateImage() {
-            let prompt = document.getElementById('imgPrompt').value;
+            let prompt = document.getElementById('imgPrompt').value.trim();
             let ratio = document.getElementById('genRatio').value;
             let imgElement = document.getElementById('generatedImg');
             let imgWrapper = document.getElementById('imgWrapper');
@@ -663,7 +659,8 @@
             else if (ratio === "16:9") { width = 1344; height = 768; }
             else if (ratio === "4:3") { width = 1024; height = 768; }
 
-            let finalPrompt = prompt + `, raw photo 4k, natural visible skin pores, authentic texture, sharp focus, fine details, high contrast lighting, aspect ratio ${ratio}, 4k ultra-hd resolution, no airbrushing, no smooth plastic skin, no blur`;
+            // دمج احترافي ناعم دون تكثيف الكلمات لمنع التشوّه
+            let finalPrompt = `${prompt}, photorealistic, high quality, sharp focus, 4k`;
             let imageUrl = `https://image.pollinations.ai/prompt/${encodeURIComponent(finalPrompt)}?model=flux&nologo=true&nofeed=true&width=${width}&height=${height}&seed=${Math.floor(Math.random() * 999999)}`;
 
             imgElement.src = imageUrl;
