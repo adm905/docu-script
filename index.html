@@ -144,22 +144,19 @@
 
         .image-preview { margin-top: 15px; text-align: center; display: flex; flex-direction: column; align-items: center; gap: 12px; }
         
-        /* ✂️ إخفاء الشعار القديم برمجياً من المعاينة */
         .img-crop-wrapper {
             display: none;
             overflow: hidden;
             border-radius: 12px;
             box-shadow: 0 4px 15px rgba(0,0,0,0.1);
             max-width: 100%;
-            height: 480px; /* تحديد ارتفاع لإخفاء الأسفل */
             position: relative;
         }
 
         .img-crop-wrapper img {
             width: 100%;
-            height: 100%;
-            object-fit: cover;
-            object-position: top; /* محاذاة الصورة للأعلى وقص الشعار السفلي */
+            height: auto;
+            display: block;
         }
 
         .status-msg { margin-top: 8px; font-size: 0.85rem; color: #10b981; font-weight: 600; }
@@ -409,7 +406,7 @@
             link.click();
         }
 
-        // توليد الصور مع صرامة خوارزميات تقليل التنعيم
+        // توليد الصور واستخدام الموصل المباشر لمنع اللوجو
         function generateImage() {
             let prompt = document.getElementById('imgPrompt').value;
             let imgElement = document.getElementById('generatedImg');
@@ -423,8 +420,9 @@
             imgWrapper.style.display = 'none';
             downloadBtn.style.display = 'none';
 
-            let finalPrompt = prompt + ", raw photo, natural visible skin pores, authentic skin texture, sharp focus, fine hair details, high contrast lighting, physically correct orientation, surface at top, 8k resolution, no airbrushing, no smooth plastic skin, no blur";
-            let imageUrl = `https://image.pollinations.ai/prompt/${encodeURIComponent(finalPrompt)}?model=flux-real&nologo=true&width=1024&height=1024&seed=${Math.floor(Math.random() * 999999)}`;
+            let finalPrompt = prompt + ", raw photo, natural visible skin pores, authentic skin texture, sharp focus, fine hair details, high contrast lighting, physically correct orientation, 8k resolution, no airbrushing, no smooth plastic skin, no blur";
+            // استخدام nologo=true مع nofeed=true لإزالة الشعار من المصدر
+            let imageUrl = `https://image.pollinations.ai/prompt/${encodeURIComponent(finalPrompt)}?model=flux&nologo=true&nofeed=true&width=1024&height=1024&seed=${Math.floor(Math.random() * 999999)}`;
 
             imgElement.src = imageUrl;
             imgElement.onload = function() {
@@ -434,41 +432,32 @@
             };
         }
 
+        // تغطية كاملة للشريط السفلي برسم صلب بدلاً من القص ومحو الشعار 100%
         function downloadCleanImage() {
             let img = document.getElementById('generatedImg');
             let canvas = document.createElement('canvas');
             let ctx = canvas.getContext('2d');
 
             let width = img.naturalWidth || 1024;
-            let originalHeight = img.naturalHeight || 1024;
-
-            let cropHeight = 65;
-            let height = originalHeight - cropHeight;
+            let height = img.naturalHeight || 1024;
 
             canvas.width = width;
             canvas.height = height;
 
-            ctx.drawImage(img, 0, 0, width, height, 0, 0, width, height);
+            // 1. رسم الصورة الأصلية
+            ctx.drawImage(img, 0, 0, width, height);
 
-            let boxWidth = 240;
-            let boxHeight = 45;
-            let x = width - boxWidth - 25;
-            let y = height - boxHeight - 25;
+            // 2. رسم شريط داكن بعرض الصورة بالكامل في الأسفل لتغطية أي شعار قديم نهائياً
+            let bottomBarHeight = 60;
+            ctx.fillStyle = "rgba(15, 23, 42, 0.95)";
+            ctx.fillRect(0, height - bottomBarHeight, width, bottomBarHeight);
 
-            ctx.fillStyle = "rgba(15, 23, 42, 0.85)";
-            if (ctx.roundRect) {
-                ctx.beginPath();
-                ctx.roundRect(x, y, boxWidth, boxHeight, 10);
-                ctx.fill();
-            } else {
-                ctx.fillRect(x, y, boxWidth, boxHeight);
-            }
-
-            ctx.font = "bold 20px Cairo, sans-serif";
-            ctx.fillStyle = "#ffffff";
+            // 3. كتابة اسم المنصة كشعار معتمد في منتصف الشريط السفلي
+            ctx.font = "bold 22px Cairo, sans-serif";
+            ctx.fillStyle = "#38bdf8";
             ctx.textAlign = "center";
             ctx.textBaseline = "middle";
-            ctx.fillText("Smart Text AI ⚡", x + (boxWidth / 2), y + (boxHeight / 2));
+            ctx.fillText("Smart Text AI ⚡ - منصة النص الذكي", width / 2, height - (bottomBarHeight / 2));
 
             let link = document.createElement('a');
             link.download = 'smart-text-ai-image.jpg';
