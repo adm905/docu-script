@@ -346,7 +346,7 @@
             </div>
         </div>
 
-        <!-- قسم توليد الصور وإضافة العلامة المائية الرسمية -->
+        <!-- قسم توليد الصور بالذكاء الاصطناعي مع العلامة المائية -->
         <div class="card">
             <div class="card-title">🎨 <span id="t-img-tools">مولد الصور بالذكاء الاصطناعي</span></div>
             <textarea id="imgPrompt" placeholder="صف الصورة التي تريد ابتكارها بالإنجليزية أو العربية..."></textarea>
@@ -364,7 +364,7 @@
 
     </div>
 
-    <!-- نافذة العرض للمستندات والسياسات -->
+    <!-- نافذة السياسات والمعلومات -->
     <div id="infoModal" class="modal">
         <div class="modal-content">
             <span class="close-btn" onclick="closeModal()">&times;</span>
@@ -395,22 +395,55 @@
             }
         }
 
-        function applyTashkeel() {
+        // تشكيل النصوص وقاموس موسع ومضبوط نحوياً
+        async function applyTashkeel() {
             let input = document.getElementById('textInput');
             let status = document.getElementById('statusMessage');
-            let text = input.value;
-            if (!text.trim()) { alert("يرجى كتابة نص أولاً!"); return; }
+            let text = input.value.trim();
+            
+            if (!text) { alert("يرجى كتابة نص أولاً!"); return; }
 
+            status.innerText = "جاري تشكيل النص بدقة... ⏳";
+
+            try {
+                let response = await fetch(`https://api.aladhan.com/v1/tashkeel?text=${encodeURIComponent(text)}`);
+                if (response.ok) {
+                    let data = await response.json();
+                    if (data && data.data) {
+                        input.value = data.data;
+                        status.innerText = "✓ تم تشكيل النص بنجاح وبدقة عالية!";
+                        setTimeout(() => { status.innerText = ""; }, 3000);
+                        return;
+                    }
+                }
+            } catch (e) {}
+
+            fallbackTashkeel(text);
+        }
+
+        function fallbackTashkeel(text) {
+            let input = document.getElementById('textInput');
+            let status = document.getElementById('statusMessage');
+
+            // المعجم المحلي الموسع مع التشكيل الإعرابي والنحوي المباشر
             let dictionary = {
-                "مرحبا": "مَرْحَبًا", "بكم": "بِكُمْ", "في": "فِي", "منصتنا": "مَنَصَّتِنَا", "الذكيه": "الذَّكِيَّةِ",
-                "على": "عَلَى", "كتابة": "كِتَابَةِ", "المحتوى": "الْمُحْتَوَى", "وتنسيق": "وَتَنْسِيقِ", "النصوص": "النُّصُوصِ"
+                "مرحبا": "مَرْحَبًا", "بكم": "بِكُمْ", "في": "فِي", "منصة": "مَنَصَّتِنَا", 
+                "منصةُ": "مَنَصَّةِ", "النص": "النَّصِّ", "الذكي": "الذَّكِيِّ", "الذكية": "الذَّكِيَّةِ",
+                "لتنسيق": "لِتَنْسِيقِ", "وتشكيل": "وَتَشْكِيلِ", "النصوص": "النُّصُوصِ", "على": "عَلَى",
+                "كتابة": "كِتَابَةِ", "المحتوى": "الْمُحْتَوَى", "الجديد": "الْجَدِيدِ", "الذي": "الَّذِي",
+                "يستخدم": "يَسْتَخْدِمُ", "الذكاء": "الذَّكَاءَ", "الاصطناعي": "الاصْطِنَاعِيَّ", "لتطوير": "لِتَطْوِيرِ",
+                "العربي": "الْعَرَبِيِّ", "أهلا": "أَهْلًا", "وسهلا": "وَسَهْلًا", "منصتنا": "مَنَصَّتِنَا",
+                "تصميم": "تَصْمِيمِ", "إنشاء": "إِنْشَاءِ", "الصور": "الصُّوَرِ", "فيديو": "فِيدْيُو",
+                "سيناريو": "سِينَارْيُو", "ملخص": "مُلَخَّصٌ", "الآن": "الْآنَ", "حفظ": "حِفْظِ",
+                "الموقع": "الْمَوْقِعِ", "مجاني": "مَجَّانِيٌّ", "سريع": "سَرِيعٌ", "خدمة": "خِدْمَةِ",
+                "سهل": "سَهْلٌ", "استخدام": "اسْتِخْدَامِ", "جودة": "جَوْدَةِ", "عالية": "عَالِيَةٍ"
             };
 
             let words = text.split(/(\s+|[\.\،\?\!])/);
             let result = words.map(word => dictionary[word.trim()] || autoTashkeelPattern(word)).join('');
-
+            
             input.value = result;
-            status.innerText = "✓ تم تشكيل النص بنجاح!";
+            status.innerText = "✓ تم تشكيل النص!";
             setTimeout(() => { status.innerText = ""; }, 3000);
         }
 
@@ -489,26 +522,23 @@
             };
         }
 
-        // إدراج علامة مائية باسم منصتك وحفظ الملف بها
+        // طباعة الشعار الخاص بك وحفظ الصورة
         function downloadCleanImage() {
             let img = document.getElementById('generatedImg');
             let canvas = document.createElement('canvas');
             let ctx = canvas.getContext('2d');
 
             let width = img.naturalWidth || 1024;
-            let height = (img.naturalHeight || 1024) - 45; // قص الشعار الخارجي القديم
+            let height = (img.naturalHeight || 1024) - 45; // قص الشعار القديم
 
             canvas.width = width;
             canvas.height = height;
 
-            // رسم الصورة الصافية
             ctx.drawImage(img, 0, 0, width, height, 0, 0, width, height);
 
-            // إضافة خلفية للعلامة المائية الخاصة بالمنصة
             ctx.fillStyle = "rgba(0, 0, 0, 0.5)";
             ctx.fillRect(width - 240, height - 55, 220, 40);
 
-            // رسم النص الخاص بمنصتك (Smart Text AI)
             ctx.font = "bold 18px Cairo, sans-serif";
             ctx.fillStyle = "#ffffff";
             ctx.textAlign = "right";
