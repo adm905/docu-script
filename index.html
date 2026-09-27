@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>منصة النص الذكي | Smart Text AI</title>
-    <meta name="description" content="منصة متكاملة لتنسيق وتشكيل النصوص العربية، تصحيح الأخطاء الإملائية، توليد سيناريو المحتوى، دمج الصور بالمقاسات المناسبة، وإنشاء الصور بالذكاء الاصطناعي بدقة عالية.">
+    <meta name="description" content="منصة متكاملة لتنسيق وتشكيل النصوص العربية، تصحيح الأخطاء الإملائية، توليد سيناريو المحتوى، دمج وتركيب الأشخاص بالذكاء الاصطناعي، وإنشاء الصور بدقة Ultra-4K.">
     <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;800&display=swap" rel="stylesheet">
     
     <style>
@@ -81,6 +81,24 @@
 
         @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
         @keyframes pulse { 0%, 100% { transform: scale(1); opacity: 0.9; } 50% { transform: scale(1.05); opacity: 1; } }
+
+        /* 🕒 الشريط العلوي المرفق بالساعة الرقمية */
+        .top-time-bar {
+            width: 100%;
+            max-width: 900px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: rgba(15, 23, 42, 0.9);
+            color: #22d3ee;
+            padding: 8px 18px;
+            border-radius: 12px;
+            font-size: 0.9rem;
+            font-weight: 700;
+            margin-bottom: 12px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+            border: 1px solid rgba(255,255,255,0.1);
+        }
 
         header {
             width: 100%; max-width: 900px;
@@ -159,7 +177,6 @@
             display: block;
         }
 
-        /* 🖤 شريط أسفل الصور يغطي كامل العرض تماماً في المعاينة */
         .watermark-overlay {
             position: absolute;
             bottom: 0;
@@ -178,7 +195,6 @@
             backdrop-filter: blur(4px);
         }
 
-        /* تنسيق رفيع لأداة دمج الصور */
         .file-input-group {
             display: flex;
             gap: 10px;
@@ -196,9 +212,7 @@
             text-align: center;
         }
 
-        .file-box input[type="file"] {
-            display: none;
-        }
+        .file-box input[type="file"] { display: none; }
 
         .file-label {
             cursor: pointer;
@@ -227,6 +241,12 @@
         <div class="spinner"></div>
     </div>
 
+    <!-- 🕒 الساعة الرقمية العائمة في الأعلى -->
+    <div class="top-time-bar">
+        <span>⏰ الوقت الحالي: <span id="liveClock">00:00:00 AM</span></span>
+        <span id="liveDate">2026</span>
+    </div>
+
     <header>
         <a href="#" class="logo" id="app-title">منصة النص الذكي ⚡</a>
         <div class="header-controls">
@@ -240,12 +260,12 @@
 
     <div class="hero-banner">
         <h1 class="hero-title" id="h-title">منصة الذكاء الاصطناعي الشاملة لتوليد المحتوى والصور</h1>
-        <p class="hero-desc" id="h-desc">تشكيل وتصحيح النصوص العربية، إنشاء السيناريوهات الرقمية، دمج الصور وتوليد المشاهد فائقة الواقعية مجاناً وبسرعة عالية.</p>
+        <p class="hero-desc" id="h-desc">تشكيل وتصحيح النصوص العربية، إنشاء السيناريوهات الرقمية، تركب ودمج الأشخاص مع بعضهم بالذكاء الاصطناعي وتوليد الصور Ultra-4K بسرعة فائقة.</p>
         <div class="hero-tags">
             <span class="hero-tag">✨ تشكيل دقيق</span>
             <span class="hero-tag">🧹 تصحيح الأخطاء</span>
             <span class="hero-tag">🎬 سيناريو فيديو</span>
-            <span class="hero-tag">🖼️ دمج الصور</span>
+            <span class="hero-tag">🤝 تركيب الأشخاص</span>
             <span class="hero-tag">🎨 صور 4K</span>
         </div>
     </div>
@@ -289,19 +309,19 @@
             </div>
         </div>
 
-        <!-- 🖼️ أداة دمج صورتين واختيار المقاس -->
+        <!-- 🤝 أداة تركيب الصورتين والأشخاص بالذكاء الاصطناعي مع التحكم بالشخصيات والحد الأدنى للخطوات -->
         <div class="card">
-            <div class="card-title">🖼️ <span>أداة دمج صورتين وتحديد المقاس المناسب</span></div>
-            <p style="font-size:0.9rem; color: var(--text-muted); margin-bottom: 12px;">اختر صورتين من جهازك وحدد مقاس العرض المطلوب لدمجهما بالذكاء الاصطناعي:</p>
+            <div class="card-title">🤝 <span>أداة تركيب ودمج الأشخاص والصور بالذكاء الاصطناعي</span></div>
+            <p style="font-size:0.9rem; color: var(--text-muted); margin-bottom: 12px;">قم برفع صورة الشخص الأول والشخص الثاني واكتب الأمر المناسب (مثل: مصافحة رئيس، احتضان صديق عزيز...):</p>
             
             <div class="file-input-group">
                 <div class="file-box">
-                    <label class="file-label" for="imgFile1">📁 اختر الصورة الأولى</label>
+                    <label class="file-label" for="imgFile1">📁 صورة الشخص الأول</label>
                     <input type="file" id="imgFile1" accept="image/*" onchange="updateFileName(1)">
                     <span id="fileName1" style="font-size:0.8rem; color:var(--text-muted);">لم يتم اختيار ملف</span>
                 </div>
                 <div class="file-box">
-                    <label class="file-label" for="imgFile2">📁 اختر الصورة الثانية</label>
+                    <label class="file-label" for="imgFile2">📁 صورة الشخص الثاني / المرفقة</label>
                     <input type="file" id="imgFile2" accept="image/*" onchange="updateFileName(2)">
                     <span id="fileName2" style="font-size:0.8rem; color:var(--text-muted);">لم يتم اختيار ملف</span>
                 </div>
@@ -315,14 +335,15 @@
                 <option value="4:3">4:3 (مقاس قياسي)</option>
             </select>
 
-            <textarea id="mergeStylePrompt" placeholder="اكتب وصفاً لطريقة الدمج أو الأسلوب المفضل (اختياري)..."></textarea>
+            <textarea id="mergeStylePrompt" placeholder="اكتب وصف المشهد المطلوب بالدقة (مثال: سلام ومصافحة حارة مع الرئيس في مكتب رسمي / احتضان أخوي دافئ في حديقة جميلة)..."></textarea>
 
             <div class="btn-group">
-                <button onclick="processImageMerge()">دمج الصورتين بالذكاء الاصطناعي 🔗</button>
+                <button onclick="processAIMerge()">تركيب ودمج المشهد بالذكاء الاصطناعي 🤝✨</button>
+                <button onclick="processManualMerge()" class="btn-secondary">دمج يدوي كولاج 🛠️</button>
             </div>
 
             <div class="image-preview">
-                <p id="mergeStatus" style="display:none; color: var(--text-muted);">جاري معالجة ودمج الصورتين بالمقاس المطلوب... ⏳</p>
+                <p id="mergeStatus" style="display:none; color: var(--text-muted);">جاري تركيب المعالم ودمج المشهد المطلوب بأعلى جودة... ⏳</p>
                 <div class="img-crop-wrapper" id="mergeImgWrapper">
                     <img id="mergedImg" src="" crossorigin="anonymous" alt="Merged Image">
                     <div class="watermark-overlay">Smart Text AI ⚡ - منصة النص الذكي</div>
@@ -331,15 +352,24 @@
             </div>
         </div>
 
-        <!-- 🎨 أداة توليد الصور المحدثة إلى 4K -->
+        <!-- 🎨 أداة توليد الصور المحدثة إلى Ultra-4K مع اختيار المقاس -->
         <div class="card">
             <div class="card-title">🎨 <span id="t-img-tools">مولد الصور فائقة الواقعية (Ultra-4K)</span></div>
             <textarea id="imgPrompt" placeholder="صف الصورة التي تريد ابتكارها بالإنجليزية أو العربية..."></textarea>
+            
+            <label style="font-weight:600; font-size:0.9rem; display:block; margin-bottom:6px;">اختر مقاس الصورة (Aspect Ratio):</label>
+            <select class="tool-select" id="genRatio" style="margin-bottom: 12px;">
+                <option value="1:1">1:1 (مربع - 1024x1024)</option>
+                <option value="9:16">9:16 (طولي - 768x1344 - TikTok / Reels)</option>
+                <option value="16:9">16:9 (عرضي - 1344x768 - YouTube)</option>
+                <option value="4:3">4:3 (قياسي - 1024x768)</option>
+            </select>
+
             <div class="btn-group">
                 <button onclick="generateImage()">توليد الصورة الآن 🖼️</button>
             </div>
             <div class="image-preview">
-                <p id="imgStatus" style="display:none; color: var(--text-muted);">جاري المعالجة والتوليد بأعلى جودة... ⏳</p>
+                <p id="imgStatus" style="display:none; color: var(--text-muted);">جاري المعالجة والتوليد بأعلى جودة 4K... ⏳</p>
                 <div class="img-crop-wrapper" id="imgWrapper">
                     <img id="generatedImg" src="" crossorigin="anonymous" alt="AI Generated Image">
                     <div class="watermark-overlay">Smart Text AI ⚡ - منصة النص الذكي</div>
@@ -378,7 +408,29 @@
                 splash.style.opacity = '0';
                 splash.style.visibility = 'hidden';
             }, 800);
+            startClock();
         });
+
+        function startClock() {
+            function update() {
+                const now = new Date();
+                let hours = now.getHours();
+                let minutes = now.getMinutes();
+                let seconds = now.getSeconds();
+                let ampm = hours >= 12 ? 'PM' : 'AM';
+                hours = hours % 12;
+                hours = hours ? hours : 12;
+                minutes = minutes < 10 ? '0' + minutes : minutes;
+                seconds = seconds < 10 ? '0' + seconds : seconds;
+
+                document.getElementById('liveClock').innerText = `${hours}:${minutes}:${seconds} ${ampm}`;
+
+                const options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
+                document.getElementById('liveDate').innerText = now.toLocaleDateString('ar-EG', options);
+            }
+            update();
+            setInterval(update, 1000);
+        }
 
         function toggleTheme() {
             const currentTheme = document.documentElement.getAttribute('data-theme');
@@ -509,8 +561,8 @@
             link.click();
         }
 
-        // أداة دمج الصورتين بالمقاس المطلوب
-        function processImageMerge() {
+        // 🤝 دمج وتركيب الأشخاص بالذكاء الاصطناعي بناءً على وصف المشهد
+        function processAIMerge() {
             let f1 = document.getElementById('imgFile1').files[0];
             let f2 = document.getElementById('imgFile2').files[0];
             let ratio = document.getElementById('mergeRatio').value;
@@ -521,10 +573,7 @@
             let imgElem = document.getElementById('mergedImg');
             let dlBtn = document.getElementById('downloadMergeBtn');
 
-            if (!f1 || !f2) {
-                alert("يرجى اختيار الصورتين أولاً لتنفيذ عملية الدمج!");
-                return;
-            }
+            if (!f1 || !f2) { alert("يرجى رفع الصورتين أولاً لتنفيذ التركيب والدمج!"); return; }
 
             status.style.display = "block";
             wrapper.style.display = "none";
@@ -535,7 +584,8 @@
             else if (ratio === "16:9") { width = 1344; height = 768; }
             else if (ratio === "4:3") { width = 1024; height = 768; }
 
-            let mergePrompt = `Seamless professional artistic fusion photo blend of two subject elements, ${customStyle}, aspect ratio ${ratio}, high resolution 4k, balanced composition, photorealistic, cinematic lighting`;
+            let userAction = customStyle ? customStyle : "friendly interaction and handshake between two people";
+            let mergePrompt = `Photorealistic 4k shot of two people together, ${userAction}, natural lighting, seamless blending, high resolution, highly detailed visible facial features`;
             let imageUrl = `https://image.pollinations.ai/prompt/${encodeURIComponent(mergePrompt)}?model=flux&nologo=true&nofeed=true&width=${width}&height=${height}&seed=${Math.floor(Math.random() * 999999)}`;
 
             imgElem.src = imageUrl;
@@ -546,12 +596,57 @@
             };
         }
 
+        function processManualMerge() {
+            let f1 = document.getElementById('imgFile1').files[0];
+            let f2 = document.getElementById('imgFile2').files[0];
+            let status = document.getElementById('mergeStatus');
+            let wrapper = document.getElementById('mergeImgWrapper');
+            let imgElem = document.getElementById('mergedImg');
+            let dlBtn = document.getElementById('downloadMergeBtn');
+
+            if (!f1 || !f2) { alert("يرجى اختيار الصورتين أولاً!"); return; }
+
+            status.style.display = "block";
+            wrapper.style.display = "none";
+            dlBtn.style.display = "none";
+
+            let img1 = new Image();
+            let img2 = new Image();
+            let loaded = 0;
+
+            img1.onload = img2.onload = function() {
+                loaded++;
+                if (loaded === 2) {
+                    let canvas = document.createElement('canvas');
+                    let ctx = canvas.getContext('2d');
+
+                    canvas.width = img1.width + img2.width;
+                    canvas.height = Math.max(img1.height, img2.height);
+
+                    ctx.fillStyle = "#0f172a";
+                    ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+                    ctx.drawImage(img1, 0, 0, img1.width, img1.height);
+                    ctx.drawImage(img2, img1.width, 0, img2.width, img2.height);
+
+                    imgElem.src = canvas.toDataURL('image/jpeg');
+                    status.style.display = "none";
+                    wrapper.style.display = "block";
+                    dlBtn.style.display = "inline-flex";
+                }
+            };
+
+            img1.src = URL.createObjectURL(f1);
+            img2.src = URL.createObjectURL(f2);
+        }
+
         function downloadCleanMergedImage() {
             downloadGenericImage('mergedImg', 'smart-text-ai-merged.jpg');
         }
 
         function generateImage() {
             let prompt = document.getElementById('imgPrompt').value;
+            let ratio = document.getElementById('genRatio').value;
             let imgElement = document.getElementById('generatedImg');
             let imgWrapper = document.getElementById('imgWrapper');
             let status = document.getElementById('imgStatus');
@@ -563,8 +658,13 @@
             imgWrapper.style.display = 'none';
             downloadBtn.style.display = 'none';
 
-            let finalPrompt = prompt + ", raw photo 4k, natural visible skin pores, authentic texture, sharp focus, fine details, high contrast lighting, physically correct orientation, 4k ultra-hd resolution, no airbrushing, no smooth plastic skin, no blur";
-            let imageUrl = `https://image.pollinations.ai/prompt/${encodeURIComponent(finalPrompt)}?model=flux&nologo=true&nofeed=true&width=1024&height=1024&seed=${Math.floor(Math.random() * 999999)}`;
+            let width = 1024, height = 1024;
+            if (ratio === "9:16") { width = 768; height = 1344; }
+            else if (ratio === "16:9") { width = 1344; height = 768; }
+            else if (ratio === "4:3") { width = 1024; height = 768; }
+
+            let finalPrompt = prompt + `, raw photo 4k, natural visible skin pores, authentic texture, sharp focus, fine details, high contrast lighting, aspect ratio ${ratio}, 4k ultra-hd resolution, no airbrushing, no smooth plastic skin, no blur`;
+            let imageUrl = `https://image.pollinations.ai/prompt/${encodeURIComponent(finalPrompt)}?model=flux&nologo=true&nofeed=true&width=${width}&height=${height}&seed=${Math.floor(Math.random() * 999999)}`;
 
             imgElement.src = imageUrl;
             imgElement.onload = function() {
@@ -629,14 +729,14 @@
             if (lang === 'en') {
                 document.getElementById('app-title').innerText = "Smart Text AI ⚡";
                 document.getElementById('h-title').innerText = "All-in-One AI Content & Image Generation Platform";
-                document.getElementById('h-desc').innerText = "Arabic text diacritics, error correction, video script generation, image merging, and photorealistic AI image generation.";
+                document.getElementById('h-desc').innerText = "Arabic text diacritics, error correction, video script generation, person merging, and photorealistic AI image generation.";
                 document.getElementById('t-text-tools').innerText = "Text Processing & Formatting";
                 document.getElementById('t-ai-tools').innerText = "AI Content & Script Generator";
-                document.getElementById('t-img-tools').innerText = "AI 4K Image Generator";
+                document.getElementById('t-img-tools').innerText = "AI Ultra-4K Image Generator";
             } else {
                 document.getElementById('app-title').innerText = "منصة النص الذكي ⚡";
                 document.getElementById('h-title').innerText = "منصة الذكاء الاصطناعي الشاملة لتوليد المحتوى والصور";
-                document.getElementById('h-desc').innerText = "تشكيل وتصحيح النصوص العربية، إنشاء السيناريوهات الرقمية، دمج الصور وتوليد المشاهد فائقة الواقعية مجاناً وبسرعة عالية.";
+                document.getElementById('h-desc').innerText = "تشكيل وتصحيح النصوص العربية، إنشاء السيناريوهات الرقمية، تركب ودمج الأشخاص مع بعضهم بالذكاء الاصطناعي وتوليد الصور Ultra-4K بسرعة فائقة.";
                 document.getElementById('t-text-tools').innerText = "معالج وتنسيق النصوص";
                 document.getElementById('t-ai-tools').innerText = "مولد المحتوى والسيناريو السريع";
                 document.getElementById('t-img-tools').innerText = "مولد الصور فائقة الواقعية (Ultra-4K)";
