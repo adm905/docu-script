@@ -217,11 +217,20 @@
             gap: 12px;
         }
 
-        .image-preview img {
-            max-width: 100%;
+        .img-crop-wrapper {
+            display: none;
+            overflow: hidden;
             border-radius: 8px;
             box-shadow: 0 4px 12px rgba(0,0,0,0.1);
-            display: none;
+            max-width: 100%;
+            max-height: 500px;
+        }
+
+        .img-crop-wrapper img {
+            width: 100%;
+            height: auto;
+            display: block;
+            margin-bottom: -35px;
         }
 
         .status-msg {
@@ -337,7 +346,7 @@
             </div>
         </div>
 
-        <!-- قسم توليد الصور فائقة الواقعية بدون تنعيم -->
+        <!-- قسم توليد الصور وإضافة العلامة المائية الرسمية -->
         <div class="card">
             <div class="card-title">🎨 <span id="t-img-tools">مولد الصور بالذكاء الاصطناعي</span></div>
             <textarea id="imgPrompt" placeholder="صف الصورة التي تريد ابتكارها بالإنجليزية أو العربية..."></textarea>
@@ -345,9 +354,11 @@
                 <button onclick="generateImage()">توليد الصورة الآن 🖼️</button>
             </div>
             <div class="image-preview">
-                <p id="imgStatus" style="display:none; color: var(--text-muted);">جاري توليد صورة واقعية خام ودقيقة... ⏳</p>
-                <img id="generatedImg" src="" alt="AI Generated Image">
-                <a id="downloadImgBtn" style="display:none;" class="dl-btn" download="ai-image.jpg" target="_blank">⬇️ تحميل الصورة مباشرة</a>
+                <p id="imgStatus" style="display:none; color: var(--text-muted);">جاري التوليد... ⏳</p>
+                <div class="img-crop-wrapper" id="imgWrapper">
+                    <img id="generatedImg" src="" crossorigin="anonymous" alt="AI Generated Image">
+                </div>
+                <button id="downloadImgBtn" style="display:none;" class="dl-btn" onclick="downloadCleanImage()">⬇️ تحميل الصورة برمز المنصة</button>
             </div>
         </div>
 
@@ -450,38 +461,63 @@
             let blob = new Blob([content], { type: "text/plain;charset=utf-8" });
             let link = document.createElement("a");
             link.href = URL.createObjectURL(blob);
-            link.download = "ai-script.txt";
+            link.download = "smart-text-ai-script.txt";
             link.click();
         }
 
-        // توليد صور بأسلوب الكاميرا الخام ومنع التنعيم الرقمي
         function generateImage() {
             let prompt = document.getElementById('imgPrompt').value;
             let imgElement = document.getElementById('generatedImg');
+            let imgWrapper = document.getElementById('imgWrapper');
             let status = document.getElementById('imgStatus');
             let downloadBtn = document.getElementById('downloadImgBtn');
 
             if (!prompt) { alert("يرجى كتابة وصف للصورة أولاً!"); return; }
 
             status.style.display = 'block';
-            imgElement.style.display = 'none';
+            imgWrapper.style.display = 'none';
             downloadBtn.style.display = 'none';
 
-            // إضافة أوامر واقعية الكاميرا وتجنب التنعيم والكرتونية
-            let finalPrompt = prompt + ", raw unedited photo, realistic skin texture with fine pores, natural lighting, shot on 35mm lens, sharp focus, photojournalism style";
-            let encodedPrompt = encodeURIComponent(finalPrompt);
-
-            let imageUrl = `https://image.pollinations.ai/prompt/${encodedPrompt}?model=flux&nologo=true&width=1024&height=1024&seed=${Math.floor(Math.random() * 9999)}`;
+            let finalPrompt = prompt + ", raw photo, realistic skin texture, sharp focus, 8k";
+            let imageUrl = `https://image.pollinations.ai/prompt/${encodeURIComponent(finalPrompt)}?model=flux&nologo=true&width=1024&height=1024&seed=${Math.floor(Math.random() * 9999)}`;
 
             imgElement.src = imageUrl;
             imgElement.onload = function() {
                 status.style.display = 'none';
-                imgElement.style.display = 'block';
-                fetch(imageUrl).then(r => r.blob()).then(blob => {
-                    downloadBtn.href = URL.createObjectURL(blob);
-                    downloadBtn.style.display = 'inline-flex';
-                });
+                imgWrapper.style.display = 'block';
+                downloadBtn.style.display = 'inline-flex';
             };
+        }
+
+        // إدراج علامة مائية باسم منصتك وحفظ الملف بها
+        function downloadCleanImage() {
+            let img = document.getElementById('generatedImg');
+            let canvas = document.createElement('canvas');
+            let ctx = canvas.getContext('2d');
+
+            let width = img.naturalWidth || 1024;
+            let height = (img.naturalHeight || 1024) - 45; // قص الشعار الخارجي القديم
+
+            canvas.width = width;
+            canvas.height = height;
+
+            // رسم الصورة الصافية
+            ctx.drawImage(img, 0, 0, width, height, 0, 0, width, height);
+
+            // إضافة خلفية للعلامة المائية الخاصة بالمنصة
+            ctx.fillStyle = "rgba(0, 0, 0, 0.5)";
+            ctx.fillRect(width - 240, height - 55, 220, 40);
+
+            // رسم النص الخاص بمنصتك (Smart Text AI)
+            ctx.font = "bold 18px Cairo, sans-serif";
+            ctx.fillStyle = "#ffffff";
+            ctx.textAlign = "right";
+            ctx.fillText("Smart Text AI ⚡", width - 30, height - 28);
+
+            let link = document.createElement('a');
+            link.download = 'smart-text-ai-image.jpg';
+            link.href = canvas.toDataURL('image/jpeg', 0.95);
+            link.click();
         }
 
         function openPage(page) {
